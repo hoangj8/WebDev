@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+	<title>How to use Git on Windows</title>
+</head>
+<body>
+<p>Just a quick set of instructions on how to setup/use Git Bash in a Windows environment. </p>
+<h2>Setting up a new repository</h2>
+<ol>
+	<li><a href="https://gitforwindows.org/">Install Git Bash</a></li>
+	<li>Login to <a href="https://www.github.com">Github.com</a> and create a new remote repository</li>
+	<img src="images/git_new_remote_repo.png" alt="location to create new remote repo">
+	<li> In the new repo's setup page copy the link </li>
+	<img src="images/git_remote_repo_link.png" alt="location of repo URL">
+	<li>Open up Git Bash and navigate to the whichever directory you want your project to be in. You can get to different drives by using <code>/c</code> or <code>/d</code></li>
+	<li> Initialize the current directory as a local git repository with <code> git init -b main</code> </li>
+	<li> Add the files that you'd like to keep track of to the staging area with <code> git add &lt;<i>filename</i></code>.</li>
+	<li> Commit the changes to local repo with <code> git commit -a -m "<i>summary</i>"</code>.</li>
+	<li> Connect the local repo to the remote repo with <code> git remote add origin <i>remote repo url</i></code>.</li>
+	<li> Push the changes to the remote repo with <code> git push</code>
+</ol>
+<h2>Workflow</h2>
+<ol>
+	<li>Pull any changes from remote repo</li>
+	<li>Use <code>git status</code> to keep track of any changes you've made so far</li>
+	<li>Use <code>git add <i>filename</i></code> to add any new files created since the last push to remote repo</li>
+	<li>Use <code>git commit -a -m "<i>summary</i>"</code> to send changes to local repository</li>
+	<li>Use <code> git push</code> to add changes to remote repo.</li>
+</body>
+</html>
