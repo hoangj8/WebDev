@@ -48,23 +48,93 @@
 			<figcaption>Barebones HTML document skeleton</figcaption>
 		</figure>
 		The first line looks like a tag but is not a tag at all. It's just a description that tells the computer what the document contains.<br>
-		The <code> &lt;html&gt; </code> tag is like the bun of a burger. Everything in the web page must be contained within the <code>&lt;html&gt; &lt;/html&gt; </code>tags.
+		The <code> &lt;html&gt; </code> tag is like the bun of a burger. Everything in the web page must be contained within the <code>&lt;html&gt; &lt;/html&gt; </code>tags.<br>
 		The <code> &lt;head&gt; </code> tag are the condiments of the burger. As shown in the above example, the title of the page is defined here (it's what the browser will use when naming the tab of your webpage). Other things like style changes and metadata are also found within these tags. <br>
 		The <code> &lt;body&gt; </code> tag is the patty. All of your content, the stuff that the users will see, goes within the &lt;body&gt; tag.
-	</p>
-	<p> Now that we've got the basics down, lets take a look at the rest of the tags which we'll use to mark up our content.
+		The term <span class="term"> element </span> is used to refer to a set of opening and closing tags and their content (if any). All elements are grouped up into two main categories: block elements and inline elements. Block elements take up space on the webpage, with each block element covering a certain area or block. Inline elements are elements which further markup the content within block elements, like quotations or italics. Inline elements don't take up space on their own. Thus, block elements can have nested inline elements but not the other way around.</p>
+	<p> Now that we've got the basics down, lets take a look at the rest of the tags which we'll use to mark up our content. 
 </section>
 
-<section>
-	<H2>Formatting Text</H2>
+<section class="block">
+	<H2>Block elements</H2>
 	<dl>
 		<h3>Paragraphs</h3>
 		<dt> <code> &lt;p&gt;...&lt;/p&gt;</code></dt>
 		<dd><i>Block element</i><br>Content between tags is used to form paragraphs. Each paragraph element always display on new lines. Cannot contain (nest) other block elements</dd>  
+		<h3>Headings</h3>
+		<dt><code>&lt;h1&gt;...&lt;/h1&gt;</code></dt>
+		<dd><i>Block element</i><br>Content between tags is used to form headings. By default, all headings are in bold, with H1 being the largest and most significant all the way to H6 which is the smallest.</dd>
+		<h3>Lists</h3>
+		<dt><code><pre>
+		&lt;ul&gt;
+		&lt;li&gt;...&lt;/li&gt;
+		&lt;/ul&gt;</pre></code></dt>
+		<dd><i>Block element</i><br>Creates an unordered list. Each list item must be encapsulated by an &lt;li&gt; tag. By default, each list item is marked by a bulletpoint.</dd>
+		<dt><code><pre>
+		&lt;ol&gt;
+		&lt;li&gt;...&lt;/li&gt;
+		&lt;/ol&gt;</pre></code></dt>
+		<dd><i>Block element</i><br>Creates an ordered list. Each list item must be encapsulated by an &lt;li&gt; tag. Items in ordered lists are marked numerically, starting with 1.</dd>
+		<dt><code><pre>
+		&lt;dl&gt;
+		&lt;dt&gt;...&lt;/dt&gt;
+		&lt;dd&gt;...&lt;/dd&gt;
+		&lt;/dl&gt;</pre></code></dt>
+		<dd><i>Block element</i><br>Creates a description list - a list of terms and definitions. Each term must be enclosed by &lt;dt&gt; tags and each definition must be enclosed by &lt;dd&gt; tags. </dd>
+		<h3>Quotations</h3>
+		<dt><code>&lt;blockquote&gt;...&lt;blockquote&gt;</code></dt>
+		<dd><i>Block element</i><br>Used to distinguish long quoations or testimonials from the rest of the text. By default, content here is placed on a new line and indented. </dd>
+		<dt><code>&lt;q&gt;...&lt;/q&gt;</code></dt>
+		<dd><i>Inline element</i><br>Used for short, single line quotations. By default, quotation marks are automatically added to the content by the browser. Firefox uses curly quotes, while Chrome uses straight quotes.</dd>
+		<h3>Preformatted Text</h3>
+		<dt><code>&lt;pre&gt;..&lt;/pre&gt;</code></dt>
+		<dd><i>Block element</i><br>Used to display any whitespace exactly as it is typed between the tags. Good for displaying code (ex. see HTML skeleton) or for other situations where placement of words is important.</dd>
+		<h3>Figures</h3>
+		<dt><code>&lt;figure&gt;..&lt;/figure&gt;</code></dt>
+		<dd><i>Block element</i><br>Used to label content as supporting information, like tables, images, videos, etc.</dd>
+		<dt><code>&lt;figcaption&gt;..&lt;/figcaption&gt;</code></dt>
+		<dd><i>Block element</i><br>Normally used above or below a figure element to describe the figure.</dd>
+		<h3>Main Content</h3>
+		<dt><code>&lt;main&gt;..&lt;main&gt;</code></dt>
+		<dd><i>Block element</i><br>Used to help the browser identify the main content of the page; helpful for screen readers and other assistive technolgies.Each page can only have <em>one</em> <code>main</code> tag and it can't be nested in <code>article</code>, <code>aside</code>, <code>header</code>,<code>footer</code>, or <code>nav</code> elements.</dd>
+		<h3>Headers</h3>
+		<dt><code>&lt;header&gt;..&lt;/header&gt;</code></dt>
+		<dd><i>Block element</i><br>Different from text headers! This is used to label content that is found at the top of a page or section of a page like navigation, site title, logos, or introductions.</dd>
+		<h3>Footers</h3>
+		<dt><code>&lt;footer&gt;..&lt;/footer&gt;</code></dt>
+		<dd><i>Block element</i><br>Used to label content normally found at the bottom like dates, authors, and copyright. If it is placed in the <code>body</code> then it is considered to apply to the entire document. If it is placed within <code>section</code>, <code>article</code>, <code>nav</code>, or <code>aside</code>, then it is considered to be part of those sections.</dd>
+		<h3>Sections</h3>
+		<dt><code>&lt;section&gt;...&lt;/section&gt;</code></dt>
+		<dd><i>Block element</i><br>Used to divide long pages into logical and browser identifiable sections. For example, a page about pets could have a section for cats and a section for dogs</dd>
+		<h3>Articles</h3>
+		<dt><code>&lt;article&gt;...&lt;/article&gt;</code></dt>
+		<dd><i>Block elemtn</i><br>Articles are specialized sections containing content that can be considered standalone / can be used outside the scope of its surrounding material.</dd>
+		<h3>Aside</h3>
+		<dt><code>&lt;aside&gt;...&lt;/aside&gt;</code></dt>
+		<dd><i>Block element</i><br>Used to identify content that is related to but not critical to the surrounding information. It could contain a list of links for more information, quotes, background information, etc. There is no default rendering of this element so you'll need to use style sheets to adjust its appearance.</dd>
+		<h3>Navigation</h3>
+		<dt><code>&lt;nav&gt;...&lt;nav&gt;</code></dt>
+		<dd><i>Block element</i><br>Used to identify navigation / links on the page for the web browser. Should only be used for the primary navigation around a site</dd>
+		<h3>Addresses</h3>
+		<dt><code>&lt;address&gt;...&lt;address&gt;</code></dt>
+		<dd><i>Block element</i><br>Used to identify addresses for the web browser, usually found at the botttom of the page.</dd>
+		<h3>
 	</dl>
-
 </section>
-
+<section class="inline">
+	<h2>Inline Elements</h2>
+	<dl>
+		<h3>Emphasized text</h3>
+		<dt><code>&lt;em&gt;...&lt;/em&gt;</code></dt>
+		<dd>Used to add emphasis to a part of a sentence. Browsers render this as italicized text but it also has the secondary effect of generating a different tone of voice in screen readers to make the emphasis clear to listeners. If you just want the words italicized for stylistic purposes, it is better to use the <code>&lt;i&gt;...&lt;i&gt;</code> tags or style sheets.</dd> 
+		<h3>Important text</h3>
+		<dt><code>&lt;strong&gt;...&lt;/strong&gt;</code></dt>
+		<dd>Used to identify words or phrases that are important or serious in nature. Browsers render this in bold text and screen readers may change their tone of voice. It you just want the words bolded for stylisitc purposes, it is better to use the <code>&lt;b&gt;...&lt;b&gt;</code> tags or style sheets.</dd>
+		<h3>Abbreviations</h3>
+		<dt><code>&lt;abbr title="..."&gt;...&lt;/abbr&gt;</code></dt>
+		<dd>Used to markup acronyms and abbreviations for search engines and screen readers. The title attribute provides the long version of the abbreviation for further markup.</dd>
+		
+</section>
 <footer>
 	<ul>
 	<li><a href="index.html">Home</a></li>
