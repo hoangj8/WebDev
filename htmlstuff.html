@@ -2,7 +2,12 @@
 <html>
 
 <head>
-<title>HTML Elements and Techniques </title
+<title>HTML Elements and Techniques </title>
+<style>
+table,td,th {
+border: 1px solid gray;
+}
+</style>
 </head>
 
 <body>
@@ -11,7 +16,6 @@
 	<h2> Categories </h2>
 	<ul>
 		<li> HTML Basics </li>
-		<li> Formatting Text </li>
 		<li> Links </li>
 		<li> Adding Images </li>
 		<li> Making Tables</li>
@@ -24,7 +28,7 @@
 <section id="HTMLbasics">
 	<h2> HTML Basics </h2>
 	<p>HTML stands for Hypertext Markup Language. In essence, it is used for "marking up" the information on your webpages: 
-	   organizing them into clear sections and categories through the use of <span class="term">tags</span>; identifiers enclosed between &lt; and &gt;. This allows the computer
+	   organizing them into clear sections and categories through the use of <dfn>tags</dfn>; identifiers enclosed between &lt; and &gt;. This allows the computer
 	   to "understand" the information on the webpage better for assistive technologies like screen readers. The tags also allow us to directly manipulate
 	   specific parts of our web pages with CSS or JS to our liking.
 	</p>
@@ -51,7 +55,7 @@
 		The <code> &lt;html&gt; </code> tag is like the bun of a burger. Everything in the web page must be contained within the <code>&lt;html&gt; &lt;/html&gt; </code>tags.<br>
 		The <code> &lt;head&gt; </code> tag are the condiments of the burger. As shown in the above example, the title of the page is defined here (it's what the browser will use when naming the tab of your webpage). Other things like style changes and metadata are also found within these tags. <br>
 		The <code> &lt;body&gt; </code> tag is the patty. All of your content, the stuff that the users will see, goes within the &lt;body&gt; tag.
-		The term <span class="term"> element </span> is used to refer to a set of opening and closing tags and their content (if any). All elements are grouped up into two main categories: block elements and inline elements. Block elements take up space on the webpage, with each block element covering a certain area or block. Inline elements are elements which further markup the content within block elements, like quotations or italics. Inline elements don't take up space on their own. Thus, block elements can have nested inline elements but not the other way around.</p>
+		The term <dfn> element </dfn> is used to refer to a set of opening and closing tags and their content (if any). All elements are grouped up into two main categories: block elements and inline elements. Block elements take up space on the webpage, with each block element covering a certain area or block. Inline elements are elements which further markup the content within block elements, like quotations or italics. Inline elements don't take up space on their own. Thus, block elements can have nested inline elements but not the other way around.</p>
 	<p> Now that we've got the basics down, lets take a look at the rest of the tags which we'll use to mark up our content. 
 </section>
 
@@ -133,8 +137,95 @@
 		<h3>Abbreviations</h3>
 		<dt><code>&lt;abbr title="..."&gt;...&lt;/abbr&gt;</code></dt>
 		<dd>Used to markup acronyms and abbreviations for search engines and screen readers. The title attribute provides the long version of the abbreviation for further markup.</dd>
-		
+		<h3>Citations</h3>
+		<dt><code>&lt;cite&gt;...&lt;/cite&gt;</code></dt>
+		<dd>Used to identify references to other material like books or articles. The browser renders this content in italics.</dd>
+		<h3>Defining terms</h3>
+		<dt><code>&lt;dfn&gt;...&lt;/dfn&gt;</code></dt>
+		<dd>Used to identify the first instances of new terms. Browser doesn't have any special renders for them so be sure to do so in CSS.</dd>
+		<h3>Code</h3>
+		<dt><code>&lt;code&gt;...&lt;/code&gt;</code></dt>
+		<dd>Used to identify code snippets or references. This content is rendered in monospace font. Combine this with <code>pre</code> to show the code structure </dd>
+		<h3>Subscript</h3>
+		<dt><code>&lt;sub&gt;...&lt;/sub&gt;</code></dt>
+		<dd>Causes the content text to turn into subscript form.</dd>
+		<h3>Superscript</h3>
+		<dt><code>&lt;sup&gt;...&lt;/sup&gt;</code></dt>
+		<dd>Causes the content text to turn into superscript form.</dd>
+		<h3>Highlight text</h3>
+		<dt><code>&lt;mark&gt;...&lt;/mark&gt;</code></dt>
+		<dd>Used to highlight parts of the text. This is not rendered in the browser so use style sheets to create visible highlights.</dd>
+		<h3>Time</h3>
+		<dt><code>&lt;time datetime="..."&gt;...&lt;/time&gt;</code></dt>
+		<dd>Used to identify parts of the text that refer to time, which can used by search engines or other applications. The datetime attribute is used to convert the time in the content to a machine-readable format. The figure below shows the structure on how to convert times so that they can be understood by the browser.
+			<figure>
+				<img src="images/datetime_structure.png" alt="time format for datetime attribute">
+			</figure>
+		</dd>
+		<h3>Machine-readable information</h3>
+		<dt><code>&lt;data value="..."&gt;...&lt;/data&gt;</code></dt>
+		<dd>Used to provide translations of the content into machine readable form for search engines or other applications. For example, "12" for "twelve" or an ISBN number for a book.</dd>
+		<h3>Word breaks</h3>
+		<dt><code>&lt;wbr&gt;</code></dt>
+		<dd>This tag is used to tell the browser where to split a word in the event that there isn't enough room. Simply insert this tag at the spots in the word where you'd like a break to be in the even that a break is needed. Can help to keep words from being split in awkward places (ex. in the middle of a syllable).</dd>
+		<h3>Generic markup elements</h3>
+		<dt><code>&lt;div&gt;...&lt;/div&gt;</code></dt>
+		<dd>A generic block element that can be used to markup areas of the page that don't really go under other categories or just to add more markup more things on the page so that they can be targetted with CSS or JS.</dd>
+		<dt><code>&lt;span&gt;...&lt;/span&gt;</code></dt>
+		<dd>Just like a <code>div</code> but for inline elements.</dd>
+	</dl>
 </section>
+<section id="globalattributes">
+	<h2>Global Attributes</h2>
+	<p> There are many global attributes which can be applied to every tag. Here are 4 of the most important ones.</p>
+	<dl>
+		<h3>Unique identifier</h3>
+		<dt><code>id="..."</code></dt>
+		<dd>Assigns an id to the element. No two elements can have the same ID. Good for applying style rules or scripts to a single specific area on the webpage.</dd>
+		<h3>Classification</h3>
+		<dt><code>class="..."</code></dt>
+		<dd>Assigns a class to the element. There can be more than one element with the same class. Good for applying the same style rules or scripts to multiple different tags or a specific subgroup of elements with the same tag</dd>
+		<h3>Language</h3>
+		<dt><code>lang="..."</code></dt>
+		<dd>Used to identify the language used in the tag for the browser.</dd>
+		<h3>Roles</h3>
+		<dt><code>role="..."</code></dt>
+		<dd>Used to identify the function or purpose of the element. Examples: toolbar, alert, button, navigation, info, etc.</dd>
+	</dl>
+</section>
+<section id="charescape">
+	<h2>Character Escapes</h2>
+	<p>In HTML there are certain characters that have special meaning like &lt; and &gt;, which are understood by the browser to form tags. Thus in order to include these (and other special characters) in our content, we need special shortcuts</p>
+	<table>
+		<tr>
+			<th>Character</th>
+			<th>Shortcut</th>
+		</tr>
+		<tr>
+			<td>&lt;</td>
+			<td>&amp;lt;</td>
+		</tr>
+		<tr>
+			<td>&gt;</td>
+			<td>&amp;gt;</td>
+		</tr>
+		<tr>
+			<td>&quot;</td>
+			<td>&amp;quot;</td>
+		</tr>
+		<tr>
+			<td>&apos;</td>
+			<td>&amp;apos;</td>
+		</tr>
+		<tr>
+			<td>&amp;</td>
+			<td>&amp;amp;</td>
+		</tr>
+	</table>
+	<p>Some characters are even invisible but have important uses. For example, the non-breaking space <code>&amp;nbsp;</code> is used in place of a normal space and prevents breaks happening between the two words is placed at.</p>
+	<p>Other characters like &copy; and &trade;  are not even located on the keyboard and thus, special shortcuts are required for them. A complete list of these <dfn>character entitities</dfn> and their shortcuts can be found <a href="https://www.w3.org/TR/html5/syntax.html#named-character-references">here</a>.</p>
+
+
 <footer>
 	<ul>
 	<li><a href="index.html">Home</a></li>
@@ -142,6 +233,7 @@
 	<li><a href="jsstuff.html">JS stuff</a></li>
 	<li><a href="gitstuff.html">Git stuff</a></li>
 	</ul>
+
 </footer>
 </body>
 </html>
