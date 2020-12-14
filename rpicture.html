@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+<head>
+	<title>Testing responsive picture element</title>
+</head>
+<body>
+	<p>This is a responsive picture element. Different viewport sizes should result in different images.</p>
+	<picture>
+			<source media="(min-width: 1920px)" srcset="images/duck1920.jpg">
+			<source media="(min-width: 1080px)" srcset="images/duck1080.jpg">
+			<source media="(min-width: 720px)" srcset="images/ducktorso720.jpg">
+			<img src="images/duckhead480.jpg" alt="rubber duck head">
+	</picture>
+</body>
+<html>

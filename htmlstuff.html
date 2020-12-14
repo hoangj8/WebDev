@@ -224,7 +224,44 @@ border: 1px solid gray;
 	</table>
 	<p>Some characters are even invisible but have important uses. For example, the non-breaking space <code>&amp;nbsp;</code> is used in place of a normal space and prevents breaks happening between the two words is placed at.</p>
 	<p>Other characters like &copy; and &trade;  are not even located on the keyboard and thus, special shortcuts are required for them. A complete list of these <dfn>character entitities</dfn> and their shortcuts can be found <a href="https://www.w3.org/TR/html5/syntax.html#named-character-references">here</a>.</p>
-
+</section>
+<section id="Adding images">
+	<h2>Adding Images</h2>
+	<p> <code>&lt;img src="..." alt=""&gt;</code></p>
+	<p>We add images using the above inline element. The <code>src</code> attribute tells the browser where to find the image (its URL or file location). The <code>alt</code> attribute gives the browser some alternate text to display if the picture doesn't load for some reason. As for the image file itself,  PNG, JPEG, or GIF files work fine right away. Other file types like TIFF and BMP need to be converted to a web format. SVG images are a whole other beast that can be added inline using the <code>img</code>tags above or by writing out all the vector points and putting them between <code>&lt;svg&gt;&lt;/svg&gt;</code> tags. The first option is simple but doesn't let you do anything to the SVG with JS. The second option does but all the vector points can add bloat to your code and the image isn't cached so it needs to be redrawn every time.
+	</p>
+	<h3>Responsive images</h3>
+	<p>There are a couple of ways to make images resize appropriately depending on the screensize of the device the webpage is being viewd on. The first is using the img element with a couple of new attributes: <code>srcset</code> and <code>sizes</code>.</p>
+	<figure>
+		<code>
+		<pre>
+			&lt;img src="house.jpg" alt="house"
+				srcset="house-240.jpg 240w,
+						house-480.jpg 480w,
+						house-672.jpg 672w"
+				sizes="(max-width:480px) 100vw,
+						(max-width: 960px) 70vw,
+						240px"&gt;
+		</pre>
+		</code>
+	</figure>
+	<p>The <code>sizes</code> attribute tells the browser what size the image should be, depending on the viewport. The media condition, which in this case is viewport width, is enclosed in circle brackets. This is followed by the percentage of the viewport width the image width should take up if that condition is met. In the example above, the first rule states that if the max-width of the viewport is 480 pixels, then the image width should match the viewport width (100%). Multiple rules are separated by commas and their combined effect is like an <code>if-else</code> statement. Back to the example, we can take the entire sizes conditions as having the following effect: If the viewport width is &lt;=480px, then then image width will be 100% of the viewport width. Else if the viewport width is larger than 480px but smaller than 960px, the image should be 70% of the viewport width. Finally in cases where viewport width is more than 960 px, then the image should just be exactly 240px. The <code>srcset</code> attribute provides the set of images, each at different sizes. It is up to the browser however to make the final choice of which size image to pick. However, since we've told it what to expect the image size to be with the <code>sizes</code> attribute, it will be able to select the most appropriate image from the srcset to download.</p>
+	<p> The second way to implement responsive images is through the <code>picture</code> tag, as shown below.
+	<figure>
+		<code>
+		<pre>
+			&lt;picture&gt;
+				&lt;source media="(min-width: 1024px)" srcset="house-large.jpg"&gt;
+				&lt;source media="(min-width: 760px)" srcset="house-medium.jpg"&gt;
+				&lt;img src="house-small.jpg" alt="house"&gt;
+			&lt;/picture&gt;
+		</pre>
+		</code>
+	</figure>
+	<p>There are no attributes for the picture element. As for content, it takes a bunch of alternate sources and the conditions where they should be used. So instead of letting the browser pick what it thinks is the best image size, we're telling it which one to pick. The final element in the list of sources must be an <code>img</code> element because that is how the image will be placed onto the page. The <code>img</code> content will be used if none of the source media conditions hold. Use this method for placing a <i>better</i> image for each viewport size as opposed to simply resizing the <i>same</i> image.
+	<br> You can test the resizing capabilities with the following pages: <a href="nimg.html" target="_blank">Normal img</a> &nbsp;&nbsp;  <a href="rimg.html" target="_blank">Responsive img</a> &nbsp; &nbsp; <a href="rpicture.html" target="_blank">Responsive Picture</a>
+	</p>
+</section>
 
 <footer>
 	<ul>

@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+<head>
+	<title>Testing responsive img element</title>
+</head>
+<body>
+	<p>This is a responsive img element. It should fit widthwise regardless of the size of the viewport.</p>
+	<img src="images/duck420.jpg" alt="giant rubber duck"
+				srcset="images/duck240.jpg 240w,
+						images/duck480.jpg 480w,
+						images/duck720.jpg 720w
+						images/duck1920.jpg 1920w"
+				sizes="(max-width:480px) 100vw,
+						(max-width: 2496px) 70vw,
+						600px"			>
+
+</body>
+</html>
