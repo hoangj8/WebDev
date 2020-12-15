@@ -225,13 +225,13 @@ border: 1px solid gray;
 	<p>Some characters are even invisible but have important uses. For example, the non-breaking space <code>&amp;nbsp;</code> is used in place of a normal space and prevents breaks happening between the two words is placed at.</p>
 	<p>Other characters like &copy; and &trade;  are not even located on the keyboard and thus, special shortcuts are required for them. A complete list of these <dfn>character entitities</dfn> and their shortcuts can be found <a href="https://www.w3.org/TR/html5/syntax.html#named-character-references">here</a>.</p>
 </section>
-<section id="Adding images">
+<section id="images">
 	<h2>Adding Images</h2>
 	<p> <code>&lt;img src="..." alt=""&gt;</code></p>
 	<p>We add images using the above inline element. The <code>src</code> attribute tells the browser where to find the image (its URL or file location). The <code>alt</code> attribute gives the browser some alternate text to display if the picture doesn't load for some reason. As for the image file itself,  PNG, JPEG, or GIF files work fine right away. Other file types like TIFF and BMP need to be converted to a web format. SVG images are a whole other beast that can be added inline using the <code>img</code>tags above or by writing out all the vector points and putting them between <code>&lt;svg&gt;&lt;/svg&gt;</code> tags. The first option is simple but doesn't let you do anything to the SVG with JS. The second option does but all the vector points can add bloat to your code and the image isn't cached so it needs to be redrawn every time.
 	</p>
 	<h3>Responsive images</h3>
-	<p>There are a couple of ways to make images resize appropriately depending on the screensize of the device the webpage is being viewd on. The first is using the img element with a couple of new attributes: <code>srcset</code> and <code>sizes</code>.</p>
+	<p>There are a couple of ways to make images resize appropriately depending on the screensize of the device the webpage is being viewcd on. The first is using the img element with a couple of new attributes: <code>srcset</code> and <code>sizes</code>.</p>
 	<figure>
 		<code>
 		<pre>
@@ -259,10 +259,99 @@ border: 1px solid gray;
 		</code>
 	</figure>
 	<p>There are no attributes for the picture element. As for content, it takes a bunch of alternate sources and the conditions where they should be used. So instead of letting the browser pick what it thinks is the best image size, we're telling it which one to pick. The final element in the list of sources must be an <code>img</code> element because that is how the image will be placed onto the page. The <code>img</code> content will be used if none of the source media conditions hold. Use this method for placing a <i>better</i> image for each viewport size as opposed to simply resizing the <i>same</i> image.
-	<br> You can test the resizing capabilities with the following pages: <a href="nimg.html" target="_blank">Normal img</a> &nbsp;&nbsp;  <a href="rimg.html" target="_blank">Responsive img</a> &nbsp; &nbsp; <a href="rpicture.html" target="_blank">Responsive Picture</a>
+	<br> You can test the resizing capabilities with the following pages: <a href="nimg.html" target="newwindow">Normal img</a> &nbsp;&nbsp;  <a href="rimg.html" target="_blank">Responsive img</a> &nbsp; &nbsp; <a href="rpicture.html" target="_blank">Responsive Picture</a>
 	</p>
 </section>
+<section id="links">
+	<h2>Adding links</h2>
+	<p>To create hyperlinks, we use the anchor element or &lt;a&gt; as shown below:</p>
+ 	<code>&lt;a href="..." target="..."&gt;...&lt;/a&gt;</code>
+ 	<p>The <code>href</code> attribute holds where we want to link to. If it were another external site we'd just put the URL of that site as the value of <code>href</code>.</p>
+ 	<code>&lt;a href="https://www.google.ca"&gt;This is a link to Google&lt;/a&gt;</code> 
+ 	<p>The content between the <code>&lt;a&gt;&lt;/a&gt;</code> tags will be whatever we want the hyperlink to be: text, even images.</p>
+ 	<p> Hyperlinks can also be used to link to specific points on the same page. To do so, give an <code>ID</code> to the element on the page you want to jump to. Then in the anchor element refer to it in the href section using #ID.</p>
+ 	<code>&lt;a href="#header"&gt;Click here to get to the header&lt;/a&gt;</code> 
+ 	<p> If you want to link to a specific place on a different page, add the #ID after the URL or filepath.</p>
+ 	<code>&lt;a href="differentpage.html#footer"&gt;Link to footer on different page&lt;/a&gt;</code> 
+ 	<p> The <code>target</code> attribute can be used open the link in a new tab/window. By default, the target is none meaning the link opens up in the same window (replacing the previous page). To open a page in a new window, set the <code>target</code> value to <code>"_blank"</code>.</p>
+    <code>&lt;a href="ttps://www.google.ca" target="_blank"&gt;This will open up a new window&lt;/a&gt;</code> 
+    <p>You can set the link as email links which can execute some sort of email client once the link is pressed, with a preaddressed email message ready to go. It depends if the client's browser is enabled to do so however. To do so, set the value of <code>href</code>to <code>"mailto:<i>emailaddress</i></code>. It's important to note that putting your email address out like this makes it suceptible to spam bots. In most cases, its better to use some sort of contact form.</p>
+    <code>&lt;a href="mailto:me@mydomain.com"&gt;This will open an email client&lt;/a&gt;</code> 
+    <p>For smartphone users, you can even put links to telephone numbers. Depending on the phones OS, clicking these links can open the the phone app, add the number to contacts, or even automatically dial the number. To use a telephone anchor, set the <code>href</code> value to&nbsp;<code>"tel:<i>countrycode-areacode-number</i>"</code>.</p>
+    <code>&lt;a href="tel:+1-999-111-222"&gt;This is a phone number&lt;/a&gt;</code> 
+</section>
 
+<section id="tables">
+	<h2>Creating Tables</h2>
+	<p> A basic table in HTML is a combination of three elements: the <code> table</code> element, the table row or <code>tr</code> element and the table data or <code>td</code> element.</p>
+	<code><pre>
+		&lt;table&gt;
+			&lt;tr&gt;
+				&lt;td&gt;...&lt;td&gt;
+				.
+				.
+				.
+			&lt;/tr&gt;
+			.
+			.
+			.
+		&lt;table&gt;
+	</pre></code>
+	<p>The <code>table</code> element is the box which houses all the other elements. How the table will look will depend on the order in which these elements are entered as the content fo the <code>table</code> element. In HTML, table's are built row by row, starting with the first row. To create a row, we use the <code>&lt;tr&gt;</code> tags. We then put the data one by one into these rows, each with their own <code>&lt;td&gt;</code> tag. Or we could create table headers with the <code>&lt;th&gt;...&lt;/th&gt;</code> tags. Each element we put as the content of the <code>tr</code> element will result in the formation of a column in the table.</p>
+	<h3>Column spanning</h3>
+	<code>&lt;th colspan="3"&gt;My Table&lt;/th&gt;</code>
+	<p> By default, each element in a table row gets one column. If you want certain elements in your table rows to span multiple columns, just use the <code>colspan</code> attribute and write how many columns you'd like it to span. Be careful of the cell shifting that this creates!</p>
+	<h3>Row spanning</h3>
+	<code>&lt;th rowspan="3"&gt;My Table&lt;/th&gt;</code>
+	<p> Similar to column span but for rows. by default, each element in a table row is reserved to that row but with the <code>rowspan</code> attribute, the element can cross over multiple rows.</p>
+	<h3>Table Accesibility</h3>
+	<p>There are a couple of ways to add more table context for the visually impaired. We can add table captions and we can create relationships between headers and their associated cells.</p>
+	<code>&lt;caption&gt;Brief description of my table &lt;/caption&gt;</code>
+	<p>We use the <code>caption</code>element to create table captions. Caption elements are placed first within the <code>table</code>element, before any table rows and data. By default the browser renders the caption above the table.</p>
+	<code>&lt;th scope="column"&gt;Grades&lt;/th&gt;</code>
+	<p>The <code>scope</code> attribute is only for table headers and is used to associate the header with a column, row, or group of rows. This may be hard to use however if the table is particularly complicated, with multiple spanned cells.</p>
+	<p>In the case that the table is too complex for the <code>scope</code> attribute, we can use the <code>headers</code> attribute to explicitly link each individual data element with its associated header. We just assign an ID to each header and plug in that ID as the value for the <code>td's headers</code> attribute.</p>
+	<code>
+		&lt;th id="weight"&gt;Weight&lt;/th&gt;<br>
+		...<br>
+		&lt;td headers="weight"&gt;150&lt;/th&gt;
+	</code>
+	<h3>Row groups and Column Groups</h3>
+	<p> For even more markup, we can group rows or columns together. We can use these groups to apply styles or scripts to multiple <code>tr</code> elements at once.</p>
+	<p> We can use the <code>thead, tbody</code> and <code>tfoot</code> elements to group together the rows that pertain to these groups. Then we can do things later such as apply styles for specific sections like the headers or the rows of data.</p>
+	<code><pre>
+		&lt;thead&gt;
+			&lt;tr&gt;...&lt;/tr&gt;
+			.
+			.
+			.
+		&lt;/thead&gt;
+		&lt;tbody&gt;
+			&lt;tr&gt;...&lt;/tr&gt;
+			.
+			.
+			.
+		&lt;/tbody&gt;
+		&lt;tfoot&gt;
+			&lt;tr&gt;...&lt;/tr&gt;
+			.
+			.
+			.
+		&lt;/tfoot&gt;
+	</pre></code>
+	<p>To group columns together we use the <code>colgroup</code> element. If a column group has more than one column, we use the <code>span</code>attribute to define it. We define column before the table rows or data but after the caption. The following table example has a single column followed by a group of three columns and finally a group of 2 columns.</p>
+	<code><pre>
+		&lt;table&gt;
+			&lt;caption&gt;...&lt;/caption&gt;
+			&lt;colgroup&gt;&lt;/colgroup&gt;
+			&lt;colgroup span="3"&gt;&lt;/colgroup&gt;
+			&lt;colgroup span="2"&gt;&lt;/colgroup&gt;
+			.
+			.
+			.
+		&lt;/table&gt;
+	
+</section>
 <footer>
 	<ul>
 	<li><a href="index.html">Home</a></li>
