@@ -350,8 +350,163 @@ border: 1px solid gray;
 			.
 			.
 		&lt;/table&gt;
-	
+	</pre></code>
 </section>
+<section id=forms>
+	<h2>Web Forms</h2>
+	<p>Web forms are a good way to add interactivity to your site. With HTML, you can add buttons, text fields, checkboxes, menus etc. However, keep in mind that to unlock their full potential, you'll need some form of application and database behind these forms to store the responses and do something with the data the user enters</p>
+	<p>To create a form, we use the <code>form</code> element.</p>
+	<code><pre>
+		&lt;form action="..." method="..."&gt;
+			.
+			.
+			.
+		&lt;/form&gt;
+	</pre></code>
+	<p> The <code>action</code> attribute is where we put the URL of the application or script for the form. The <code>method</code>attribute describes how we send the data from the form to the server. There are two possible values: <code>POST</code> or <code>GET</code>. <code>POST</code>sends an additional separate server request in the background. This benefit of this is that it keeps the information that was in the form private, especially when coupled with HTTPS. There is also no character limit for sending with <code>POST</code>. <code>GET</code> stores the information right in the url of the webpage. The good thing about this is that it means the webpage can be bookmarked after submitting a form (like search results). However, the amount of data sent is limited (because it needs to be added to the URL) and because its in the URL, the information is not private. <code>GET</code> is also bad for adding or deleting information because going BACK at at any point repeats the previous action.</p>
+	<h3>Name Attribute</h3>
+	<p>All form controls provide a means of collecting information, whether it's through capturing keyboard strokes or by clicking a button. With so many form controls, we'll need some way to sort the information before it gets sent to the server. We do this with the <code>name</code> attribute. In essence, the <code>name</code> just specifies a variable name to associate with the information gathered at each form control element. Every form control element (with a couple of exceptions) <em>must</em> have this attribute for the data to be used! <strong>It is also important to remember that the variable name we choose for each form element must correspond to the variable names used in the app that is processing the information!</strong></p>
+	<dl>
+		<h3>Text Entry</h3>
+		<dt><code>&lt;input type="text" name="..." value="..." placeholder="..." minlength="..." maxlength="..."&gt;</code></dt>
+		<dd>Creates a single-line text entry field. This is the default input type; if you ever forget to set the input type for any of your input controls, the browser will render this one by default. 
+			The <code>value</code> attribute is the default text that will appear in the field and its value will be sent to the server unless the user changes it. If all you want is to give a hint as to what the user should put in the form, then use the <code>placeholder</code> attribute instead. The <code>minlength</code> and <code>maxlength</code> attributes sets the minimum and maximum number of characters that can be entered into the text box.</dd>
+		<dt><code>&lt;textarea name="..." rows="..." cols="..." placeholder="..." wrap="..." minlength="..." maxlength="..."&gt;...&lt;/textarea&gt;</code></dt>
+		<dd>Creates a scrollable text entry box. Dimensions are specified by <code class=attribute>rows</code> and <code class=attribute>columns</code> attributes. The <code class=attribute>wrap</code> attribute specifies whether or not line breaks should be preserved when the text is sent to the server; <code>hard</code> means preserve, <code>soft</code> means don't. Content between the tags will appear in the text field and will also get sent to the server if it isn't changed by the user.</dd>\
+		<dt><code>&lt;input type="password" name="..." minlength="..." maxlength="..."&gt;</code></dt>
+		<dd>Creates a password entry field. Contents of the field are automatically replaced with asterisk or bullet characters, depending on the browser.</dd>
+		<dt><code>&lt;input type="search|email|tel|url" ... &gt;</code></dt>
+		<dd>Creates a generic text-entry field but by informing the browser the type of entry (search, email, tel, or URL), the browser can provide additional features like check if the input matches the type or pop-up a more appropriate keyboard for mobile users.</dd>
+		<h3>Submit and Reset Buttons</h3>
+		<dt><code> &lt;input type="submit" value="..."&gt;</code></dt>
+		<dd>Creates a button that automatically submits the collected form data to the server. By default, the button says 'Submit' but this can be changed with the <code class=attribute>value</code> attribute. There is no data collected with this button so the <code class=attribute>name</code> attribute is not necessary.</dd>
+		<dt><code>&lt;input type="reset" value="..."&gt;</code></dt>
+		<dd>Creates a button that resets all form controls on the form to their default values. Not too useful because the page should have JS that checks entries as the user moves along so there should be no reason for the user to need to reset.</dd>
+		<h3>Radio Buttons</h3>
+		<dt><code>&lt;input type="radio" name="..." value="..." checked</code></dt>
+		<dd> Creates a single radio button. To create a group of radio buttons, use a list element and place the radio buttons as list items. It is important that each member of a radio button group use the same <code class=attribute>name</code> variable, since only one button in a group can be selected at a time. The <code class=attribute>value</code> attribute is the value that will be returned to the server if the radiobutton is checked. The optional <code class=attribute>checked</code> attribute automatically checks that radio button when the form loads.</dd>
+		<h3> Checkbox </h3>
+		<dt><code>&lt;input type="checkbox" name="..." value="..." checked</code></dt>
+		<dd>Creates a single checkbox button. Use list elements if you want to make a group of checkboxes. Like radio buttons, it is important that members of a group all share the same <code class=attribute>name</code> variable. Unlike radio buttons, multiple checkboxes can be checked and the value of every checked checkbox will be sent to the server.</dd>
+		<h3>Drop down Menus </h3>
+		<dt><code><pre>
+			&lt;select name="..."&gt;
+				&lt;option&gt;...&lt;/option&gt;
+				&lt;option value="..."&gt;...&lt;/option&gt;
+				&lt;option selected&gt;...&lt;/option&gt;
+				.
+				.
+				.
+			&lt;/select&gt;
+		</pre></code></dt>
+		<dd>Use the <code>select</code>element to create a drop-down menu. Like before, the <code class=attribute>name</code> is the variable name. The menu options are all defined by <code>option</code> elements. The contents of each <code>option</code> element are what is displayed in the drop down list and if chosen, become the value assigned to the <code class=attribute>name</code> variable. If you want a different value to be passed then the one in the menu, then just specify it with the <code class=attribute>value</code>attribute of the associated <code>option</code> element. Only one option can be selected by the user in a drop down menu.</dd>
+		<h3>Scrolling Menu</h3>
+		<dt><code><pre>
+			&lt;select name="..." size="..." multiple&gt;
+				&lt;option&gt;...&lt;/option&gt;
+				&lt;option value="..." &gt;...&lt;/option&gt;
+				&lt;option selected&gt;...&lt;/option&gt;
+				.
+				.
+				.
+			&lt;/select&gt;
+		</pre></code></dt>
+		<dd>Create a scrolling menu by specifying a <code class=attribute>size</code> attribute in a <code>select</code> element. The <code class=attribute>size</code> refers to the amount of options displayed by the scrolling menu. The <code class=attribute>multiple</code> attribute toggles the ability to select multiple options, unlike a drop down menu.</dd>
+		<h4>Sorting Menu Options</h4>
+		<dt><code><pre>
+			&lt;select name="..."&gt;
+				&lt;optgroup label="..."&gt;
+					&lt;option&gt;...&lt;/option&gt;
+					.
+					.
+				&lt;/optgroup&gt;
+				.
+				.
+				.
+			&lt;/select&gt;
+		</pre></code></dt>
+		<dd>We can sort our menu options into groups with the <code>option</code>element. It acts as a container where you can put all your related options together. The <code class=attribute>label</code> provides a title for the group.</dd>
+		<h3>File Selection</h3>
+		<dt><code>
+			&lt;input type="file" name="..." accept="..." multiple required&gt;
+		</code></dt>
+		<dd>Creates a button that triggers the OS file system to select a file. This requires your <code>form</code> element to use the POST method of delivery to the server. You must also set the <code>form</code> attribute <code class=attribute>enctype</code> to "multipart/form-data". The <code class=attribute> accept</code> tells the browser what filetypes to expect. The <code class=attribute>multiple</code> attribute enables multiple files to be selected. The <code class=attribute>required</code> attribute means that a file <i>must</i> be selected.</dd>
+		<h3>Dates and Times</h3>
+		<dt>
+			<ol>
+				<li><code>&lt;input type="date" name="..." value="YYYY-MM-DD"&gt;</code></li>
+				<li><code>&lt;input type="time" name="..." value="hh-mm-ss"&gt;</code></li>
+				<li><code>&lt;input type="datetime-local" name="..." value="YYYY-MM-DD"&gt;</code></li>
+				<li><code>&lt;input type="month" name="..." value="YYYY-MM"&gt;</code></li>
+				<li><code>&lt;input type="week" name="..." value="YYYY-W#"&gt;</code></li>
+			</ol>
+		</dt>
+		<dd>
+			<ol>
+				<li> Browser renders some form of date input control like a calendar.</li>
+				<li> Browser redners some form of time input control (no time zone). </li>
+				<li> Browser renders both a date and a time input control (no time zone).</li>
+				<li> Browser renders some form of month selection control.</li>
+				<li> Browser renders some form of week selection control.</li>
+			</ol>
+			In all cases, the <code class=attribute>value</code> attribute is used for selecting a starting time and is optional.
+		</dd>
+		<h3>Numerical Inputs</h3>
+		<dt><code>&lt;input type="number" name="..." min="#" max="#"&gt;</code></dt>
+		<dd> Browser renders some form of number input control, usually a spinner with arrows to increase or decrease the number on the spinner.</dd>
+		<dt><code>&lt;input type="range" name="..." min="#" max="#" step="#"&gt;</code></dt>
+		<dd> Browser renders some form of slider control to indicate range as opposed to displaying numbers. The <code class=attribute>step</code> attribute specifies the increments along the range of the slider. A value of 1 would have whole number increments, whereas 0.5 would have each step increase the value by 0.5.</dd>
+		<h3>Selecting Color</h3>
+		<dt><code>&lt;input type="color" name="..."&gt;</code></dt>
+		<dd> Browser renders some form of color picker: text input or color wheel. Color values are in hexadecimal RGB values</dd>
+		<h3>Form Accessiblity</h3>
+		<dt><code>&lt;label for="..."&gt;....&lt;/label&gt;</code></dt>
+		<dd>Labels helps connect an input control and its description together. We can use the <code>label</code> element as a container and nest the input element inside. The description of the input is then placed as the content of the <code>label</code> element.<br>
+		We can also explicitly pair descriptions and labels together by first assigning an <code class=attribute>id</code> attribute to the input control. Then we put that ID into the <code class=attribute>for</code> attribute on the <code>label</code> element. This is especially handy if the description and its control are not next to eachother.</dd>
+		<dt><code>&lt;fieldset&gt;...&lt;/fieldset&gt;</code></dt>
+		<dd> The <code>fieldset</code> element acts as a container, within which you nest a group of closely related form controls. By default, browsers render fieldsets with a thin border, adding further distinction between each group of controls. We can nest a <code>&lt;legend&gt;...&lt;/legend&gt;</code> in the <code>fieldset</code> container to add a title for each fieldset.</dd>
+	</dl>
+</section>
+<section id=media>
+	<h2>Media Sources</h2>
+	<dl>
+	<h3>IFrames</h3>
+	<dt><code>&lt;iframe src="..." width="#" height="#"&gt;...&lt;/iframe&gt;</code></dt>
+	<dd>Creates an iframe, a window within a window, that displays the content in the URL in the <code class=attribute>src</code>. The <code class=attribute>width</code> and <code class=attribute>height</code> specify the size of the embedded window. Content between the tags will be used in the case the iframe doesn't work. Most web apps nowadays have an embed feature for their content so you can copy and paste the iframe code to embed onto your site.</dd>
+	<h3>Objects</h3>
+	<dt><code>&lt;object data="..." type="..."&gt;...&lt;/object&gt; </code></dt>
+	<dd>Creates an object element that can be used to embed media. The <code class=attribute>data</code> attribute holds the URL and the <code class=attribute>type</code>attribute holds the MIME type. Content between the tags will be used if the object doesn't work. <code>Objects</code> are not really used much nowadays.</dd>
+	<h3>Audio and Video</h3>
+	<p>There are certain things to consider when embedding video, especially when creating the video yourself. One is how the video is encoded. Two is how the audio is encoded. And three is how the whole video is packaged: its <df>container</df> format. There are multiple ways of doing each and the browser support is not the same for all the them so be sure to do some research.</p>
+	<dt><code>&lt;video src="..." width ="#" height="#" poster="..." controls autoplay muted&gt;...&lt;/video&gt;</code></dt>
+	<dd> Use the <code>video</code> element to embed a video. Put the URL in the <code class=attribute>src</code>. The <code class=attribute>poster</code> holds the URL of an image that is shown before the video plays; think video thumbnail. The <code class=attribute>controls</code>, <code class=attribute>autoplay</code> attributes and <code class=attribute>muted</code> are optional toggles. If the video isn't supported by the browser it'll use the content between the tags.</dd>
+	<dt><code>&lt; audio src="..." type="..." controls autoplay loop&gt;...&lt;/audio&gt;</code></dt>
+	<dd> Use the <code>audio</code> element to embed audio. The <code class=attribute>src</code> holds the URL of the audio file. The type is the MIME format. As before, the content between the tags is displayed if the audio doesn't work.</dd>
+	<h4>Adding Multiple Sources</h4>
+	<p>As mentioned earlier, there are many different combinations of containers and encoding to choose from for audio and video files. To be sure that the media will play regardless of what browser it is in, its better to add multiple different file sources. If one combination doesn't work, the browser will move to the next.</p>
+	<dt><code><pre>
+		&lt;audio|video id="..." controls autoplay loop muted&gt;
+			&lt;source src="..." type="..."&gt;
+			.
+			.
+			.
+		&lt;/audio|video&gt;
+	</pre></code></dt>
+	<dd>The way we do so is the same for both audio and video. Instead of putting the <code class=attribute>src</code> and <code class=attribute>type</code> in the opening tag, we create multiple <code>source</code> elements and place them as content between the tags.</dd>
+	<h4>Adding captions</h4>
+	<p>We can also add our own text captions or <df>tracks</df> to our audio or video  which will improve accessibilty as well as search engine optimization. Tracks use a special file type called WebVTT. Check out <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/Audio_and_video_delivery/Adding_captions_and_subtitles_to_HTML5_video">this site</a> for more info on making your own track file.</p>
+	<dt><code>&lt;track src="..." kind="subtitles|captions|descriptions|chapters|metadata" srclang="..." label="..." default&gt;</code></dt>
+	<dd>To add tracks to an audio or video file, just create a <code>track</code> element for each and place them between the tags of an <code>audio</code> or <code>video</code> element, <b>after</b> all the sources if any. The <code class=attribute>srclang</code> attribute is only used if the track is specified as a subtitle and takes an IANA language code (a list of which can be found <a href=https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry>here</a>). The <code class=attribute>label</code> is just the name fo the track. If there are multiple tracks, the <code class=attribute>default</code> attribute is toggled on one of them to make that the default track to be played unless changed.</dd>
+	</dl>
+</section>
+<section id="resources">
+	<h2>More Information</h2>
+	<ul>
+		<li><a href=https://developer.mozilla.org/en-US/docs/Learn">MDN Web Docs</a></li>
+		<li><a href="https://www.w3.org/WAI/WCAG21/Techniques/">WCAG Accessibilty Techniques</a></li>
+	</ul>
+</section>
+
 <footer>
 	<ul>
 	<li><a href="index.html">Home</a></li>

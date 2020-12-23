@@ -1,0 +1,296 @@
+<!doctype html>
+<html>
+<head>
+	<title>CSS Basics and Style Guide</title>
+</head>
+<header>
+	<div class="nav">
+	<h2> Categories </h2>
+	<ul>
+		<li> Intro to CSS </li>
+		<li> Links </li>
+		<li> Adding Images </li>
+		<li> Making Tables</li>
+		<li> Creating Forms </li>
+		<li> Embedding videos and audio </li>
+	</ul>
+</header>
+<body>
+	<H1>CSS Basics and Style Guide</H1>
+	<section id=intro>
+		<h2> Intro to CSS</h2>
+		<p>After you've laid down the structure with html, it's time to decorate it with CSS. What is CSS? Every HTML element has a list of visual properties that can be changed or tweaked. CSS is basically a list of rules that set the values of those properties to what we want. There are two main ways to add a style sheet to our HTML. <dfn>Embedded style sheets</dfn> and <dfn>external style sheets</dfn>. 
+		<br>Embedded style sheets are written right in the HTML. We just put a pair of <code>&lt;style&gt;...&lt;/style</code> tags in the <code>head</code> section of HTML and the CSS rules go right in between. </p>
+		<figure><code><pre>
+			&lt;head&gt;
+				&lt;style&gt;
+				<i>Style rules go here</i>
+				.
+				.
+				&lt;/style&gt;
+			.
+			.
+			.
+		</pre></code></figure>
+		<p> External style sheets are written as separate documents (.css) and linked to the HTML later. You can have multiple style sheets for the same HTML document. They'll all apply with some override if conflicts occur. There's no real formal structuring like &lt;head&gt; or &lt;body&gt; in a CSS document. Just list your rules and you're good. There are two ways to link an external style sheet.</p>
+		<ol>
+			<li><h3>Using the <code>&lt;link&gt;</code> Element</h3>
+				<p>In the <code>head</code> of the document, place the following line:</p>
+				<figure><code>&lt;link rel="stylesheet" href="<i>url to stylesheet</i>"&gt;</code></figure>
+			</li>
+			<li><h3>Using <code>@import</code></h3>
+				<p>Right at the beginning of the <code>style</code> section of the document, place the following line:</p>
+				<figure><code>@import url("<i>url to stylesheet</i>");</code></figure>
+				<p> You can add <dfn>media queries</dfn> so that different style sheets are imported depending on the device. For example the following stylesheet is used when the webpage is printed.</p>
+				<figure><code>@import url("<i>url to stylesheet</i>") print;</code></figure>
+				<p>See the media queries section for more options</p>
+			</li>
+		</ol>
+	
+
+
+
+
+
+		<h3>CSS Syntax</h3>
+		<p>The syntax of a CSS rule is as follows:</p>
+		<figure><code><pre>
+			selector{
+				property: value;
+				.
+				.
+				.
+			}
+		</pre></code></figure>
+		<p>The <dfn>selector</dfn> is basically the name of the element we want to change (so whatever word is between the &lt; and &bgt;). Applying style rules to an element will apply them to every single instance of that element in the document. If we want to be more specific, we can use the selector to target classes or IDs; just use . or # respectively. We can even add multiple selectors - just separate them with a comma.
+		We can use descendent selectors to target specific descendents of specific elements, just separate parent and child with a space. In the below example, only elementB elements that are children of elementA elements will be targetted by the enclosed rules. There's also the child selector which targets specific children of elements and sibling selector that targets specific elements that appear right after another element. If we want to target <em>every</em> child, descendent, or sibling or a specific element just use the wildcard selector (*).</p>
+		<div class=threefigures>
+			<figure><code><pre>
+			element{
+				property: value;
+				.
+				.
+				.
+			}
+		</pre></code></figure>
+		<figure><code><pre>
+			element.class{
+				property: value;
+				.
+				.
+				.
+			}
+		</pre></code></figure>
+		<figure><code><pre>
+			#id{
+				property: value;
+				.
+				.
+				.
+			}
+		</pre></code></figure>
+		<figure><code><pre>
+			elementA elementB{
+				property: value;
+				.
+				.
+				.
+			}
+		</pre></code></figure>
+		<figure><code><pre>
+			elementA &gt; elementB{
+				property: value;
+				.
+				.
+				.
+			}
+		</pre></code></figure>
+		</div>
+		<p> The <code class=attribute>properties</code> are whatever properties are available in the element(s) you're targeting. The values are whatever we want to change it to. Formally, each property value pair is called a <dfn>declaration</dfn>. Each selector can have multiple declarations to change its appearance, collectively known as a <dfn>delcaration block</dfn>. 
+		What if you have multiple declarations that target the same property on the same element, i.e. style conflicts? The general rule is the closer the rule is to the actual markup, the higher its priority. So an external style sheet would be overridden by an embedded style sheet which would be overridden by the element's HTML style values. Also the more specific a style rule is, the higher the priority. So an element selector would be overridden by a class selector which would be overridden by an id selector which would be overridden by the elements HTML style value.
+		<br> Style inheritance is another feature of CSS. There are certain style properties that can be passed down by container elements to their child elements. For example: </p>
+		<figure>
+			<p>This is an unstyled <i>paragraph</i>.</p>
+			<p style="font-family: cursive"> This is a styled <i>paragraph</i>. </p>
+			
+		</figure>
+		<p> Both paragraphs elements above have the word 'paragraph' within &lt;i&gt; elements. The first paragraph has no styles. The second paragraph element is styled with a cursive font. Noticed how the cursive style is applied to 'paragraph' even though no style was applied specifically to that element. Thats the power of inheritance! In general, styles affecting text get passed down while styles affecting borders and backgrounds don't</p>
+	</section>
+
+	<section id="units">
+		<h2>Units of Measurement</h2>
+		<p>When designing web pages, its important to enforce how big things should be so that your users see your website as it should be, regardless of what device they use. There are two types of units: <dfn>Absolute</dfn> and <dfn>Relative</dfn>. Absolute units can be measured in real life because they always stay that size, regardless of the size of the screen. Relative units are based on the size of something else, whether its screen size or font size. The size can change depending on the state of the reference. In general we will want to use relative units of measurement to ensure our web content adapts with the user's device. Note: when inputtings units, make sure there's NO space between the unit and its value. Example. </p> 
+		<dl>
+			<h3>Absolute Units</h3>
+			<dt><code>px</code></dt>
+			<dd> Pixels, defined as 1/96 of an inch. This is pretty much the only absolute unit used in web design. Others exist like in for inches and cm for centimeters but they're not as appropriate for screens</dd>
+			<h3>Relative Units</h3>
+			<dt><code>em</code></dt>
+			<dd> A unit based on the element's inherited font size, specifically the size of a capital 'M'. If the inherited font size is 12, then 1 em is equivalent to an 'M' in 12 size font.</dd>
+			<dt><code>rem</code></dt>
+			<dd> A unit based on the root font size (font size of the <code>HTML</code> element). By default, this is 16 pixels so 1 rem is equal to 16 pixels.</dd>
+			<dt><code>vw|vh</code></dt>
+			<dd> These stand for 'viewport width' and 'viewport height', respectively. They serve as percentage sizes based on the size of the viewport (browser window). For example a 100vw element would take up 100% of the viewports width.</dd>
+		</dl>
+	</section>
+	<section id="Pseudo">
+		<h2>Pseudo-Classes and Pseudo-Elements</h2>
+		<p>CSS provides an additional way to select and group elements by their current <em>state</em>, instead of by user-defined classes, or relationships. These selectors are called <dfn>pseudo-class</dfn> selectors. They allow us to add additional styles based on the current state of an element; ex. whether it's been hovered over, clicked, etc. As stated earlier, the syntax for classes used '.' before the class name. For pseudo-classes, we use ':' before the pseudo-class name.</p>
+		<dl>
+			<h3>Pseudo-classes for Links</h3>
+			<dt><code>a:link</code></dt>
+			<dd>Applies a style for unclicked links</dd>
+			<dt><code>a:visited</code></dt>
+			<dd>Applies a style for clicked links</dd>
+			<h3>Pseudo-classes for User Actions</h3>
+			<dt><code><i>element</i>:focus</code></dt>
+			<dd>Applies a style when the element is selected and is waiting for input, like a form element</dd>
+			<dt><code><i>element</i>:hover</code></dt>
+			<dd>Applies a style when the element is hovered over with a mouse pointer. No effect for mobile users</dd>
+			<dt><code><i>element</i>:active</code></dt>
+			<dd>Applies a style for that brief moment when an element is clicked and the mouse hasn't been released yet. Good for buttons and links. </dd>
+		</dl>
+		<p>Keep in mind the order you chain your pseudo-class styles when applying multiple for the same element. The styles applied last will override the others so if :link or :visted are applied last, then none of the others will appear. The order should be :link, :visited, :focus, :hover, then :active.<br>There are many other pseudoselectors, many of which target specific element relationships like <code>:first-child</code> and <code>only-child</code>. You can read more about them <a href="https://css4-selectors.com/selectors/">here</a></p>
+		<h3> Pseudo-elements</h3>
+		<p>Unlike pseudo-classes which offer group selection based on state or relationship, pseudo-elements allow you to target specific areas within the content of elements. The syntax for pseudo-elements is '<i>element</i>::<i><code>pseudo-element</code></i>'.</p>
+		<dl>
+			<dt><code><i>element</i>::first-line</code></dt>
+			<dd>Use to apply a style rule to the first-line of the element</dd>
+			<dt><code><i>element</i>::first-letter</code></dt>
+			<dd>Use to apply a style rule to the last-line of the element</dd>
+			<dt><code><i>element</i>::before</code></dt>
+			<dd>Use to add additional content before the original content of the element. Use the <code>content</code> property to add more text (enclosed by quotation marks) or add an image using the url(...) syntax. Add any styles you want applied to the extra content in the same declaration block.
+			</dd>
+		</dl>
+	</section>
+	<section id="AttributeSelectors">
+		<h2>More Attribute Selectors</h2>
+		<p>We've seen the class and id selectors earlier. In reality, these were just special types of <dfn>attribute selectors</dfn>, selectors that target based on attribute names or values. Normal attribute selectors follow the syntax <i>element</i>[<code>attribute</code>].</p>
+		<dl>
+			<dt><code><i>element</i>[attribute]</code></dt>
+			<dd>Apply a style to elements with the specified attribute.</dd>
+			<dt><code><i>element</i>[attribute="value"]</code></dt>
+			<dd>Apply a style to elements who have the specified attribute <strong>with</strong> the exact specified value</dd>
+			<dt><code><i>element</i>[attribute~="value"]</code></dt>
+			<dd>Apply a style to elements who have the specified attribute that <em>contains</em> the specified value as a word, separated by spaces.</dd>
+			<dt><code><i>element</i>[attribute|="value"]</code></dt>
+			<dd>Apply a style to elements that have the specified attribute that has hyphen-separated values that has the specified value contained within</dd>
+			<dt><code><i>element</i>[attribute^="first part of value"]</code></dt>
+			<dd>Apply a style to elements that have the specified attritube that has a value that <em>starts with</em> the specified value</dd>
+			<dt><code><i>element</i>[attribute$="last part of value"]</code></dt>
+			<dd>Apply a style to elements that have the specified attribute that has a value that <em>ends with</em> the specified value</dd>
+			<dt><code><i>element</i>[attribute*="any part of value"]</code></dt>
+			<dd>Apply a style to elements that have the specified attribute that has the specified value as a substring in its value</dd>
+		</dl>
+	</section>
+
+
+	<section id="AttributeSelectors">
+		<h2>Attribute Selectors</h2>
+	</section>
+
+	<section id="fontstyles">
+		<h2>Font Properties</h2>
+		<dl>
+			<dt><code>font-family</code></dt>
+			<dd> Use the <code>font-family</code> to specify a comma-separated list of fonts for that element. The browser will go in order from left-to-right until it finds a font it can render on the screen. For the most part, all font names must capitalized with the exception of generic ones (monospace, serif, sans-serif, cursive, fantasy). Fonts that have names that are more than one word require quotation marks. In general, your font stack should start with your first choice, followed by similar looking alternatives, and then end off with the closest generic font. <br>Click <a href="https://www.tutorialbrain.com/css_tutorial/css_font_family_list/" target="_blank">here</a> for a list of font-families to choose from.</dd>
+			<dt><code>font-size</code><br>Values:rem,em,%</dt>
+			<dd> Sets the size of the element's font. You can use the units mentioned earlier or percentage units. If you put a percentage, it scales the font up or down based on it's inherited font value. Its common practice to set the font-size of the <code>html</code> element to 100% (equal to 16px for all modern browsers) so we have a clear base going forward with the font-sizes of other elements.</dd>
+			<dt><code>font-weight</code><br>Values:normal,bold,bolder,lighter,100,200,300,...,900</dt>
+			<dd> Used to set how bold the font is. There are a lot of values but for the most part just stick with bold. You can also use normal to 'un-bold' things that normally appear bold like headlines.</dd>
+			<dt><code>font-style</code><br>Values:normal,italic,oblique</dt>
+			<dd> Used to set the font italic. Use normal to make un-slant things that are normally in italics like <code>em</code>.</dd>
+			<dt><code>font-variant</code><br>Values:normal,small-caps</dt>
+			<dd> Changes the font to use capital letters in place of lowercase letters. Good for times and units and maybe acronyms and abbreviations.</dd>
+			<dt><code>font-stretch</code><br>Values:normal,ultra-condensed,condensed,semi-condensed,semi-expanded,expanded,extra-expanded,ultra-expanded,</dt>
+			<dd>Changes the font-family to its normal|<span style="font-stretch: condensed;">condensed</span>|<span style="font-stretch:expanded">expanded</span> version. If the browser can't find one, it'll switch out the font-family with a different one.</dd>
+			<dt><code>color</code><br>Values: black,white,purple,lime,navy,aqua,silver,maroon,fuchsia,olive,blue,orange,gray,red,green,yellow,teal,#RGB</dt>
+			<dd> Changes the color of foreground elements: font and border. You can use predefined color names like black, red, or purple or RGB numbers.
+			<dt><code>font</code><br>Values: style weight stretch variant size/line-height font-family</dt>
+			<dd> Shorthand property that merges all the above properties into one. Property values must be typed in the order as seen in the values. Omitting any value means its default value is used instead. Saves space but easier to keep track if you specify all the properties individually.</dd>
+		</dl>
+		<h2> Line Styles</h2>
+		<dl>
+			<dt><code>line-height</code><br>Values: rem,em,%,#,normal</dt>
+			<dd>Used to set the line height which is the space between baselines (the imaginary line where the letters sit). The line height is based on the current font size of the element. Units include your basic rem, em and % but also numerical values. When you use just a number, it acts a multipler (so '2' would mean a line-height that is 2x the current font size). It is important to note the difference in terms of inheritance. When you use a number multiplier, its descendents also inherit the multiplier. This means a descendent paragraph with a font size of 8px would have a line-height of 16px. However, when you use em, the descendents inherit the ancestor's calculated size. For example, lets say we have a <code>body</code> element with a line-height of 1em. Assuming default font size, this means the <code>body</code> element and <strong>all its descendents</strong> will have a line-height of 16px. This could be bad if we have elements like a 24px headline.</dd>
+			<dt><code>text-indent</code><br>values:rem,em,%</dt>
+			<dd>Used to set indent length. Percentage values are based on the length of the whole line. All relative units are passed down to descendents as relative not calculated so you won't see the same problem as <code>line-heights</code> You can use negative values to generate an overhang as opposed to an indent.</dd>
+			<dt><code>text-align</code><br>Values:left,right,center,justify,start,end</dt>
+			<dd>Adjust the position of the text within its block. Pretty straightforward. </dd>
+			<dt><code>text-decoration</code><br>Values:none,underline,overline,line-through</dt>
+			<dd>Adds special decoration to the element text.</dd>
+			<dt><code>text-transform</code><br>Values:none,capitalize,lowercase,uppercase</dt>
+			<dd>Transforms the element's text. Capitalize changes the first letter of every word in the element to a capital, whereas uppercase changes every letter to a capital</dd>
+			<dt><code>letter-spacing</code><br>Values:rem,em,%,normal</dt>
+			<dd>Adds space between letters. If you use em, descendents will inherit the calculated value, not the relative value so be careful.</dd>
+			<dt><code>word-spacing</code><br>Values:rem,em,%,normal</dt>
+			<dd>Adds space between words. Like <code>letter-spacing</code> if you use em, descendents will inherit the calculated value, not the relative value.</dd>
+			<dt><code>text-shadow</code><br>Values:rem,em,none</dt>
+			<dd> Creates a shadow behind the letters. There are three measurement values. The first two are mandatory: horizontal offset and vertical offset. The horizontal offset dictates how far to the right the shadow should be, relative to the actual letters. The vertical offset dictates how far down the shadow should move, relative to the letters. The third optional measurement is for the blur radius; the larger the blur radius, the softer the shadow becomes. The fourth and last value of this property is the colour of the shadow.</dd>
+			<dt><code>list-style-type</code><br>Values:none,disk,circle,square,decimal,decimal-leading-zero,lower-alpha,upper-alpha,lower-latin,upper-latin,lower-roman,upper,roman,lower-greek</dt>
+			<dd> Applies only to list elements. Changes the marker used to mark each item in the list. Use 'none' to remove the markers entirely.</dd>
+			<dt><code>list-style-position</code><br>Values:inside,outside,hanging</dt>
+			<dd>Applies only to list elements. Changes the position of the bullet, relative to the list item's box. Inside means inside the box. Outside means outside the box without touching it. Hanging is like inside with the markers just hanging on the outside edge of  the box.</dd>
+			<dt><code>list-style-image</code><br>Values:url(),none</dt>
+			<dd> Applies only to list elements. Use a specified image instead of conventional markers to separate list items. Use this property in conjunction with <code>list-style-type</code> in-case the image doesn't load.</dd>
+		</dl>	
+	</section>
+	<section id="colour">
+		<h2>Colour</h2>
+		<p>There are a set 140 colours that all browsers can recognize the name of and render onto the screen (You can see the full list <a href="https://www.learningwebdesign.com/colornames.html">here</a>). However, there are alot more colour options to pick from if we use RGB values (255 values in each channel = 16.7 million colours!). You can use <a href="https://www.google.com/search?q=colour+picker&rlz=1C1CHBF_enCA805CA805&oq=colour+picker&aqs=chrome.0.0i433i457j0l7.1471j0j7&sourceid=chrome&ie=UTF-8">Google's colorpicker</a> to find the RGB values of your desired colour. To use RGB, we can just type in the values for each channel as shown below:</p>
+			<figure><code>color: rgb(97,201,201);</code></figure>
+		<p>We can also use hexadecimal values. The hex value below produces the same colour as the decimal value above.</p>
+			<figure><code>color: #61c9c9;</code></figure>
+		<h3>RGBa</h3>
+		<p>The 'a' in RGBa stands for <dfn>alpha</dfn>. Essentially, it adds a fourth channel to RGB but this channel affects the colour's transparency rather than its hue.</p>
+			<figure><code>color: rgba(97,201,201,.1);</code></figure>
+		<p> The alpha value ranges from 0 to 1, with 0 being completely transparent and 1 being completely visible.
+		<h3>HSL and HSLa</h3>
+		<p> Besides colour names and RGB values, there is a third way to define colours: <dfn>HSL</dfn>. HSL stands for Hue Saturation Luminosity. Imagine a circle with all the colours of the rainbow spread out as a gradient with red at the very top. The angles of each colour, with red being at the 0/360<sup>o</sup> position, correspond to the hue value. Saturation and luminosity are both percentage values. Saturation affects how much of that hue is rendered (0% means gray). Luminosity affects how light or dark you want to make that hue (100% gives you white, 0% gives you black). The following CSS shows the HSL equivalent of the examples above.</p> 
+		<figure><code>color: hsl(180,49%,58%);</code></figure>
+		<p> Like with RGBa, HSLa adds a fourth channel for transparency, with 0 being completely transparent and 1 being completely visible.</p>
+		<h3>Background Colour</h3>
+		<p>When applying colour to elements, it gets applied to the <dfn>foreground</dfn> elements: the text as well as any defined border. If we want to change the colour of the background, we need to use another property: <code>background-color</code>.</p>
+		<dl>
+			<dt><code>background-color</code><br>Values:colour name,RGB,HSL</dt>
+			<dd>Applies a colour to the background of the element, which by default extends right to the outer edge of the border.</dd>
+			<dt><code>background-clip</code><br>Values:border-box,padding-box,content-box</dt>
+			<dd>Changes the area that the background covers. Default is border-box which extends the background to the outer edge of the border. Padding-box stops the background right before the border. Content-box limits the background to just around the content.</dd>
+		</dl>
+		<h3>Opacity</h3>
+		<dl>
+			<dt><code>opacity</code><br>Values:number between 0 and 1</dt>
+			<dd>Changes the transparency of the entire element, foreground and background.</dd>
+		</dl>
+		<h3>Background Images</h3>
+		<dl>
+			<dt><code>background-image</code><br>Values:url(...)</dt>
+			<dd> Uses an image source as the background for the element. Note: the URL is relative to the location of the CSS rule (so its external sheet location or the HTML file location). The behaviour is that the image starts in the top-left corner (right before the border) and repeats itself horizontally, then vertically, until the whole element box is filled. If you combine this with back-ground colour, the image goes on top of the colour. It's recommended you do so that if the image doesn't work, there's still a background colour to cover for it.</dd>
+			<dt><code>background-repeat</code><br>Values:repeat,no-repeat,repeat-x,repeat-y,space,round</dt>
+			<dd>Specifies how the background image repeats itself. Repeat is the default. No-repeat means the image shows only once. Repeat-x or Repeat-y means the image only repeats itself in the x or y direction. The space value is used to ensure that no clipping occurs when repeating; the browser calculates how many whole images can fit in the element, then adds space between them to fill out any gaps. The round value also prevents clipping but by changing the dimensions so that the image fits an even amount of times in the background.</dd>
+			<dt><code>background-position</code><br>Values:rem,em,%,left,center,right,top,bottom</dt>
+			<dd>Changes the position of where the image is first placed. Use rem or em to indicate offsets from the top-left corner. Or percentages are used in pairs to indicate horizontal and vertical offset (in that order) from the top left corner: 0% 0% for the top-left corner, 100% 100% for the bottom-right corner. As a final alternative, you can use the directional keywords to move your origin image around: 'left top' is the default but you could move it 'right bottom'. If you only specify one 'direction' like just 'right'. then the browser automatically assumes that the image should also be 'center'.</dd>
+			<dt><code>background-origin</code><br>Values:border-box,padding-box,content-box</dt>
+			<dd>As stated earlier, background images by default do not intersect the border area; this is the default value of padding-box. We can use <code>background-origin</code> to change this behaviour. If we change it to border-box, the origin image will go right to the outer edge of the border. If we change it to content-box, then the origin image will start within the content area (where the text is).</dd>
+			<dt><code>background-attachment</code><br>Values:scroll,fixed,local</dt>
+			<dd>Changes how the background image scrolls. The default value is scroll; the background image scrolls with the content. If we specify it to be fixed, then the background image stays put while the content scrolls over it. The local value is used when the element the background image is attached to has its own scroller; it ties the scrolling to the element's scroller and not the browsers'.</dd>
+			<dt><code>background-size</code><br>Values:px,rem,em,%,auto,cover,contain</dt>
+			<dd> Changes the size of the image used for the background. Two values are needed, one for each dimension. If only one is specified, it is assumed to be horizontal dimension and the vertical dimension is set to 'auto'. What auto does is it resizes in whatever direction is necessary to maintain the proportion of the image. Percentage values are based on the size of background positioning area, which itself is based on the value set in the <code>background-origin</code> property. The cover keyword resizes the image so that one copy covers the entire background positioning area. The contain keyword resizes the image either horizontally or vertically until it fits the background positioning area completely in that one dimension. If there is any leftover space, then the image repeats itself.</dd>
+			<h4>Multiple background Images</h4>
+			<p>You can add multiple background images by simply separating each image url with commas in the <code>background-image</code> property. Images "stack" on top of one another, with the first url's image on top, the next image under that, and so on. To use the other properties with each image separately, just separate the values with commas, in the same order as the images are stacked from top to bottom.</p>
+			<h4>Gradients</h4>
+			<p> You can add color gradients to your backgrounds as well. Even though no image is provided they still get treated as background-images and can be used anywhere a <code>background-image</code> property can be used.</p>
+			<dt><code>background-image:linear-gradient(...)</code><br>Values:angle,startcolour,....,endcolour</dt>
+			<dd> Generates a linear gradient with the <code>background-image</code> property. At least three values are needed in the brackets as shown below.
+				<figure><code>background-image:linear-gradient(180deg, green, blue 40%, red)</code></figure> 
+				The first is the angle, specified by #deg. A value of 0deg means the gradient goes from bottom to top. Positive angles turn gradient clockwise so at 90deg, the gradient goes from left to right. There are also keywords you can use although these restrict the angle to 45 degree increments (to top, to right, to left, to bottom, to top right, to top left, to bottom right, to bottom left). <br>The next values must be at least two colours, the start and end colours respectively, with as many of the colours you want in between. You can set colour stops by adding percentages after the colours; these tell the browser where along the gradient these colours should appear. In the example above, the colour blue is set to appear at 40% of the gradient. By default the start and end colours appear at 0% and 100% respecitvely. If a colour stop is specified for the start colour, then the gradient will be filled with just the start colour up until that stop point. If a colour stop is used for the end colour, then the gradient will be filled with that last colour from the stop point all the way to the end.</dd>
+			<dt><code>background-image:radial-gradient(...)</code><br></dt>
+			<dd> Creates a gradient that by default, radiates from the center of the element. This generates a circle if the element is square or an ellipse of the element is rectangular. Two colours at least are required for the start and end colours. You can change the shape by specifying either 'circle' or 'ellipse' or by supplying horizontal and vertical dimensions. You can change where teh gradiant begins by using the same keywords for the <code>background-position</code> property.
+		</dl>
+
+<footer>
+	
+	<a href="index.html">Home</a>
+	</div>
+</footer>
+<html>
