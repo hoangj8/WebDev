@@ -183,12 +183,37 @@
 			<dd>Apply a style to elements that have the specified attribute that has the specified value as a substring in its value</dd>
 		</dl>
 	</section>
-
-
-	<section id="AttributeSelectors">
-		<h2>Attribute Selectors</h2>
+	<section id="boxes">
+		<h2>Element Boxes</h2>
+		<p> When elements are placed on a page, they take up space. This is obvious with block elements but even in-line elements have their contents enclosed by boxes. Each of these element boxes is made up of the area taken up by the content, followed by any padding, the border, and then any margins. The padding is the space between the content box and the border. The margins are any space maintained between other elements as well as between the viewport edges. Margins have an interesting property called <dfn>collapsing margins</dfn>; when two vertically adjacent elements with margins meet, the space between them is <em>not</em>the combined total of their margins; it is the largest margin between the two elements. Horizontal margins never collapse.  In this section we'll look at ways to play around with element boxes.</p>
+		<h3>Changing The Size of the Element Box</h3>
+		<dl>
+			<dt><code>width</code><br>Values:rem,em,%,auto</dt>
+			<dd>Used to change the width of the content box of the element, unless chnaged by the <code>box-sizing</code> property. By default, this is set to auto which means elements are as wide as the block element that contains it.</dd>
+			<dt><code>height</code><br>Values:rem,em,%,auto</dt>
+			<dd>Used to change the height of the content box of the element, unless changed by the <code>box-sizing</code> property. By default this is set to auto which means the box is just tall enough to fit the content.</dd>
+			<dt><code>box-sizing</code><br>Values:content-box,border-box</dt>
+			<dd>Changes whether <code>width</code> and <code>height</code> properties are applied to the content-box (default) or the border-box. "Content-box" means that any sizes you set for the <code>width</code> and <code>height</code> are only applied to the content-box. Any padding and margin sizes get slapped on top of that, so you might end up with something larger than expected. Changing it to "border-box" means the entire element (including margins and padding) will be the size you specify. </dd>
+			<dt><code>overflow</code><br>Values:visible,hidden,scroll,auto</dt>
+			<dd>Used to change how elements are displayed when the content is much larger than its box. By default, this is set to "visible", which means the extra content protrudes out of the box. "Hidden" clips off any extra content. "Scroll" adds a scroll bar to the box to view the extra content. "Auto" leaves the choice up to the browser.</dd>
+			<dt><code>padding</code><br>Values:rem,em,%</dt>
+			<dd>Adds padding to the element box. Takes up to 4 values (not comma separated), one for each of the sides. Order of the values changes top right bottom left padding in that order. <strong>Percentage units are relative to the width of the parent element, even for top and bottom paddding. Default value is 0 padding.</strong></dd>
+			<dt><code>border-style</code><br>Values:none,solid,dotted,dashed,double,groove,ridge,inset,outset</dt>
+			<dd>Changes the border style of the element. Takes up to 4 values (not comma separated), one for each side. Order fo the values is top right bottom left border, in that order. Default value is none.</dd>
+			<dt><code>border-width</code><br>Values:px,rem,em,thin,medium,thick</dt>
+			<dd>Changes the thickness of the border. Takes up to 4 values (not comma separated), one for each side. Order of the values is top right bottom left border, in that order. Default value is medium thickness.</dd>
+			<<dt><code>border-color</code><br>Values:colorname,RGB,HSL,transparent</dt>
+			<dd>Changes the color of the border. Takes up to 4 values (not comma separated), one for each side. Order of the values is top right bottom left border, in that order. Default value is whatever the <code>color</code> property is set to.</dd>
+			<dt><code>border-radius</code><br>Values:px,rem,em,%</dt>
+			<dd>Used to create rounded border corners. Values can be specified for each corner (not comma separated), starting with the top-left corner and moving clockwise. Each corner can have one value for smooth, even, circular corners or they can have two values (horizontal and vertical radii, separated with a /) for interesting uneven elliptical corners. </dd>
+			<dt><code>margin</code><br>Values:px,rem,em,%,auto</dt>
+			<dd>Used to change the margins of the element box. Takes up to 4 values (not comma separated), one for each side. Order of the values is top right bottom left margin. <strong>Percentage units are relative to the width of the parent element, even for top and bottom paddding.</strong> Negative units cause neighbouring elements to overlap with the current one. Default value is "auto" which means the browser uses enough margin to fill any available space.  Non-replaced inline elements like <code>a</code> only have left and right margins. </dd>
+			<dt><code>display</code><br>Values:inline,block,run-in,flex,flow,list-item,table,ruby,inline-block,inline-grid,contents,none</dt>
+			<dd>Used to specify how elements behave in layouts. Default is "inline" but you can make items behave as though they're table items or list items. This is useful for changing the look of things without messing with the markup. The "none" value not only turns the element invisible, it removes it entirely and the space it filled is taken up by the other elements. This is useful for hiding elements from certain display types like the print view. Note that elements hidden in this way are still downloaded so this does nothing to save data.</dd>
+			<dt><code>box-shadow</code><br>Values:inset,px,rem,em,colour</dt>
+			<dd>Adds a shadow around the element box (excluding margin). The "inset" value is a toggle that enables shadows inside the box area and makes the box look like its sunken in rather than popping out; normally it is outside. There are four possible measurement values. The first two are mandatory: horizontal offset and vertical offset. The horizontal offset dictates how far to the right the shadow should be, relative to the box. The vertical offset dictates how far down the shadow should move, relative to the box. The third optional measurement is for the blur radius; the larger the blur radius, the softer the shadow becomes. The fourth optional measurement is for spread; the larger the spread, the bigger the shadow.The last value of this property is the colour of the shadow. If no colour is specified, it is the same as the element foreground (text and border). You can have multiple box shadows on the same element; just separate the sets with commas. They all get drawn on top of one another.</dd>
+		</dl>
 	</section>
-
 	<section id="fontstyles">
 		<h2>Font Properties</h2>
 		<dl>
@@ -235,6 +260,7 @@
 			<dd> Applies only to list elements. Use a specified image instead of conventional markers to separate list items. Use this property in conjunction with <code>list-style-type</code> in-case the image doesn't load.</dd>
 		</dl>	
 	</section>
+
 	<section id="colour">
 		<h2>Colour</h2>
 		<p>There are a set 140 colours that all browsers can recognize the name of and render onto the screen (You can see the full list <a href="https://www.learningwebdesign.com/colornames.html">here</a>). However, there are alot more colour options to pick from if we use RGB values (255 values in each channel = 16.7 million colours!). You can use <a href="https://www.google.com/search?q=colour+picker&rlz=1C1CHBF_enCA805CA805&oq=colour+picker&aqs=chrome.0.0i433i457j0l7.1471j0j7&sourceid=chrome&ie=UTF-8">Google's colorpicker</a> to find the RGB values of your desired colour. To use RGB, we can just type in the values for each channel as shown below:</p>
@@ -244,7 +270,7 @@
 		<h3>RGBa</h3>
 		<p>The 'a' in RGBa stands for <dfn>alpha</dfn>. Essentially, it adds a fourth channel to RGB but this channel affects the colour's transparency rather than its hue.</p>
 			<figure><code>color: rgba(97,201,201,.1);</code></figure>
-		<p> The alpha value ranges from 0 to 1, with 0 being completely transparent and 1 being completely visible.
+		<p> The alpha value ranges from 0 to 1, with 0 being completely transparent and 1 being completely visible.</p>
 		<h3>HSL and HSLa</h3>
 		<p> Besides colour names and RGB values, there is a third way to define colours: <dfn>HSL</dfn>. HSL stands for Hue Saturation Luminosity. Imagine a circle with all the colours of the rainbow spread out as a gradient with red at the very top. The angles of each colour, with red being at the 0/360<sup>o</sup> position, correspond to the hue value. Saturation and luminosity are both percentage values. Saturation affects how much of that hue is rendered (0% means gray). Luminosity affects how light or dark you want to make that hue (100% gives you white, 0% gives you black). The following CSS shows the HSL equivalent of the examples above.</p> 
 		<figure><code>color: hsl(180,49%,58%);</code></figure>
@@ -285,9 +311,88 @@
 				<figure><code>background-image:linear-gradient(180deg, green, blue 40%, red)</code></figure> 
 				The first is the angle, specified by #deg. A value of 0deg means the gradient goes from bottom to top. Positive angles turn gradient clockwise so at 90deg, the gradient goes from left to right. There are also keywords you can use although these restrict the angle to 45 degree increments (to top, to right, to left, to bottom, to top right, to top left, to bottom right, to bottom left). <br>The next values must be at least two colours, the start and end colours respectively, with as many of the colours you want in between. You can set colour stops by adding percentages after the colours; these tell the browser where along the gradient these colours should appear. In the example above, the colour blue is set to appear at 40% of the gradient. By default the start and end colours appear at 0% and 100% respecitvely. If a colour stop is specified for the start colour, then the gradient will be filled with just the start colour up until that stop point. If a colour stop is used for the end colour, then the gradient will be filled with that last colour from the stop point all the way to the end.</dd>
 			<dt><code>background-image:radial-gradient(...)</code><br></dt>
-			<dd> Creates a gradient that by default, radiates from the center of the element. This generates a circle if the element is square or an ellipse of the element is rectangular. Two colours at least are required for the start and end colours. You can change the shape by specifying either 'circle' or 'ellipse' or by supplying horizontal and vertical dimensions. You can change where teh gradiant begins by using the same keywords for the <code>background-position</code> property.
+			<dd> Creates a gradient that by default, radiates from the center of the element. This generates a circle if the element is square or an ellipse of the element is rectangular. Two colours at least are required for the start and end colours. You can change the shape by specifying either 'circle' or 'ellipse' or by supplying horizontal and vertical dimensions. You can change where teh gradiant begins by using the same keywords for the <code>background-position</code> property.</dd>
+		</dl>
+	</section>
+	<section id="floats">
+		<h2>Floating Elements</h2>
+		<p>Floating an element means pushing it off to the side and allowing other elements to flow or wrap around it. This can be useful for saving space and can also make your overall layout look nicer. There are some key things to note about floated objects:
+			<ul>
+				<li>Floated objects stay within the content area of their containing element. </li>
+				<li>If you're floating a text element or a block element, provide a width. Otherwise, if the text is too long, the default behaviour is to expand until it fills up the width of the container.</li>
+				<li> Margins on floated elements do not collapse</li>
+				<li> You can float any element, both in-line and block.</li>
+				<li>Floating in-line elements behave like block elements</li>
+				<li>Floating elements cannot float higher than elements that precede it in the document.</li>
+				<li>Floated elements don't overlap, even if you multiple floated elements in a row all going to the same side. What they do is stack side-by-side from the edge of whichever side they were floated to. If there's no more room to stack, then the next floated element moves down until its clear of the stack, then slides over until it hits the edge and the process continues until there's no more consecutive floats.</li>
+				<li>Once you float an element, the box of its containing element collapses fit around the remaining ones. This may cause it to shrink smaller than the floated element or cause the element box to disappear entirely if there are no other non-floated elements contained. The trick is to <b>float the container as well and give it width of of 100%</b>.
+
+			</ul>
+		<dl>
+			<dt><code>float</code><br>Value:left,right,none</dt>
+			<dd>Used to float an element to the left or right of its containing element.</dd>
+			<dt><code>clear</code><br>Value:left,right,both,none</dt>
+			<dd>Used to stop an element from wrapping around a floated one and have it start at the next available space below it. The values 'left' and 'right' stop the element from wrapping around elements floated on the left or right respectively. The 'both' value prevents the element from wrapping around any floated element.</dd>
+		</dl>
+		<h3> Text Wrapping </h3>
+		<p> When text wraps around floated objects, they always wrap in a straight line, forming a rectangle around the floated element. This is fine if the floated element is also text but its not as nice for images. To make it comform to the outline of the image we use the <code>shape-outside</code> property.
+		<dl>
+			<dt><code>shape-outside</code><br>Values:none,circle(..),ellipse(..),polygon(..),url(..)</dt> 
+			<dd> Use to help text wrap around images better. The circle value takes in a radius. The ellipse value uses the notation "rx ry <b>at</b> x% y%". The rx is the horizontal radius, ry is the vertical radius, x% is the horizontal position of the ellipse center and y% is the vertical position of the ellipse center. The polygon value takes in a bunch of x,y coordinates separated by commas. The top left corner of the image is 0px 0px and the bottom right corner's coordinates would be equivalent to whatever dimensions your image is in. Finally, the url value can take in the url of an image that has transparent areas. The text will automatically flow into the transparent areas and stop when it hits coloured ones. Note: the <code>shape-outside</code> property allows text to flow into a floated element but it cannot push the text away further than it normally does; use <code>shape-margin</code> for that.</dd>
+			<dt><code>shape-margin</code><br>Values:px,rem,em,%</dt>
+			<dd>Creates a margin between the text and the outline specified by <code>shape-outside</code>.
+	</section>
+	<section id="positioning">
+		<h2>Positioning Elements</h2>
+		<p>Aside from floating, we can move elements around the page using the <code>position</code> property. Like floating, elements positioned this way behave like block elements. Unlike floating, positioned elements can overlap other elements, including other positioned elements.</p>
+		<dl>
+			<dt><code>position</code><br>Value:static,relative,absolute,fixed</dt>
+			<dd>Used to specify how an object is to be positioned. Static is the default and is how elements normally arrange themselves. Relative moves the element box relative to its original position, while keeping its original position as empty space. Absolute moves element box relative to its <dfn>containing block</dfn>(more on this later) and closes up its original position. Fixed moves the element relative to the viewport and makes it stay there, even through scrolling. Fixed objects also have their original position closed up.</dd>
+			<dt><code>top|right|bottom|left</code><br>Values:px,rem,em,%,auto</dt>
+			<dd>Offset properties used to provide the location for repositioning, based on the positioning format and point of reference specified by the <code>position</code> property. The values for each of the four properties do not correspond to the actual coordinates but rather how far to move away from the corresponding edge; positive values move the element away from that edge, negative values move it closer. It is important to note that by setting offsets on each of the sides, you may end up accidentally changing the dimensions of your positioned element if its containing block is too small. In order words, the size of the positioned element <em>and</em> its offsets has to be less than or equal to the size of its containing block.</dd>
+		</dl>
+		<h3>Containing Blocks</h3>
+		<p>Absolute positioning is based on the element's containing block. This is not always its parent! Here's how we determine the containing block:</p>
+			<ul>
+				<li>If the positioned element has an ancestor that also has some sort of position property value set for it, then the ancestor is the containing block.</li>
+				<li>If there is no ancestor with a position property value, then the containing block is the <em>intial</em> containing block. In pretty much all classes, this is the <code>&lt;html&gt;</code> element.</li>
+			</ul>
+			<p>An easy way to turn an element's ancestor into its containing block without having to make the ancestor around is to just assign it the style <code>position: relative</code></p>
+		<h3>Stacking Positioned elements</h3>
+		<dl>
+			<dt><code>z-index</code><br>Values:#|auto</dt>
+			<dd>Used for positioned elements to change the stacking order. The smaller the z-index, the lower in the stack the element will display. Z-index values do not have to be in order and can be any arbitrary number.</dd>
+
+	</section>
+	<section id="Flexbox">
+		<h2>Flexboxes</h2>
+		<p> Another CSS tool for configuring layouts. To create a flexbox, simply set the container element's <code>display</code> property to 'flex'. When you designate a container element to be a flexbox, you gain the ability to manipulate all of its direct child elements, which have now become <dfn>flex items</dfn>. The flex items are then laid out along a <dfn>flex line</dfn> which is basically a vertical or horizontal axis on the page. By default, the direction the flex items are laid out will correspond to the document's language: left-to-right for English. You can create nested flexboxes by turning the flex items into flexboxes.</p>
+		<dl>
+			<h3>Flexbox Properties</h3>
+			<dt><code>flex-direction</code><br>Values:row,column,row-reverse,column-reverse</dt>
+			<dd>Changes the way flex-items get aligned in the flexbox. Default is 'row'. Whatever is set here is the <dfn>main-axis</dfn> and the <dfn>cross-axis</dfn> becomes whatever is perpendicular to the main-axis.</dd>
+			<dt><code>flex-wrap</code><br>Values:nowrap,wrap,wrap-reverse</dt>
+			<dd> Changes how flex items wrap in the flex box. Default is nowrap, which means flex items squish as much as they can and try to fit. 'Wrap' allows the flex-items to flow onto multiple lines in the same flex-direction, from start of the container to end. 'Wrap-reverse' also allows wrapping across multiple lines but in the oppositeflex-direction (right to left), from the end of the container to the beginning. If the flex-direction is set to 'column' or'column-reverse', the container will expand to accomadate the content unless a height is specified. for the container</dd>
+			<dt><code>justify-content</code><br>Values: flex-start,flex-end,center,space-between,space-around</dt>
+			<dd> Defines how any extra space should be handled along the main axis. The default is 'Flex-start' which means all the flex-items line up without space at the start of box. 'Flex-end' lines them all without space at the end of box. 'Center' centers the flex-items without space in the middle of the box. 'Space-between' puts the first flex item at the beginning, the last flex item at the end and organizes the remaining flex items so that there is an equal distance between every flex item. 'Space-around' is similar to 'space-between' except the there is space around the first and last elements as well.</dd>
+			<dt><code>align-items</code><br>Values:flex-start,flex-end,center,baseline,stretch</dt>
+			<dd> Defines how items are arranged along the cross axis. Note: A container height must be set first: otherwise the container just automatically resizes to fit the content meaning there's no point in this property. The default is stretch meaning if there's any space along the cross axis of the container , the items will be stretched to fill that space. 'Flex-start' aligns the items at the start of the cross-axis. 'Flex-end' aligns the items at the end of the cross-axis. 'Center' aligns the items in the middle of the cross axis. Baseline aligns each flex-item individually such that the baselines of the text in each item all line up; this becomes apparent when the font size of the items differ.</dd>
+			<dt><code>align-content</code><br>Values:flex-start,flex,end,center,space-around,space-between,stretch</dt>
+			<dd> Defines how you'd like multiple lines of flex items to appear in the flexbox. Note: multiple lines of flex items is only possible if some type of wrapping is specified with the <code>flex-wrap</code> property. 
+		</dl>
+		<dl>
+			<h3>Flex Item Properties</h3>
+			<dt><code>align-self</code><br>Valuesflex-start,flex-end,center,baseline,stretch:</dt>
+			<dd> Same as <code>align-items</code> but for  individual flex items. Will override whatever is set in <code>align-items</code>. If you want to align individual flex items along the main-axis, try using margins to add space between it and the other flex items.</dd>
+			<dt><code>flex</code><br>Values:none,0,#,auto</dt>
+			<dd> Defines how the flex item "flexes". There are up to three values that can be entered, without comma separation. The first two values can be 0 or 1 and act as toggles to control whether the item can grow or shrink. 0 means no, 1 mean yes. If you want some items to grow larger than the others, give that item a grow value larger than 1 and it will grow that much more, proportionally. For example, an item with a grow value of 2 gets twice as much space as items with 1. The same principle works for the shrink value; a larger shrink value means the item shrinks that much more, prorportionally. The third value is the size of the flex item using measurement units. By default, the values are 0,1,auto meaning flex items can't grow but they can shrink and their base size is kept to whatever's specified in <code>width</code> and <code>height</code>. </dd>
+			<dt><code>order</code><br>Values:#</dt>
+			<dd> Defines the order the flex item appears in the flex-line. The default value is 0. The lower the order value, the closer they are to the beginning of the flex line. Items with the same flex value will appear in the order that they are in the HTML.</dd>
 		</dl>
 
+
+			
+	</section>
 <footer>
 	
 	<a href="index.html">Home</a>
