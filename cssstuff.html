@@ -2,6 +2,32 @@
 <html>
 <head>
 	<title>CSS Basics and Style Guide</title>
+	<style>
+		body{
+
+		}
+		code{
+			background-color: gray;
+			color: rgb(145 255 36);
+			font-size: 1.1em;
+		}
+		dfn{
+			color:red;
+			font-weight: bold;
+		}
+		.fcode{
+			background-color: gray;
+			margin-left: 0;
+		}
+		.fivefigures{
+			display:flex;
+			align-content: center;
+			justify-content: flex-start;
+		}
+		h1,h2,h3{
+			background-color:rgb(103 115 163); ;
+		}
+	</style>
 </head>
 <header>
 	<div class="nav">
@@ -21,7 +47,7 @@
 		<h2> Intro to CSS</h2>
 		<p>After you've laid down the structure with html, it's time to decorate it with CSS. What is CSS? Every HTML element has a list of visual properties that can be changed or tweaked. CSS is basically a list of rules that set the values of those properties to what we want. There are two main ways to add a style sheet to our HTML. <dfn>Embedded style sheets</dfn> and <dfn>external style sheets</dfn>. 
 		<br>Embedded style sheets are written right in the HTML. We just put a pair of <code>&lt;style&gt;...&lt;/style</code> tags in the <code>head</code> section of HTML and the CSS rules go right in between. </p>
-		<figure><code><pre>
+		<figure class="fcode"><code><pre>
 			&lt;head&gt;
 				&lt;style&gt;
 				<i>Style rules go here</i>
@@ -54,7 +80,7 @@
 
 		<h3>CSS Syntax</h3>
 		<p>The syntax of a CSS rule is as follows:</p>
-		<figure><code><pre>
+		<figure class="fcode"><code><pre>
 			selector{
 				property: value;
 				.
@@ -64,46 +90,46 @@
 		</pre></code></figure>
 		<p>The <dfn>selector</dfn> is basically the name of the element we want to change (so whatever word is between the &lt; and &bgt;). Applying style rules to an element will apply them to every single instance of that element in the document. If we want to be more specific, we can use the selector to target classes or IDs; just use . or # respectively. We can even add multiple selectors - just separate them with a comma.
 		We can use descendent selectors to target specific descendents of specific elements, just separate parent and child with a space. In the below example, only elementB elements that are children of elementA elements will be targetted by the enclosed rules. There's also the child selector which targets specific children of elements and sibling selector that targets specific elements that appear right after another element. If we want to target <em>every</em> child, descendent, or sibling or a specific element just use the wildcard selector (*).</p>
-		<div class=threefigures>
-			<figure><code><pre>
-			element{
-				property: value;
-				.
-				.
-				.
-			}
+		<div class=fivefigures>
+			<figure class="fcode"><code><pre>
+	element{
+		property: value;	
+		.
+		.
+		.
+	}
 		</pre></code></figure>
-		<figure><code><pre>
-			element.class{
-				property: value;
-				.
-				.
-				.
-			}
+		<figure class="fcode"><code><pre>
+	element.class{
+		property: value;	
+		.
+		.
+		.
+	}
 		</pre></code></figure>
-		<figure><code><pre>
-			#id{
-				property: value;
-				.
-				.
-				.
-			}
+		<figure class="fcode"><code><pre>
+	#id{
+		property: value;	
+		.
+		.
+		.
+	}
 		</pre></code></figure>
-		<figure><code><pre>
-			elementA elementB{
-				property: value;
-				.
-				.
-				.
-			}
-		</pre></code></figure>
-		<figure><code><pre>
-			elementA &gt; elementB{
-				property: value;
-				.
-				.
-				.
-			}
+		<figure class="fcode"><code><pre>
+	elementA elementB{
+		property: value;	
+		.
+		.
+		.
+	}
+	</pre></code></figure>
+		<figure class="fcode"><code><pre>
+	elementA &gt; elementB{
+		property: value;	
+		.
+		.
+		.
+	}
 		</pre></code></figure>
 		</div>
 		<p> The <code class=attribute>properties</code> are whatever properties are available in the element(s) you're targeting. The values are whatever we want to change it to. Formally, each property value pair is called a <dfn>declaration</dfn>. Each selector can have multiple declarations to change its appearance, collectively known as a <dfn>delcaration block</dfn>. 
@@ -389,9 +415,46 @@
 			<dt><code>order</code><br>Values:#</dt>
 			<dd> Defines the order the flex item appears in the flex-line. The default value is 0. The lower the order value, the closer they are to the beginning of the flex line. Items with the same flex value will appear in the order that they are in the HTML.</dd>
 		</dl>
-
-
+	</section>
+	<section id="grid">
+		<h2>Grid Layouts</h2>
+		<p> The final tool for configuring page layouts. While flexboxes are good for handling elements along one axis, gris can position objects into both rows and columns. Just like flexboxes, to turn an element into a grid, we just change its <code>display</code> property to 'grid'. There are some special terms to be familiar with when it comes to grids. <dfn>Grid tracks</dfn> are basically the rows and columns of the grid. <dfn>Grid lines</dfn> are the lines of the grid that separate the grid tracks, as you can see in the figure below.</p>
+		<figure>
+			<img src="images/gridlines.png" alt="Grid line numbering system">
+		</figure>
+		  <p> The numbers are positive when going from left to right and top to bottom. We can use these numbers to quickly refer to specific points in the grid layout. The lines are also labelled negatively as well from bottom to top and right to left. This allows us to refer to the end lines, without having to count how many lines there are (just use -1). Finally, <dfn>grid cells</dfn> refer to the individual sections of the grid once it has been divided up by the grid lines.</p>
+		<dl>
+			<h3>Setting up the Grid</h3>
+			<dt><code>grid-template-rows</code><br>Values:px,rem,em,fr,minmax(),auto,min-content,max-content</dt>
+			<dd>A list of heights for each of the rows starting from the top, not comma separated. The <code>fr</code> unit allows the associated row to expand or contract according to any leftover space. If used with fixed heights, the fr row will take up all the extra space in the window. If used with other fr rows, the amount of space they take up will depend on the fr value; larger fr values will take up proportionally that much more space when compared to smaller fr values. The minmax() unit specifies a minimum and maximum height for the row, comma separated. The amounts of heights you feed into this property correlates to how many rows your grid will have. Aside from the automatic numbering system, naming your rows provides the option to refer to them by name later on. You can name your rows by providing the name in [] before each height. If a row line should have multiple names(for example its the start of one section and the end of another), then you can assign multiple names by separating them with spaces in the brackets.</dd>
+			<dt><code>grid-template-columns</code><br>Values:px,rem,em,fr,minmax(),auto,min-content,max-content</dt>
+			<dd> A list of widths for each of the columns starting from the left, not comma separated. The amount of widths you feed into this property correlates to how many columns your grid will have. Naming your columns provides the option of referring to them by name late ron. You can name your columns by providing the name in [] before each width. If a column line should have multiple names (for example its the start of one section and the end of another), you can assign multiple names by separating them with spaces in the brackets.</dd>
+			<dt><code>grid-template-areas</code><br>Values:none,names of areas</dt>
+			<dd>Used to provide names to distinct areas on the grid, allowing you to target those areas specifically later. Areas are comprised of at least one or more cells that are adjacent to eachother. All cells must be named if any are named, and they are named from left to right,not comma separated, row by row. For example, a 3x3 grid could be named using the following property values.
+			<figure class="fcode">
+<pre><code>grid-template-areas:
+	"header header header"
+	"ads main links"
+	"footer footer footer";
+</code></pre></figure>
+			An added feature of grid names is that they automatically name the associated grid-lines as well using the following convention: 'areaname-start', 'areaname-end'.</dd>
+			<dt><code>grid-row-gap|grid-column-gap</code><br>Values:px,rem,em</dt>
+			<dd> Adds space only between the tracks of the grid. If you want to add space to the outside edges of the grid, use padding.</dd>
+			<dt><code>justify-content|align content</code><br>Values:start,end,left,right,center,stretch,space-around,space-between,space-evenly</dt>
+			<dd> Used to position the grid tracks in the grid container in the case that the grid tracks do not fill up the grid container (i.e.explicit widths and heights are specified both the tracks and the container). Note that if you use 'space-around' and 'space-between', the space is additive with any <code>grid-row-gap</code> or <code>grid-column-gap</code> values.</dd>
+		</dl>
+		<dl>
+			<h3>Populating the grid</h3>
+			<dt><code>grid-row-start|grid-row-end|grid-column-start|grid-column-end</code><br>Values:line#,line name,span#</dt>
+			<dd>Putting these properties on a grid item tells it where it will be on the grid by using its bordering grid lines. Each property takes one value:the grid line reference. You can refer to the lines using the line number or its line name. You can also just provide a start line for the end, just tell it to span a certain number of rows or columns.</dd>
+			<dt><code>grid-area</code><br>Values:area name</dt>
+			<dd>Tells a grid item where to go using an area name. In my opinion, this is the easiest way to place grid items around your layout. An added benefit of area names is that even if you use a different grid, as long as the areas have the same name the items will go to their rightful place.</dd>
+			<dt><code>grid-auto-flow</code><br>Values:row,column,dense</dt>
+			<dd>Changes how grid items populate the grid if they're not explicitly placed. 'Row' means they flow in row by row. 'Column' means they flow in column by column. By default, the flow matches whichever direction the language is in. Here's an analogy as to how the items flow in. Imagine a pointer on the first cell of the grid. If the cell is large enough, the grid item is placed inside and the pointer moves on to the next cell. If the cell is not large enough, the pointer still moves on to the next cell; there is no backtracking.  Adding the optional 'dense' keyword in front means that with every item that needs to get placed, the pointer moves all the way back to the start; i.e. we can fill in cells that were previously skipped for being too small. This can have the side-effect of items appearing out of the HTML defined order on your grid.</dd>
 			
+			<dt><code>justify-self|align-self|justify-items|align-items</code><br>Values:start,end,center,left,right,self-start,self-end,stretch,normal,auto</dt>
+			<dd> Specify how grid-items are positioned in their cell / grid area if there is excess space. 'Justify' affects horizontal alignment while 'align' affects vertical alignment. <code>Justify-items</code> and <code>align-items</code> are used to apply positioning to every grid-item at once.</dd>	
+		</dl>
 	</section>
 <footer>
 	
