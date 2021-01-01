@@ -1,0 +1,220 @@
+<!doctype html>
+<html>
+<head>
+	<title>Javascript Stuff</title>
+	<style>
+		body{
+
+		}
+		code, code pre{
+			background-color: gray;
+			color: rgb(145 255 36);
+			font-size: 1.1em;
+		}
+		dfn{
+			color:red;
+			font-weight: bold;
+		}
+		.fcode{
+			background-color: gray;
+			margin-left: 0;
+		}
+		.fivefigures{
+			display:flex;
+			align-content: center;
+			justify-content: flex-start;
+		}
+		.custom{
+			color:yellow;
+		}
+		h1,h2,h3{
+			background-color:rgb(103 115 163); ;
+		}
+	</style>
+</head>
+<body>
+<header>
+</header>
+<h1>Javascript Background</h1>
+<p>Javascript is what provides functionality and interactivity to the website. With only HTML and CSS, we are limited to making <dfn>static webpages</dfn>. As the name implies, static webpages don't change. They just display information. The only time they can change is if the developer manually makes the changes in the markup or style sheets. But once we add JS, we can serve <dfn>dynamic</dfn> webpages. We can write apps that run in our browser and allow our webpages to do alot more than serve up fancy images and text. Javascript allows us to change the webcontent on the fly.</p>
+<h2>Client-side vs Server-side Programming</h2>
+<p><dfn>Client-side programming</dfn> means that you let the client's browser do all the heavy work. You send the HTML, CSS, and JS to their browser and the browser processes the script into HTML and renders it onto the viewport. The downside to this method is that different browsers may process the script a little differently, meaning your webpage may deliver a different experience to different browsers. Server-side programming eliminates that by letting the web server process the script into HTML first before sending the web page to the client. The client receives only HTML/CSS code so all users get the same experience. You can even combine client-side and server-side programming, commonly used in form data validation. The client-side script handles whether each form entry is being entered correctly and completely while the server-side handles the processing of the data. While normally a client-side language, with the introduction of node.js, JS works as a server-side programming language too.</p>
+<h2>Building your own web server</h2>
+<p>
+	For actual  production sites, you should use a dedicated web hosting service. But for personal development, you can set up your own server environment.
+	One of the most popular packages is XAMPP 
+</p>
+<h2>Adding Javascript to your Webpage</h2>
+<p>There are two main ways to add JS to your webpages: <dfn>inline</dfn> and <dfn>externally</dfn>.</p>
+<h3>Inline Javascript</h3>
+<p>Inline javascript means adding the javascript directly to your HTML using the <code>&lt;script&gt;</code>...<code>&lt;/script&gt;</code> tags; all your javascript just goes between the tags. 
+	While you could place the tags anywhere in your HTML, it's important to know that the location affects when your javascript will run. If we want our JS to run before anything on the page is rendered, place the tags in the <code>head</code>. If we want it to run after everything is rendered, place the <code>script</code> tags after the <code>body</code>. Placing our script somewhere in the body means it will run after everything before it in the body is rendered. Everything after it in the body will not render until the script is done. There's a good chance this is not what you want so to be safe, just stick with putting the script in either the head or after the body.
+</p>
+<h3>External Javascript</h3>
+<p>We can write all of our script in a separate <code>.js</code> file and link to that in the HTML, just like external style sheets.</p>
+	<figure class="fcode">
+		<code><pre>
+&lt;script src="javascript.js"&gt;&lt;/script&gt;
+		</pre></code></figure>
+<p>
+	The benefit of an external script is that we can quickly apply it to multiple pages at once, rather than typing the script out in the HTML for every web page. And if we need to change the script later, we can just make the changes in that one document instead of going to and making the changes on every web page that uses the script.
+</p>
+<h2>Javascript Structuring</h2>
+<p>In terms of script structure, JS is similar to CSS. There is no formal structure / containers to set up like HTML; you just start putting down code right away. One key thing to note is that every line of code in JS ends with a semicolon (;) so be sure to remember!</p>
+
+<p>Thats the end of the basics with JS. Now we'll start looking at what we can do with JS. In the code examples below, custom user input will be put in italics so as to differentiate between them and JS keywords.</p>
+
+<h1>Working with Variables and Datatypes</h1>
+<p>The core of JS scripts is getting data and doing something with it and then displaying it back to the user. To work with data, we need some way to capture and store it so that we can work on it later. This is where variables come in. Think of variables as personally-labelled containers. We can use variables to store our data and whenever we want to use that data, we just call the variable by its name. Note: information stored in JS variables only exist as long as the user has the web page loaded. The momment the user exits the web page, that data is lost forever. To store data long-term, we'll need to transport that data into a database like an SQL server.</p>
+<h2>JS Variables</h2>
+<dL>
+	<dt><code>var <i>varName</i>;</code></dt>
+	<dd>You declare variables with the <code>var</code> keyword. There are some limitations on how your variables can be named:
+		<ul>
+			<li>Variables can only contain letters, numbers, _ , and $</li>
+			<li>Variables can only begin with a letter, _ , or $.</li>
+			<li>Variables are case sensitive.</li>
+		</ul>
+	</dd>
+	<dt><code><i class="custom">varName</i> = <i class="custom">value</i>;</code></dt>
+	<dd>You assign values to variables using the <code>=</code> sign. In JS, this is known as the <dfn>assignment operator</dfn>. There are different datatypes you can assign to a variable:
+		<ul>
+			<li>Numerical values, which can be assigned as is</li>
+			<li>String values, which must be enclosed in "".</li>
+			<li>Arrays of values, which must be enclosed in [] and each value must be separated by a comma. Arrays are a biggie so more on them later.</li>
+		</ul>
+		You can combine variable declaration and value assignment with a single line like so:<br>
+		<code>var <i class="custom">varName</i> = <i class="custom">value</i>;</code>
+	</dd>.
+</dl>
+<h2>Arrays</h2>
+<p>Arrays are unique in that they can store multiple data values (called <dfn>elements</dfn>) under a single variable. There are some important characteristics when working with arrays</p>
+<ul>
+	<li>Array elements are indexed starting at 0 for the first item and so on</li>
+	<li>You refer to specific values in the area by referencing their index number, like so:
+		<br><code>favourite_word=dictionary[46];</code></li>
+	<li>You can assign new values to array elements by referencing their index number:
+		<br><code>dictionary[4]="apple";</code></li>
+</ul>
+<h3>Array Methods</h3>
+<p></p>
+
+<h3>Operators</h3>
+<p>There are three main types of operators: Math operators, Boolean operators and Comparison Operators.</p>
+<h4>Math Operators</h4>
+<dl>
+	<dt><code>+</code></dt>
+	<dd>Addition. This is the only Math operator that can also be used with String values; it concatenates two separate strings into one.</dd>
+	<dt><code>-</code></dt>
+	<dd>Subtraction</dd>
+	<dt><code>*</code></dt>
+	<dd>Multiplication</dd>
+	<dt><code>/</code></dt>
+	<dd>Divsion</dd>
+	<dt><code>%</code></dt>
+	<dd>Modulus. A special division operator that returns only the remainder.</dd>
+	<dt><code>++</code></dt>
+	<dd>Increment by 1</dd>
+	<dt><code>--</code></dt>
+	<dd>Decrease by 1</dd>
+</dl>
+<h4>Boolean Operators</h4>
+<dl>
+	<dt><code>&&</code></dt>
+	<dd>Logical AND</dd>
+	<dt><code>||</code></dt>
+	<dd>Logical OR</dd>
+	<dt><code>!</code></dt>
+	<dd>Logical NOT</dd>	
+</dl>
+<h4>Comparison Operators</h4>
+<dl>
+	<dt><code>&gt;</code></dt>
+	<dd>Greater than</dd>
+	<dt><code>&lt;</code></dt>
+	<dd>Less than</dd>
+	<dt><code>&gt;=</code></dt>
+	<dd>Greater than or equal to</dd>
+	<dt><code>&lt;=</code></dt>
+	<dd>Less than or equal to</dd>
+	<dt><code>==</code></dt>
+	<dd>Checks if two sides have same value</dd>
+	<dt><code>===</code></dt>
+	<dd>Checks if two sides have samee value AND same data type</dd>
+</dl>
+
+<h3>IF Statements and Switches</h3>
+<h4>If Statements</h4>
+<p><code>If</code> statements let us provide branches in our script; if conditions are met, do this. We can combine them with <code>else</code> statements to get our program to do
+	something if conditions are <i>not</i> met. We can chain multiple conditions together with <code>else if</code> statements.</p>
+<code><pre>
+if(<i class="custom">condition</i>){
+	<i class="custom">do something</i>
+}
+else if (<i class="custom">another condition</i>){
+	<i class="custom">do something else</i>
+}
+else{
+	<i class="custom">do this if nothing else matches</i>
+}</pre></code>
+<h4>Ternary Operator</h4>
+<p>There's a special operator called a ternary operator that combines variable assignment with an <code>if-else</code> statement. It looks like <code>?</code>.</p>
+<code><i class="custom">varName</i> = (<i class="custom">condition</i>) ? <i class="custom">value1</i>:<i class="custom">value2</i></code>
+<p> In a single line, a condition and two values are provided. If the condition is met, the variable is assigned value1. Otherwise, it is assigned value2.</p>
+<h4>Switches</h4>
+<p>Logically, switches function pretty much the same as if statements; they provide branches for our code to do different things under different conditions.</p>
+<code><pre>
+switch(<i class="custom">expression</i>){
+	case <i class="custom">match1</i>:
+		<i class="custom">do this</i>
+		break;
+	case <i class="custom">match2</i>:
+		<i class="custom">do this instead</i>
+		break;
+	.
+	.
+	.
+	default:
+		<i class="custom">do this if nothing else matches</i>
+}</pre></code>
+<p>First, the expression's value is calculated. This value is then compared with each of the cases one by one, in descending order. If the case's value (shown as <i>match1, match2 etc</i>) is equal to the expression's value, then that case block gets run. The <code>break</code> statements are used to skip over the other case blocks once the switch has found a matching one. If no match is found, then the default block is run.</p>
+<h2>Loops</h2>
+<p>Loops repeat the same block of code over and over. Once a certain condition is met, like when a variable reaches a certain value, the loop ends. It's critical that at least one of the variables involved in the loop is changing with each iteration. Otherwise, you create an endless loop which does nothing other than stall the program indefinitely and use up resources. There are a few ways to create loops in JS.</p>
+<h3>do-while Loop</h3>
+<p>This loop performs the loop once, then checks a condition at the end to see if it should be repeated. Note that regardless of whether the condition is met, the statements in the loop are performed at least once.</p>
+<code><pre>
+do{
+	<i class="custom">code block</i>
+}while (<i class="custom">condition</i>)</pre></code>
+<h3>while Loop</h3>
+<p>This loop checks the condition first before executing the code, so it is possible that the loop doesn't even run once.</p>
+<code><pre>
+while(<i class="custom">condition</i>){
+	<i class="custom">code block</i>
+}</pre></code>
+<h3>for Loop</h3>
+<p>This loop use three values. The first is the setup of a variable that the loop will use to determine its iterations. The second is the condition that that variable must be in, in order for the loop to continue. The third is how that variable is changed at the end of each iteration.</p>
+<code><pre>
+for(<i class="custom">varName</i>=<i class="custom">value</i>; <i class="custom">condition</i>; <i class="custom">changes to variable</i>)
+	{
+		<i class="custom">code block</i>
+	}
+</pre></code>
+<h3>for-in Loop</h3>
+<p>This loop is a special loop, used to handle iterating through an array. We don't really need to worry about an infinte loop because the loop will only iterate as many times as there are elements in the array. All you need to do is provide a variable name to store the current index value.</p>
+<code><pre>
+for(<i class="custom">varName</i> in <i class="custom">arrayName</i>)
+	{
+		<i class="custom">code block</i>
+	}
+</pre></code>
+
+
+
+
+</body>
+
+<footer>
+</footer>
+
+</html>
