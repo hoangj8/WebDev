@@ -27,7 +27,7 @@
 		.custom{
 			color:yellow;
 		}
-		h1,h2,h3{
+		h1,h2{
 			background-color:rgb(103 115 163); ;
 		}
 	</style>
@@ -208,6 +208,103 @@ for(<i class="custom">varName</i> in <i class="custom">arrayName</i>)
 		<i class="custom">code block</i>
 	}
 </pre></code>
+<section id="functions">
+	<h2>Functions</h2>
+	<p>Sometimes when we write a program, sometimes there's a part of it that we'd like to reuse. If we write it as a <dfn>function</dfn>, then we can use that chunk of code over and over anywhere we want to without having to type the whole thing out</p>
+	<code><pre>
+function <i class="custom">fname</i>(<i class="custom">parameter1</i>, <i class="custom">parameter2</i>,...){
+	<i class="custom">code block</i>
+	return <i class="custom">some value</i>;
+}</pre></code>
+	<p>The function name must be unique, at least within the context of its use. The parameters we give to the function are the only values it has access to; functions are meant to be resusable and standalone after all. The <code> return</code> statement allows the function to return some sort of value but is completely optional.</p>
+	<p>Using the function is pretty simple.</p>
+	<code><pre>
+var <i class="custom">varName</i>=<<i class="custom">fName</i>(<i class="custom">paramater1...</i>)		</pre></code>
+	<p>Simply write the function name, and then put the requried parameter values in brackets. If the function returns a value, we can assign the function call to a variable and the value it returns will automatically be assigned to the variable. If the function doesn't return a variable, we just call it as is, without variable assignment.</p>
+	<p>For example:</p>
+	<code>passwordReset(username2);</code>
+</section>
+
+<section id="dom">
+	<h2>The DOM</h2>
+	<p> In order for JS to get and manipulate things in your HTML or CSS, it needs a way to find them. This is where the <dfn>DOM</dfn> comes in. DOM stands for Document Object Model and it is basically a tree structure containing all of the elements and attributes and CSS styles. The browser creates this tree when rendering the page and because JS runs in the browser, it has access to this tree as well.</p>
+	<figure>
+		<img src="images/dom.png" alt="DOM tree structure">
+	</figure>
+	<p>The <code>HTML</code> element contains all the other elements, so it sits at the root of the DOM. All the other elements get added to the tree in terms of ancestry. Note that text is also considered as a child object in the DOM tree.</p>
+	<h3>Accessing the DOM</h3>
+	<p>In JS, we use the special <code>document</code> object to access the entire webpage DOM. The <code>document</code> object has properties we can access and methods we can use in order to add content dynamically to our web page.</p>
+	<h3>document Properties</h3>
+	<dl>
+		<dt><code>document.activeElement</code></dt>
+		<dd>Returns the element that has the focus of the web page</dd>
+		<dt><code>document.anchors</code></dt>
+		<dd>Returns list of all anchor elements on the web page</dd>
+		<dt><code>document.body</code></dt>
+		<dd>Gets the body element fo the web page.</dd>
+		<dt><code>document.cookie</code></dt>
+		<dd>Returns all cookie names and values</dd>
+		<dt><code>document.documentElement</code></dt>
+		<dd>Returns the HTML element</dd>
+		<dt><code>document.embeds</code></dt>
+		<dd>Returns a list of all embed elements in the web page.</dd>
+		<dt><code>document.forms</code></dt>
+		<dd>Returns a list of all form elements in the web page.</dd>
+		<dt><code>document.URL</code></dt>
+		<dd>Returns the full URL for the web page.</dd>
+		<dt><code>document.title</code></dt>
+		<dd>Returns the title of the web page.</dd>
+		<dt><code>document.images</code></dt>
+		<dd>Returns a list of all images in the web page.</dd>
+	</dl>
+	<h3>document Methods</h3>
+	<dl>
+		<dt><code>document.createElement()</code></dt>
+		<dd>Adds a new element object</dd>
+		<dt><code>document.createTextNode()</code></dt>
+		<dd>Addes a new text object</dd>
+		<dt><code>document.getElementbyID(<i class="custom">htmlID</i>)</code></dt>
+		<dd>Retrieves the element object with the specified ID</dd>
+		<dt><code>document.getElementsbyClass(<i class="custom">className</i></code></dt>
+		<dd>Retrives the list of element objects with the specified class</dd>.
+		<dt><code>document.getElementsByTagname(<i class="custom">tagName</i>)</code></dt>
+		<dd>Retrieves a list of element objects witht the specified element tag</dd>
+		<dd><code>hasFocus()</code></dd>
+		<dd>Returns a boolean if the web page is focused in the browser</dd>
+		<dt><code>document.write(<i class="custom">text</i>)</code></dt>
+		<dd>Sends the specified text to the web page for display. <strong>Will overwrite all HTML in the section that this is placed.</strong>. If you want to change the text content of an element, its better to manipulate that using the object method <code>innerHTML</code>.</dd>
+		<dt><code>document.writeln(<i class="custom">text</i>)</code></dt>
+		<dd>Sends the specified text to the web page for display, along with a new line character.</dd>
+	</dl>
+	<p>These are just an example, there are more you can <a href="https://www.w3schools.com/jsref/dom_obj_document.asp" target="_blank">look up</a> as you need.</p>
+	<h3>DOM Object Methods</h3>
+	<p> Now that we can get the individual objects on the DOM, we can use each object's properties and methods to do things with them. There are a ton of them so I won't bother listing them here. Check <a href="https://www.w3schools.com/jsref/dom_obj_all.asp" target="_blank">here</a> for the full list.</p> 
+	<p>Keep in mind that we can chain properties together like a URL to get to the exact thing we want to change:</p>
+	<code>document.body.style.backgroundColour</code>
+	<h3>Manipulating Form Elements</h3>
+	<h4>Text boxes</h4>
+	<p>You can access whatever value is in the text box using its <code>.value</code> property. For example:</p>
+	<code>
+		var textbox=document.getElementById("textInput1");
+		<br>var content = textbox.value;
+	</code>
+	<p> You can also use the <code>value</code> property to change the content of the textinput box.</p>
+	<code>textbox.value="Hello World!";</code>
+	<p>More text entry related properties can be found <a href="https://www.w3schools.com/jsref/dom_obj_text.asp" target="_blank">here</a>.</p>
+	<h4>Check boxes and Radio Buttons</h4>
+	<p> The <code>checked</code> property allows you to check if your check box or radio button is checked; it returns a boolean value.</p>
+	<code>var checkbox_1=document.getElementByID("checkbox1");
+		<br>var checkbox_status=checkbox_1.checked</code>
+	<p>You can also manually set whether the checkbox is cheed by assigning it a true or false value.</p>
+	<code>checkbox_1.checked=true;</code>
+	<p>Radio buttons are a little different because only one radio button in a group can be checked. Also, because radio buttons in a group all have the same 'name' value, it can be hard to find the exact one you want to mess with. For this, the <code>value</code> property is important as there will be different values associaed with each radio button.</p>
+	<p>For more properties and methods, click <a href="https://www.w3schools.com/jsref/dom_obj_checkbox.asp" target="_blank">here</a>.</p>
+</section>
+
+
+
+
+</section> 
 
 
 
