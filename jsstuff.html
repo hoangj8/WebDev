@@ -82,6 +82,7 @@
 			<li>Numerical values, which can be assigned as is</li>
 			<li>String values, which must be enclosed in "".</li>
 			<li>Arrays of values, which must be enclosed in [] and each value must be separated by a comma. Arrays are a biggie so more on them later.</li>
+			<li><code>null</code> and <code>undefined</code> values</li>
 		</ul>
 		You can combine variable declaration and value assignment with a single line like so:<br>
 		<code>var <i class="custom">varName</i> = <i class="custom">value</i>;</code>
@@ -104,7 +105,7 @@
 <h4>Math Operators</h4>
 <dl>
 	<dt><code>+</code></dt>
-	<dd>Addition. This is the only Math operator that can also be used with String values; it concatenates two separate strings into one.</dd>
+	<dd>Addition. This is the only Math operator that can also be used with String values; it concatenates two separate strings into one. If the first argument is a string, then the second argument will be turned into a string (regardless of its original type) for concatentation.</dd>
 	<dt><code>-</code></dt>
 	<dd>Subtraction</dd>
 	<dt><code>*</code></dt>
@@ -301,10 +302,121 @@ var <i class="custom">varName</i>=<<i class="custom">fName</i>(<i class="custom"
 	<p>For more properties and methods, click <a href="https://www.w3schools.com/jsref/dom_obj_checkbox.asp" target="_blank">here</a>.</p>
 </section>
 
+<section id="jquery">\
+	<h2>jQuery: What is it?</h2>
+	<p>When people talk about jQuery, they're just talking about a library of functions. Functions that programmers used time and time again were added to this library to simplify future developemnt. Instead of coding it yourself, just run the associated function from the library!</p>
+	<h2>jQuery: How do I load it?</h2>
+	<p>First you'll need to download the latest production package of jQuery from <a href="https://www.jquery.com" target="_blank">www.jquery.com</a>. There are four different versions of the package:</p>
+	<ul>
+		<li>Uncompressed</li>
+		<li>Minified</li>
+		<li>Slim</li>
+		<li>Slim minified</li>
+	</ul>
+	<p>Uncompressed means the full package, uncompressed. Minified means the full package but compressed. Slim removes animation and Ajax functions, but keeps the file uncompressed. Slim minified is basically the slim package but compressed. You'll generally want Minified to keep all the features, while making the file smaller so that your site loads faster</p>
+	<p>Now that you have jQuery, you'll need to host it on your server so that all your users can use it too when they load your page (T0 BE CONTINUED)</p>
+	<p>On the other hand, if you don't want to host jQuery you can use a CDN to load the jQuery library from a group of other servers. jQuery hosts its own CDN which you can find here:<br>
+		<a href="https://code.jquery.com" target="_blank">code.jquery.com</a>
+	<br>Google also provides jQuery packages on their CDN: <a href="https://developers.google.com/speed/libraries" target="_blank">developers.google.com/speed/libraries</a>.
+	<br>You simply pick your package type and embed the code provided into the start of your script so that it gets loaded before the functions are used</p>
+	<h2>jQuery: How do I use it?</h2>
+	<p>To use jQuery library functions, you'll need to use a special keyword prefix so that the browser knows it has to get that function from jQuery. We can use either <code>jQuery</code> or a simple <code>$</code>.
+	<br><code>jQuery(<i class="custom">jQuery code</i>);
+		<br>$(<i class="custom">jQuery code</i>);
+	</code><br>
+	Once the structure is all set up, we just put whatever jQuery function we want inside the ().</p>
+	<h2>jQuery: Finding elements</h2>
+	<p>Finding Elements is easy using jQuery because it uses the same selectors that CSS uses to find elements. The following code picks up the <code>p</code> element on the webpage.</p>
+	<code>$("p");</code>
+	<p>As you can see, we put our selector in "". Here's another example selecting for an ID.</p>
+	<code>$("#<i class="custom">elementID</i>");</code>
+	<h2>jQuery: Replacing data</h2>
+	<p>Once we can select elements, the next step is to change them up in some way.</p>
+	
+	<dl>
+		<h3>Replacing Text</h3>
+		<dt><code>$("<i class="custom">selector</i>").text("<i class="custom">Optional text</i>")</code></dt>
+		<dd>The <code>.text()</code> function retrieves the text in the selected element. You can write optional text as a parameter for the <code>.text</code> function in order to replace the text of the selected element.</dd>
+		<h3>Replacing HTML</h3>
+		<dt><code>$("<i class="custom">selector</i>").html("<i class="custom">HTML code</i>")</code></dt>
+		<dd>The <code>.html</code> function replaces the HTML in the selected element with whatever is written as a parameter. You can pretty much do anything you want HTML wise; rewrite the element to have different values or even replace it with a new element entirely. Note that the parameter must be written as HTML code, which means including the tags and stuff.</dd>
+		<h3>Replacing element attributes</h3>
+		<dt><code>$("<i class="custom">selector</i>").attr("<i class="custom">attribute</i>, <i class="custom">value</i>");</code></dt>
+		<dd> The <code>.attr</code> function allows you to retrieve and replace the selected element's attributes. If you just want to retrieve the attribute, just omit the value.</dd>
+		<h3>Reading Form Input</h3>
+		<dt><code>$("<i class="custom">input selector"</i>).val(<i class="custom">"Optional text"</i>);</i></code></dt>
+		<dd>The <code>.val</code> function allows you to retrieve the value for that input. This is extremely handy for validating form data before it gets sent to the server. Putting in an optional text parameter allows you to change the default text for that form input.</dd>
+		<h3>Changing CSS</h3>
+		<dt><code>$("<i class="custom">selector</i>").css("<i class="custom">property</i>", "<i class="custom">value</i>");</code></dt>
+		<dd>Use the <code>.css()</code> function to retrieve and chance CSS style properties for selected elements. The property naming convention is exactly like it is in CSS. If you want to change multiple properties for the same element, you'll need to put them all in {} and seperate each property:value pair with a comma. See the following example:
+		<br><code>$("p").css({"background-color":"blue", "width":"200px", "color":"white"})</code> </dd>
+	</dl>
+	<h3>Changing CSS classes</h3>
+	<p>With all these style changes everywhere, in your script and in your CSS, it makes it difficult to change things later. That's why its better to keep JS style changes in the CSS under a custom class name and just change the class of the element when you want to trigger the style change. Here are the jQuery functions we can use:</p>
+	<ul>
+		<li><code>.addClass("<i class="custom">className</i>")</code></li>
+		<li><code>.hasClass("<i class="custom">className</i>")</code> - a boolean</li> 
+		<li><code>.removeClass("<i class="custom">className</i>")</code></li>
+		<li><code>.toggleClass("<i class="custom">className</i>")</code> - an on-off toggle</li>
+	</ul>
+	<h3>Changing the DOM</h3>
+	<p>Not only can we change existing elements, we can use jQuery to add new elements to the DOM</p>
+	<dl>
+		<dt><code>$("<i class="custom">selector</i>").after("<i class="custom">HTML code</i>")</code></dt>
+		<dd>Inserts HTML after the selected element; creates a sibling node.</dd>
+		<dt><code>$("<i class="custom">selector</i>").append("<i class="custom">HTML code</i>")</code></dt>
+		<dd>Inserts HTML after the content of the selected element; creates a child node.</dd>
+		<dt><code>$("<i class="custom">selector</i>").before("<i class="custom">HTML code</i>")</code></dt>
+		<dd>Inserts HTML before the selected element; creats a sibling node.</dd>
+		<dt><code>$("<i class="custom">selector</i>").prepend("<i class="custom">HTML code</i>")</code></dt>
+		<dd>Inserts HTML before the content of the selected element; creates a child node.</dd>
+		<dt><code>$("<i class="custom">selector</i>").empty("<i class="custom">HTML code</i>")</code></dt>
+		<dd>Removes all child nodes from the selected node. Note that because text is considered a child node, the element's text is also removed.</dd>
+		<dt><code>$("<i class="custom">selector</i>").remove("<i class="custom">HTML code</i>")</code></dt>
+		<dd>Removes the selected node as well as any of its child nodes.</dd>
+	</dl>
+</section>
+<section id="events">
+	<h2>Event-driven Programming</h2>
+	<p>The browser is always keeping an eye and report on what the user is doing in the browser window. We can use this to our advantage and make our site react to whatever the user is doing</p>
+	<h3>Mouse Events in Javascript / HTML5</h3>
+	<p> To detect and trigger events, you need to set the following attributes in the HTML elements you want the effect to take place in. A good place to use these is with a generic <code>button</code> element that places a clickable button on the page.</p>
+	<dl>
+		<dt><code>onclick</code></dt>
+		<dd>Primary mouse button has been clicked</dd>
+		<dt><code>oncontextmenu</code></dt>
+		<dd>Secondary mouse button was clicked</dd>
+		<dt><code>onmouseenter</code></dt>
+		<dd>Mouse pointer has entered a specific area of the window</dd>
+		<dt><code>onmouseleave</code></dt>
+		<dd>Mouse has left a specific area of the window</dd>
+		<dt><code>onmouseover</code></dt>
+		<dd>Mouse cursor is hovering over a speciifc object</dd>
+		<dt><code>onmousedown</code></dt>
+		<dd>Primary mouse button is pressed down</dd>
+		<dt><code>onmouseup</code></dt>
+		<dd>Primary mouse button has been released</dd>
+	</dl>
+	<h3>Keyboard events in Javascript/HTML5</h3>
+	<dl>
+		<dt><code>onkeydown</code></dt>
+		<dd>A key is being pressed down</dd>
+		<dt><code>onkeyup</code></dt>
+		<dd>A key has been released</dd>
+		<dt><code>onkeypress</code></dt>
+		<dt><code>A key has been pressed and released</code></dt>
+	</dl>
+	<h3>Page events in HTML</h3>
+	<p>There are even some events that deal with the page itself, like when its printed, when its loaded, or when its viewed offline. These aren't as interactive as the others but you can read more about them here.</p>
+	<h3> Event Listeners</h3>
+	<p> Another way to add event detection is to add an event listener using pure JS. The advantage to this is that we don't have to add any attributes to our HTML elements. The event detection and reaction all happens in the javascript.<br>
+	To add an event, select the element in Javascript and then use the <code>addEventListener()</code> method, which has the following structure:
+	<br><code><i class="custom">selectedElement</i>.addEventListner("<i class="custom">event</i>", function1, function2...);</code>
+	<br>As you can see, the <code>addEventListener()</code> method takes at least two parameters. The first is always the event it's listening for. See here for a <a href="https://www.w3schools.com/jsref/dom_obj_event.asp" target="_blank">full list of the event keywords</a>. The parameters after that are the functions that will be triggered, separated by a comma if there are more than one.</code>
 
-
-
-</section> 
+	
+</section>
+ 
 
 
 
