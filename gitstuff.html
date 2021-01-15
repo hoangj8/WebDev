@@ -2,6 +2,30 @@
 <html>
 <head>
 	<title>How to use Git on Windows</title>
+	<style>
+	footer{
+			margin-top: 3px;
+			grid-area:footer;
+			border-top: double black;
+			background-color: rgb(103 115 163);
+		}
+		footer ul{
+			display:flex;
+			list-style: none;
+			margin-left: 20%;
+			margin-right:20%;
+			margin-top: 0.8em;
+			margin-bottom:0.8em;
+			justify-content: space-around;
+			
+		}
+		footer ul li{
+			background-color: rgb(92 188 247);
+		}
+		body{
+			margin-bottom: 0;
+		}
+	</style>
 </head>
 <body>
 <header>
@@ -10,8 +34,8 @@
 <p>Just a quick set of instructions on how to setup/use Git Bash in a Windows environment. </p>
 <h2>Setting up a new repository</h2>
 <ol>
-	<li><a href="https://gitforwindows.org/">Install Git Bash</a></li>
-	<li>Login to <a href="https://www.github.com">Github.com</a> and create a new remote repository</li>
+	<li><a href="https://gitforwindows.org/" target="_blank">Install Git Bash</a></li>
+	<li>Login to <a href="https://www.github.com" target="_blank">Github.com</a> and create a new remote repository</li>
 	<img src="images/git_new_remote_repo.png" alt="location to create new remote repo">
 	<li> In the new repo's setup page copy the link </li>
 	<img src="images/git_remote_repo_link.png" alt="location of repo URL">
@@ -29,6 +53,7 @@
 	<li>Use <code>git add <i>filename</i></code> to add any new files created since the last push to remote repo</li>
 	<li>Use <code>git commit -a -m "<i>summary</i>"</code> to send changes to local repository</li>
 	<li>Use <code> git push</code> to add changes to remote repo.</li>
+</ol>
 <footer>
 	<ul>
 	<li><a href="index.html">Home</a></li>
