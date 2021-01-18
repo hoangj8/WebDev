@@ -31,6 +31,9 @@
 			justify-content: space-around;
 			
 		}
+		dd{
+			margin-bottom: 10px;
+		}
 		footer ul li{
 			background-color: rgb(92 188 247);
 		}
@@ -100,6 +103,7 @@
 				<li><a href="#arrays">Arrays</a></li>
 				<li><a href="#operators">Operators</a></li>
 			</ul>
+			<li><a href="#methods">Methods Toolkit</a></li>
 			<li><a href="#flow">Directing Program Flow</a></li>
 				<ul>
 					<li><a href="#if">If statements</a></li>
@@ -139,7 +143,7 @@
 <p>There are two main ways to add JS to your webpages: <dfn>inline</dfn> and <dfn>externally</dfn>.</p>
 <h3>Inline Javascript</h3>
 <p>Inline javascript means adding the javascript directly to your HTML using the <code>&lt;script&gt;</code>...<code>&lt;/script&gt;</code> tags; all your javascript just goes between the tags. 
-	While you could place the tags anywhere in your HTML, it's important to know that the location affects when your javascript will run. If we want our JS to run before anything on the page is rendered, place the tags in the <code>head</code>. If we want it to run after everything is rendered, place the <code>script</code> tags after the <code>body</code>. Placing our script somewhere in the body means it will run after everything before it in the body is rendered. Everything after it in the body will not render until the script is done. There's a good chance this is not what you want so to be safe, just stick with putting the script in either the head or after the body.
+	While you could place the tags anywhere in your HTML, it's important to know that the location affects when your javascript will run. If we want our JS to run before anything on the page is rendered, place the tags in the <code>head</code>. If we want it to run after everything is rendered, place the <code>script</code> tags after the <code>body</code>. Placing our script somewhere in the body means it will run after everything before it in the body is rendered. Everything after it in the body will not render until the script is done. There's a good chance this is not what you want so to be safe, just stick with putting the script in either the head or after the body. Another thing to note is that if you put your script in the head, make sure that you don't reference any elements in the body of the HTML. This is because when the script runs, the browser has yet to render anything below it (i.e. the document body) so referring to body elements at this point will result in an error. However, there are ways to bypass this by essentially telling the browser to wait until everything is rendered before running the script. One way is to just add the <code>defer</code> attribute to the script tag in the HTML.
 </p>
 <h3>External Javascript</h3>
 <p>We can write all of our script in a separate <code>.js</code> file and link to that in the HTML, just like external style sheets.</p>
@@ -151,14 +155,31 @@
 	The benefit of an external script is that we can quickly apply it to multiple pages at once, rather than typing the script out in the HTML for every web page. And if we need to change the script later, we can just make the changes in that one document instead of going to and making the changes on every web page that uses the script.
 </p>
 <h2 id="jsstructure">Javascript Structuring</h2>
-<p>In terms of script structure, JS is similar to CSS. There is no formal structure / containers to set up like HTML; you just start putting down code right away. One key thing to note is that every line of code in JS ends with a semicolon (;) so be sure to remember!</p>
+<p>In terms of script structure, JS is similar to CSS. There is no containers or tags to set up like HTML; you just start putting down code right away. Here are some key things to note when writing Javascript.
+	<ul>
+		<li>Javascript is case sensitive. Ex.<i>var1</i> and <i>Var1</i> are two different variables</li>
+		<li>Use "camelCase" when naming variables using more than one word. The first word is lower case, and each subsequent word is capitalized. Ex. <i>helloWorld</i>. Read more about variables here.</li>
+		<li>Constants (a special data type in JS used to store values that don't change) should be named in all-caps.</li>
+		<li>Adding semicolons (<i>;</i>) to the end of each code statement is not necessary but is encouraged to help keep your code readable </li>
+	</ul>
+</p>
 
 <p>Thats the end of the basics with JS. Now we'll start looking at what we can do with JS. In the code examples below, custom user input will be put in italics so as to differentiate between them and JS keywords.</p>
 </section>
 
 <section id="variables">
 <h1>Working with Variables and Datatypes</h1>
-<p>The core of JS scripts is getting data and doing something with it and then displaying it back to the user. To work with data, we need some way to capture and store it so that we can work on it later. This is where variables come in. Think of variables as personally-labelled containers. We can use variables to store our data and whenever we want to use that data, we just call the variable by its name. Note: information stored in JS variables only exist as long as the user has the web page loaded. The momment the user exits the web page, that data is lost forever. To store data long-term, we'll need to transport that data into a database like an SQL server.</p>
+<h3>Datatypes</h3>
+<p>Datatypes are a way to define the type of data we're working with. In JS there are 5 main datatypes:</p>
+<ul>
+	<li>Strings</li>
+	<li>Numbers</li>
+	<li>Boolean</li>
+	<li>Null</li>
+	<li>Undefined</li>
+</ul>
+<p>The 'null' datatype is used to specifically mean 'nothing' or 'empty' and is used to intentionally assign 'no value' to variables. The 'undefined' datatype also means 'empty'; unassigned variables are 'undefined'. The difference between these two is that 'null' is intentionally assigned to variables while the 'undefined' datatype means that the variable doesn't have anything assigned to it at all.</p>
+<p>The core of programming is getting data and doing something with it and then displaying it back to the user. To work with data, we need some way to capture and store it so that we can work on it later. This is where variables come in. Think of variables as personally-labelled containers. We can use variables to store our data and whenever we want to use that data, we just call the variable by its name. Note: information stored in JS variables only exist as long as the user has the web page loaded. The momment the user exits the web page, that data is lost forever. To store data long-term, we'll need to transport that data into a database like an SQL server.</p>
 <h2 id="jsvariables">JS Variables</h2>
 <dl>
 	<dt><code>var <i>varName</i>;</code></dt>
@@ -173,17 +194,18 @@
 	<dd>You assign values to variables using the <code>=</code> sign. In JS, this is known as the <dfn>assignment operator</dfn>. There are different datatypes you can assign to a variable:
 		<ul>
 			<li>Numerical values, which can be assigned as is</li>
-			<li>String values, which must be enclosed in "".</li>
+			<li>String values, which must be enclosed in "" or ''. You can also set a modular string using `` (the symbol part of the tilde key). Modular strings allow you to embed variables in them like so: <code>`My favourite colour is: ${<i class="custom">favColour</i>}`</code>. The variable's value will then be incorporated in the string value.</li>
 			<li>Arrays of values, which must be enclosed in [] and each value must be separated by a comma. Arrays are a biggie so more on them later.</li>
 			<li><code>null</code> and <code>undefined</code> values</li>
 		</ul>
 		You can combine variable declaration and value assignment with a single line like so:<br>
 		<code>var <i class="custom">varName</i> = <i class="custom">value</i>;</code>
-	</dd>.
+	</dd>
 </dl>
 <h2 id="arrays">Arrays</h2>
 <p>Arrays are unique in that they can store multiple data values (called <dfn>elements</dfn>) under a single variable. There are some important characteristics when working with arrays</p>
 <ul>
+	<li>Array elements do not have to be all the same datatype.</li>
 	<li>Array elements are indexed starting at 0 for the first item and so on</li>
 	<li>You refer to specific values in the area by referencing their index number, like so:
 		<br><code>favourite_word=dictionary[46];</code></li>
@@ -191,14 +213,34 @@
 		<br><code>dictionary[4]="apple";</code></li>
 </ul>
 <h3>Array Methods</h3>
-<p></p>
+<dl>
+	<dt><code><i class="custom">arrayName</i>.reverse()</code></dt>
+	<dd>Reverses the positions of the items in the array</dd>
+	<dt><code><i class="custom">arrayName</i>.shift()</code></dt>
+	<dd>Reverses the first item in the array</dd>
+	<dt><code><i class="custom">arrayName</i>.unshift(<i class="custom">item1</i>,<i class="custom">item2</i>...)</code></dt>
+	<dd>Adds new items to the front of the array.</dd>
+	<dt><code><i class="custom">arrayName</i>.pop()</code></dt>
+	<dd>Removes the last item from the array.</dd>
+	<dt><code><i class="custom">arrayName</i>.push(<i class="custom">item1</i>,<i class="custom">item2</i>...)</code></dt>
+	<dd>Adds new items to the end of the array.</dd>
+	<dt><code><i class="custom">arrayName</i>.splice(<i class="custom">pos#</i>,<i class="custom">#toRemove</i>)</code></dt>
+	<dd>Removes items from a specific part in the array. Two arguments are required. The first is the position number of where you want to start removing elements, non-inclusive.  For example, if you want to remove the 5th item from the array, you'd start at position 4. Note that position number is different from index number: positions start at 1, not 0. The second argument is the number of items you want to remove.</dd>
+	<dt><code><i class="custom">arrayName</i>.slice()</code></dt>
+	<dd>Creates and returns a copy of the array.</dd>
+	<dt><code><i class="custom">arrayName</i>.indexOf(<i class="custom">item</i>,<i class="custom">index#</i>)</code></dt>
+	<dd>Returns the index number of the item, if it exists in the array</dd>
+	<dt><code><i class="custom">arrayName</i>.join()</code></dt>
+	<dd>Returns a string containing all the element values in the array, separated by commas. If you don't want commas, you can write a different separator in the brackets; the method will use whatever you write as the separator instead.</dd>
+
 
 <h2 id="operators">Operators</h2>
 <p>There are three main types of operators: Math operators, Boolean operators and Comparison Operators.</p>
 <h3>Math Operators</h3>
 <dl>
 	<dt><code>+</code></dt>
-	<dd>Addition. This is the only Math operator that can also be used with String values; it concatenates two separate strings into one. If the first argument is a string, then the second argument will be turned into a string (regardless of its original type) for concatentation.</dd>
+	<dd>Addition. This is the only Math operator that can also be used with String values; it concatenates two separate strings into one. If one of the arguments is a string, then the other will be treated as a string (regardless of its original type) for concatentation.</dd>
+	<p>These other values only perform math related functions. As long as one of the variables is a number, the others can be strings as each of the strings only contains a number.</p>
 	<dt><code>-</code></dt>
 	<dd>Subtraction</dd>
 	<dt><code>*</code></dt>
@@ -208,7 +250,7 @@
 	<dt><code>%</code></dt>
 	<dd>Modulus. A special division operator that returns only the remainder.</dd>
 	<dt><code>++</code></dt>
-	<dd>Increment by 1</dd>
+	<dd>Increment by 1. Note that the time this operation occurs depends on where you put the ++. If you put it in front, then 1 gets added to the value before returning the value. If you put it after (ex. a++), then you return the original value, but add 1 to the value in the background.</dd>
 	<dt><code>--</code></dt>
 	<dd>Decrease by 1</dd>
 </dl>
@@ -237,6 +279,27 @@
 	<dd>Checks if two sides have same value</dd>
 	<dt><code>===</code></dt>
 	<dd>Checks if two sides have samee value AND same data type</dd>
+</dl>
+</section>
+
+<section id="methods">
+<h2>Methods Toolkit</h2>
+<p>Here are some methods that I've come across that do some pretty useful things.</p>
+<dl>
+	<dt><code>alert(<i class="custom">Message to appear on popup</i>)</code></dt>
+	<dd>This method generates a popup on the screen, which can be useful for telling your user about something important. They get annoying quick so use them sparingly. If the user has adblockers, there's also a chance they get blocked too.</dd>
+	<dt><code>console.log(<i class="custom">Message to show on console</i>)</code></dt>
+	<dd>This method takes whatever's in the brackets and displays it to the console. Your average user won't be inspecting the console so this method is more for us. It's really helpful for tracking variable values and logic flow at key areas of your program; a great debugging tool. Make sure to remove or comment it out once you deploy!</dd>
+	<dt><code>prompt(<i class="custom">Message</i>)</code></dt>
+	<dd>This method generates a popup that has a text input field. Whatever the user enters can be stored in a variable and manipulated.</dd>
+	<dt><code>eval(<i class="custom">Some string</i>)</code></dt>
+	<dd>This method is useful for evaluating strings as math statements. This can be useful if you're receiving data from a user as a string and you want to process that data as a calculation.</dd>
+	<dt><code>//<i class="custom">some comment</i></code></dt>
+	<dd>Not really a method but useful regardless. Use <code>//</code> to add single-line comments to your code.</dd>
+	<dt><code>/*<i class="custom">Comment block</i>*/</code></dt>
+	<dd>If you need to write alot of comments in one place, use the comment block. Everything that goes in between the <code>/*</code> and <code>*/</code> becomes a comment.</dd>
+	<dt><code>typeof <i class="custom">variableName</i></code></dt>
+	<dd>If you ever need to know what type of data a variable is holding, use the <code>typeof</code>operator, which returns the data type of the variable</dd>
 </dl>
 </section>
 
@@ -414,7 +477,7 @@ var <i class="custom">varName</i>=<<i class="custom">fName</i>(<i class="custom"
 	<p>For more properties and methods, click <a href="https://www.w3schools.com/jsref/dom_obj_checkbox.asp" target="_blank">here</a>.</p>
 </section>
 
-<section id="jquery">\
+<section id="jquery">
 	<h2 id="whatjquery">jQuery: What is it?</h2>
 	<p>When people talk about jQuery, they're just talking about a library of functions. Functions that programmers used time and time again were added to this library to simplify future developemnt. Instead of coding it yourself, just run the associated function from the library!</p>
 	<h2 id="howjquery">jQuery: How do I load it?</h2>
