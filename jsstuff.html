@@ -52,7 +52,7 @@
 		.fcode{
 			background-color: gray;
 			margin-left: 0;
-			margin-right:40%;
+			margin-right:30%;
 			grid-area:content;
 		}
 		.fivefigures{
@@ -82,7 +82,9 @@
 			padding-left: 0.5%;
 			margin-right: 5%;
 		}
-		
+		span.comment{
+			color:rgb(199 197 193);
+		}
 	</style>
 </head>
 <body>
@@ -194,7 +196,7 @@
 	<dd>You assign values to variables using the <code>=</code> sign. In JS, this is known as the <dfn>assignment operator</dfn>. There are different datatypes you can assign to a variable:
 		<ul>
 			<li>Numerical values, which can be assigned as is</li>
-			<li>String values, which must be enclosed in "" or ''. You can also set a modular string using `` (the symbol part of the tilde key). Modular strings allow you to embed variables in them like so: <code>`My favourite colour is: ${<i class="custom">favColour</i>}`</code>. The variable's value will then be incorporated in the string value.</li>
+			<li>String values, which must be enclosed in "" or ''. You can also set a modular string using `` (the symbol part of the tilde key). Modular strings allow you to embed variables in them like so: <code>`My favourite colour is: ${<i clas,ds="custom">favColour</i>}`</code>. The variable's value will then be incorporated in the string value.</li>
 			<li>Arrays of values, which must be enclosed in [] and each value must be separated by a comma. Arrays are a biggie so more on them later.</li>
 			<li><code>null</code> and <code>undefined</code> values</li>
 		</ul>
@@ -401,6 +403,30 @@ var <i class="custom">varName</i>=<<i class="custom">fName</i>(<i class="custom"
 	<code>passwordReset(username2);</code>
 </section>
 
+<section id="objects">
+	<h2>JS Objects</h2>
+	<p>Creating variables is fine if we have just a few pieces of data we want to store and manipulate. What if we have lots of closely related data? It might be better to bundle all those variables up into an <dfn>object</dfn>. Objects in JS are basically bundles of properties and values, of which we can access individually or all at once.</p>
+	<p>To create an object, we create a function and define all the object properties, values, and even methods. Note the use of the <code>this</code>keyword to refer to the current object. Typically, this  would be some future variable that we haven't created yet and thus, we don't know its name so <code>this</code> comes in handy. </p>
+	<figure class="fcode"><code><pre>
+function Student(name,id,courses) {
+	this.name=name;
+	this.id=id;
+	this.courses=courses;
+	this.addCourse: function(){
+		return ++student.courses;
+	}
+};</pre></code></figure>
+	<p>We can now create a variable and assign it to be the object we just created. Then we can access its object properties and functions using <code>.</code> notation.</p>
+	<figure class="fcode"><code><pre>
+var student1=new Student("John Doe",123456,3);
+console.log(student1.name);  <span class="comment">//prints out "John Doe"</span>
+console.log(student1.courses);  <span class="comment">//prints out 3</span>
+student.addCourse();
+console.log(student1.courses);  <span class="comment">//prints out 4</span>
+</pre></code></figure>
+
+
+
 <section id="dom">
 	<h2>The DOM</h2>
 	<p> In order for JS to get and manipulate things in your HTML or CSS, it needs a way to find them. This is where the <dfn>DOM</dfn> comes in. DOM stands for Document Object Model and it is basically a tree structure containing all of the elements and attributes and CSS styles. The browser creates this tree when rendering the page and because JS runs in the browser, it has access to this tree as well.</p>
@@ -436,25 +462,44 @@ var <i class="custom">varName</i>=<<i class="custom">fName</i>(<i class="custom"
 	<h3>document Methods</h3>
 	<dl>
 		<dt><code>document.createElement()</code></dt>
-		<dd>Adds a new element object</dd>
+		<dd>Creates a new element. Note: just sits in memory until you append it to something. </dd>
 		<dt><code>document.createTextNode()</code></dt>
-		<dd>Addes a new text object</dd>
+		<dd>Creates a DOM text element. Remember, the text part of elements is considered a separate node!</dd>
 		<dt><code>document.getElementbyID(<i class="custom">htmlID</i>)</code></dt>
 		<dd>Retrieves the element object with the specified ID</dd>
 		<dt><code>document.getElementsbyClass(<i class="custom">className</i></code></dt>
 		<dd>Retrives the list of element objects with the specified class</dd>.
 		<dt><code>document.getElementsByTagname(<i class="custom">tagName</i>)</code></dt>
 		<dd>Retrieves a list of element objects witht the specified element tag</dd>
-		<dd><code>hasFocus()</code></dd>
+		<dt><code>document.querySelector("<i class="custom">css selector</i>")</code></dt>
+		<dd>Gets the first element that matches the specified CSS selector.</dd>
+		<dt><code>document.querySelectorAll("<i class="custom">css selector</i>")</code></dt>
+		<dd>Gets all elements that match the specified CSS selector. Multiple selectors are comma separated.</dd>
+		<dt><code>hasFocus()</code></dt>
 		<dd>Returns a boolean if the web page is focused in the browser</dd>
 		<dt><code>document.write(<i class="custom">text</i>)</code></dt>
 		<dd>Sends the specified text to the web page for display. <strong>Will overwrite all HTML in the section that this is placed.</strong>. If you want to change the text content of an element, its better to manipulate that using the object method <code>innerHTML</code>.</dd>
 		<dt><code>document.writeln(<i class="custom">text</i>)</code></dt>
 		<dd>Sends the specified text to the web page for display, along with a new line character.</dd>
 	</dl>
+	<h3>Element Methods</h3>
+	<dl>
+		<dt><code><i class="custom">element</i>.getAttribute("<i class=custom>attribute</i>")</code></dt>
+		<dd>Returns the element's value for the specified attribute</dd>
+		<dt><code><i class="custom">element</i>.appendChild()</code></dt>
+		<dd>Adds whatever node is in the brackets as a child to another node.</dd>
+	</dl>
 	<p>These are just an example, there are more you can <a href="https://www.w3schools.com/jsref/dom_obj_document.asp" target="_blank">look up</a> as you need.</p>
 	<h3>DOM Object Methods</h3>
-	<p> Now that we can get the individual objects on the DOM, we can use each object's properties and methods to do things with them. There are a ton of them so I won't bother listing them here. Check <a href="https://www.w3schools.com/jsref/dom_obj_all.asp" target="_blank">here</a> for the full list.</p> 
+	<p> Now that we can get the individual objects on the DOM, we can use each object's properties and methods to do things with them. There are a ton of them so I won't bother listing all of them here. Check <a href="https://www.w3schools.com/jsref/dom_obj_all.asp" target="_blank">here</a> for the full list.</p> 
+	<h4>Adding DOM Elements in JS</h4>
+	<dl>
+		<dt><code>.createElement()</code></dt>
+		<dd> </dd>
+		<dt><code>.createTextNode()</code></dt>
+		<dd></dd>
+		
+	</dl>
 	<p>Keep in mind that we can chain properties together like a URL to get to the exact thing we want to change:</p>
 	<code>document.body.style.backgroundColour</code>
 	<h3>Manipulating Form Elements</h3>
