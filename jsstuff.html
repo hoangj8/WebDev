@@ -488,6 +488,8 @@ console.log(student1.courses);  <span class="comment">//prints out 4</span>
 		<dd>Returns the element's value for the specified attribute</dd>
 		<dt><code><i class="custom">element</i>.appendChild()</code></dt>
 		<dd>Adds whatever node is in the brackets as a child to another node.</dd>
+		<dt><code><i class="custom">element</i>.style.<i class="custom">styletype</i></code></dt>
+		<dd>Accesses the specified CSS style of the element. You can change it by assigning it a string CSS value.</dd>
 	</dl>
 	<p>These are just an example, there are more you can <a href="https://www.w3schools.com/jsref/dom_obj_document.asp" target="_blank">look up</a> as you need.</p>
 	<h3>DOM Object Methods</h3>
@@ -600,10 +602,10 @@ console.log(student1.courses);  <span class="comment">//prints out 4</span>
 	<h2>Event-driven Programming</h2>
 	<p>The browser is always keeping an eye and report on what the user is doing in the browser window. We can use this to our advantage and make our site react to whatever the user is doing</p>
 	<h3>Mouse Events in Javascript / HTML5</h3>
-	<p> To detect and trigger events, you need to set the following attributes in the HTML elements you want the effect to take place in. A good place to use these is with a generic <code>button</code> element that places a clickable button on the page.</p>
+	<p> To detect and trigger events, you can set the following attributes in the HTML elements you want the effect to take place in. A good place to use these is with a generic <code>button</code> element that places a clickable button on the page.</p>
 	<dl>
-		<dt><code>onclick</code></dt>
-		<dd>Primary mouse button has been clicked</dd>
+		<dt><code><i class="custom">element</i>.onclick=<i class="custom">function</i></code></dt>
+		<dd>Primary mouse button has been clicked on the specified element, which triggers the specified function. Note that when specifiying the function, you don't add () at the end.</dd>
 		<dt><code>oncontextmenu</code></dt>
 		<dd>Secondary mouse button was clicked</dd>
 		<dt><code>onmouseenter</code></dt>
@@ -624,16 +626,20 @@ console.log(student1.courses);  <span class="comment">//prints out 4</span>
 		<dt><code>onkeyup</code></dt>
 		<dd>A key has been released</dd>
 		<dt><code>onkeypress</code></dt>
-		<dt><code>A key has been pressed and released</code></dt>
+		<dd>A key has been pressed and released</dd>
 	</dl>
+	<p>The disadvantage to detecting events in this way is that only one event can be bound to an element at a time. If you want an event to trigger multiple functions, use an <a href="#eventlistener">event listener</a>.
 	<h3>Page events in HTML</h3>
 	<p>There are even some events that deal with the page itself, like when its printed, when its loaded, or when its viewed offline. These aren't as interactive as the others but you can read more about them here.</p>
-	<h3> Event Listeners</h3>
+	<h3 id="eventlistener"> Event Listeners</h3>
 	<p> Another way to add event detection is to add an event listener using pure JS. The advantage to this is that we don't have to add any attributes to our HTML elements. The event detection and reaction all happens in the javascript.<br>
 	To add an event, select the element in Javascript and then use the <code>addEventListener()</code> method, which has the following structure:
 	<br><code><i class="custom">selectedElement</i>.addEventListner("<i class="custom">event</i>", function1, function2...);</code>
-	<br>As you can see, the <code>addEventListener()</code> method takes at least two parameters. The first is always the event it's listening for. See here for a <a href="https://www.w3schools.com/jsref/dom_obj_event.asp" target="_blank">full list of the event keywords</a>. The parameters after that are the functions that will be triggered, separated by a comma if there are more than one.</code>
-	</p>
+	<br>As you can see, the <code>addEventListener()</code> method takes at least two parameters. The first is always the event it's listening for. See here for a <a href="https://www.w3schools.com/jsref/dom_obj_event.asp" target="_blank">full list of the event keywords</a>. The parameters after that are the functions that will be triggered, separated by a comma if there are more than one. </p>
+	<h4>Passing paramaters into EventListner functions</h4>
+	<p>Like the above event handlers, you need to omit the () part of the functions you place in the event listener. Otherwise, they just automatically execute when that the browser reads that part of the code which is probably not what you want. But there's a problem: How do you pass parameters to the functions you bind to events? Just wrap them in an anonymous function!
+		<br>
+	<code><i class=custom>element</i>.addEventListener('click', function(){<i class="custom">function1(parameters...)</i>});</code></p>
 	
 </section>
 <section id="troubleshooting">
