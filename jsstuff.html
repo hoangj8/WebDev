@@ -4,22 +4,26 @@
 	<title>Javascript</title>
 <style>
 		body{
-			display:grid;
-			grid-template-columns: 300px;
-			grid-template-rows:99.5%;
+	/*		display:grid;
+			grid-template-columns: 500px;
+			grid-template-rows:autofit;
 			grid-template-areas: "nav content"
 								 "footer footer";
 			margin-top: 0;
-			margin-bottom: 0;
+			margin-bottom: 0;*/
+			position: relative;
 		}
 		header{
 			
 		}
 		footer{
 			margin-top: 3px;
-			grid-area:footer;
 			border-top: double black;
 			background-color: rgb(103 115 163);
+			position: fixed;
+			bottom:0;
+			width:100%;
+
 		}
 		footer ul{
 			display:flex;
@@ -47,13 +51,11 @@
 		dfn{
 			color:red;
 			font-weight: bold;
-			grid-area:content;
 		}
 		.fcode{
 			background-color: gray;
 			margin-left: 0;
-			margin-right:30%;
-			grid-area:content;
+			margin-right:20%;
 		}
 		.fivefigures{
 			display:flex;
@@ -67,24 +69,63 @@
 		}
 		h1,h2{
 			background-color:rgb(103 115 163);
-			grid-area:content;
 		}
 		#nav{
-			grid-area:nav;
-			margin-right: 5px;
+			margin-right: 10px;
 			position: fixed;
+			left:0;
+			top:0;
+			background-color: pink;
+			font-size:15px;
+			padding-right: 10px;
 		}
-		p{
-			grid-area:content;
+		#nav li{
+			margin-bottom: 2px;
+		}
+		#nav ul ul{
+			padding-left: 20px;
 		}
 		main{
-			border-left: double black;
-			padding-left: 0.5%;
-			margin-right: 5%;
+			position: relative;
+			margin-left: 15%;
+			padding-bottom:5%;
+			margin-right:20%;
+			padding-left: 30px;
 		}
 		span.comment{
 			color:rgb(199 197 193);
 		}
+		/*do the following changes when window gets smaller*/
+		@media only screen and (max-width: 1700px) {
+    		#nav {
+   			}
+   			main{
+   				margin-left:20%;
+   				margin-right:5%;
+   			}
+		}
+
+
+		@media only screen and (max-width: 1250px) {
+    		#nav {
+   			}
+   			main{
+   				margin-left:25%;
+   				margin-right:5%;
+   			}
+		}
+
+		@media only screen and (max-width: 1000px) {
+    		#nav {
+       			display: none;
+   			}
+   			main{
+   				border:none;
+   				margin:auto;
+   			}
+		}
+
+	
 	</style>
 </head>
 <body>
@@ -379,7 +420,7 @@ try{
 } catch(err){
 	<i class="custom">code in case of error</i>
 } finally{
-	<i class="custom">code that always gets run regardless of what happens in the two blocks above</i>
+	<i class="custom">code that always gets run regardless of try results</i>
 }
 </pre></code></figure>
 <p>The "err" parameter is just a variable name we've provided to hold the error object that gets generated when an error occurs. We can use the variable in our secondary block of code; ex. to alert us of the error that occurred. The <code>finally</code> block is optional; we can use this block to include any related code that should always run regardless if the <code>try</code> block fails or not.</p>
