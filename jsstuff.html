@@ -156,6 +156,9 @@
 					<li><a href="#try">try-catch</a></li>
 				</ul>
 			<li><a href="#functions">Functions</a></li>
+			<li><a href="#objects">Objects</a></li>
+			<li><a href="#maps">Maps</a></li>
+			<li><a href="#classes">Classes</a></li>
 			<li><a href="#dom">DOM</a></li>
 			<li><a href="#jquery">jQuery</a></li>
 			<ul>
@@ -233,6 +236,7 @@
 			<li>Variables are case sensitive.</li>
 		</ul>
 	</dd>
+	<p>With ECMAScript, we can also declare variables using <code>const</code> for constants and <code>let</code> for block-scope variables. Constant variables can't be changed after assignment. Normally variables are function-scoped or gobal depending on where they are declared. However with <code>let</code>, you can have the same variable name hold different values just by being in different code blocks.</p>
 	<dt><code><i class="custom">varName</i> = <i class="custom">value</i>;</code></dt>
 	<dd>You assign values to variables using the <code>=</code> sign. In JS, this is known as the <dfn>assignment operator</dfn>. There are different datatypes you can assign to a variable:
 		<ul>
@@ -244,6 +248,19 @@
 		You can combine variable declaration and value assignment with a single line like so:<br>
 		<code>var <i class="custom">varName</i> = <i class="custom">value</i>;</code>
 	</dd>
+</dl>
+<h3>String methods</h3>
+<dl>
+	<dt><code><i class=custom>stringVar</i>.startsWith("<i class=custom>prefix</i>")</code></dt>
+	<dd>Returns a boolean on whether the string starts with the specified prefix. Case sensitive.</dd>
+	<dt><code><i class=custom>stringVar</i>.endsWith("<i class=custom>suffix</i>")</code></dt>
+	<dd>Returns a boolean on whether the string ends with the specified suffix. Case sensitive.</dd>
+	<dt><code><i class=custom>stringVar</i>.includes("<i class=custom>substring</i>")</code></dt>
+	<dd>Returns a boolean on whether the specified substring exists within the string. Case senstiive.</dd>
+	<dt><code><i class=custom>stringVar</i>.search("<i class=custom>substring</i>")</code></dt>
+	<dd>Searches for the specified substring in the string and returns the index of its first occurrence.</dd>
+	<dt><code><i class=custom>stringVar</i>.repeat(<i class=custom>#</i>)</code></dt>
+	<dd>Repeats the string the specified amount of times.</dd>
 </dl>
 <h2 id="arrays">Arrays</h2>
 <p>Arrays are unique in that they can store multiple data values (called <dfn>elements</dfn>) under a single variable. There are some important characteristics when working with arrays</p>
@@ -275,7 +292,30 @@
 	<dd>Returns the index number of the item, if it exists in the array</dd>
 	<dt><code><i class="custom">arrayName</i>.join()</code></dt>
 	<dd>Returns a string containing all the element values in the array, separated by commas. If you don't want commas, you can write a different separator in the brackets; the method will use whatever you write as the separator instead.</dd>
-
+	<dt><code><i class="custom">arrayName</i>.forEach()</code></dt>
+	<dd>Iterates through an array and does whatever function is in the () on each element</dd>
+	<dt><code><i class="custom">arrayName</i>.map()</code></dt>
+	<dd>Iterates through and performs a function you specify in the () to each element. The changed elements are then placed in a new array which is returned. The array element's value is automatically set as the function argument.</dd>
+	<dt><code><i class="custom">arrayName</i>.includes(<i class="custom">value</i>)</code></dt>
+	<dd>Returns a boolean on whether or not the the specified value is contained in the array</dd>
+	<dt><code>...<i class="custom">arrayName</i></code></dt>
+	<dd>The spread operator separates out the elements of an array and uses them as arguments in the current context. Ex. you could use this to take the elements of one array and copy them into another array.
+		<figure class="fcode"><code><pre>
+let kids = ["Michael", "Mary", "Jennifer"];
+let class = ["John", "Calvin", "Priscilla", "Catherine", ...kids];
+</pre></code></figure>
+	</dd>
+</dl>
+<h2 id="Sets">Sets</h2>
+<p>Sets are similar to arrays in that they hold a collection of values that can be any type, in indices starting from 0. The difference between sets and arrays is that elements in a set must be unique. If you try to add an item that's already in the set, nothing will happen.</p>
+<figure class="fcode"><code><pre>
+let books = new Set();
+books.add("Sherlock Holmes");
+</pre></code></figure>
+You can check to see if a value is in the set already by using the <code>has</code> method.</p>
+<br><code>var x =books.has("Sherlock Holmes");</code>
+<p>You can remove set values by using the <code>delete</code> method</p>
+<br><code>books.delete("Sherlock Holmes");</code>
 
 <h2 id="operators">Operators</h2>
 <p>There are three main types of operators: Math operators, Boolean operators and Comparison Operators.</p>
@@ -343,7 +383,12 @@
 	<dd>If you need to write alot of comments in one place, use the comment block. Everything that goes in between the <code>/*</code> and <code>*/</code> becomes a comment.</dd>
 	<dt><code>typeof <i class="custom">variableName</i></code></dt>
 	<dd>If you ever need to know what type of data a variable is holding, use the <code>typeof</code>operator, which returns the data type of the variable</dd>
-</dl>
+	<dt><code><i class="custom">varName</i>.setInterval(<i class=custom>function1</i>, <i class=custom>#miliseconds</i>)</code></dt>
+	<dd>Assigns an interval to a variable and runs the specified function at every specified time interval in miliseconds.</dd>
+	<dt><code>clearInterval(<i class="custom">varName</i>)</code></dt>
+	<dd>Stops any interval assigned to the specified variable, if it is running.</dd>
+	<dt><code>fetch(<i class=custom>URL</i>)</code></dt>
+	<dd>Fetches from the specified URL, usually used as an API call to fetch some data. This is an asynchronous function call so it is usually linked with <code>.then()</code> to process the data whenever it decides to arrive.</dd>
 </section>
 
 <section id="flow">
@@ -412,6 +457,8 @@ for(<i class="custom">varName</i> in <i class="custom">arrayName</i>)
 	}
 </pre></code></figure>
 
+<p> All loops repeat their contained code blocks until the specified condition is met. However, it'd be nice if we could stop the loop whenever we wanted. That's where <code>break</code> and <code>continue</code> come in. The <code>break</code> keyword allows us to immediately end the loop, even if the specified loop condition has not been met. This is useful if the loops intention is to find something; once its been found, there's no point in looking at the rest of the objects so we use <code> break</code> to exit the loop. On the other hand, suppose the current iteration we're on doesn't have what we're looking for. Rather than go through the rest of the loop code block, we can use <code>continue</code> to immediately move to the next iteration of the loop. </p>
+
 <h2 id="try">try...catch Statements</h2>
 <p>This special code block allows us to "try" out a block of code. If we "catch" an error during that block, we provide a second block of code that gets run instead.</p>
 <figure class="fcode"><code><pre>
@@ -435,13 +482,28 @@ function <i class="custom">fname</i>(<i class="custom">parameter1</i>, <i class=
 	<i class="custom">code block</i>
 	return <i class="custom">some value</i>;
 }</pre></code></figure>
-	<p>The function name must be unique, at least within the context of its use. The parameters we give to the function are the only values it has access to; functions are meant to be resusable and standalone after all. The <code> return</code> statement allows the function to return some sort of value but is completely optional.</p>
+	<p>The function name must be unique, at least within the context of its use. The parameters we give to the function are the only values it has access to; functions are meant to be resusable and standalone after all. We can assign default values to these parameters if we want to; default values will be used if the user does not specify values for any of the parameters. The <code> return</code> statement allows the function to return some sort of value but is completely optional.</p>
 	<p>Using the function is pretty simple.</p>
 	<figure class=fcode><code><pre>
 var <i class="custom">varName</i>=<<i class="custom">fName</i>(<i class="custom">parameter1...</i>)		</pre></code></figure>
-	<p>Simply write the function name, and then put the requried parameter values in brackets. If the function returns a value, we can assign the function call to a variable and the value it returns will automatically be assigned to the variable. If the function doesn't return a variable, we just call it as is, without variable assignment.</p>
+	<p>Simply write the function name, and then put the required parameter values in brackets. If the function returns a value, we can assign the function call to a variable and the value it returns will automatically be assigned to the variable. If the function doesn't return a variable, we just call it as is, without variable assignment.</p>
 	<p>For example:</p>
 	<code>passwordReset(username2);</code>
+	<h3> Anonymous functions</h3>
+	<p>When we write functions, it helps us package together code that performs a specific task. We can then call that package anywhere in the script to repeat that task. Sometimes the function we write will only be used once. In this situation, its better to use an anonymous function. Anonymous functions have no function name and they will only be used once.</p>
+	<figure class="fcode"><code><pre>
+var <i class="custom">varName</i>=function(<i class="custom">parameter1</i>, <i class="custom">parameter2</i>,...){
+	<i class="custom">code block</i>
+	return <i class="custom">some value</i>;
+}</pre></code></figure>
+	<h3>Arrow Functions</h3>
+	<p>Sometimes even anonymous functions might seem like overkill if all you want your function to do is perform a simple calculation pass it to a variable. In this case, we can use arrow functions.
+	Arrow functions takes a set of parameters, points those parameters to an action or set of actions, and then returns the value of that calculation.</p>
+		<figure class="fcode"><code><pre>
+var <i class="custom">multiply</i> =(<i class="custom">x</i>, <i class="custom">y</i>,...)=><i class="custom">x*y</i>;
+console.log(multiply(5,6)); <span class=comment>//prints out 30</span>
+</pre></code></figure>
+
 </section>
 
 <section id="objects">
@@ -465,8 +527,95 @@ console.log(student1.courses);  <span class="comment">//prints out 3</span>
 student.addCourse();
 console.log(student1.courses);  <span class="comment">//prints out 4</span>
 </pre></code></figure>
+<h3>Object spreading</h3>
+<p> Remember the array spread operator (<code>...</code>) that let you put the contents of one array into another without nesting the whole array? You can do that to create bigger objects from the contents (property-value pairs) of other objects.</p>
+<h3>Object destructuring</h3>
+<p>Lets say we have an object with a bunch of key value pairs. We have a function that only uses some of those key-value pairs. We could set our function constructor to take the whole object and then just use . notation to call the key-values that we want from the object. Another way of doing this would be to specify in the constructor the exact keys we plan to use. Then when we pass the object into the function, those specific key-values are retrieved automatically.</p>
+<figure class="fcode"><code><pre>
+var student = {
+	name: "John Doe",
+	GPA: 4
+}
+function welcomeMsg({name}){
+	return `Welcome to our school, ${name}!`;
+}
+console.log(welcomeMsg(student));
+</pre></code></figure>
+</section>
+
+<section id="maps">
+	<h2>Maps</h2>
+	<p>Maps are similar to objects in that you're creating an entity with a bunch of key-value pairs associated with it. However, with maps you can both objects and primitve values as the key or the value in a key-value pair.</p>
+	<figure class="fcode"><code><pre>
+let student=new Map([
+	[new Date(), "Date enrolled"],
+	["Grades", ["A","B", "A"]]
+]);</pre></code></figure>
+	<p>Notice how a map looks like one big array and how each entry is just a smaller, 2-item array.</p>
+	<p> You can add new entries manually one by one using the <code>set</code> method.</p>
+	<br><code>student.set("name", "John Doe");</code>
+	<p>To retrieve a key's value, use the <code>get</code> method.</p>
+	<br><code>student.get("Grades");</code>
+	<p>If we want to iterate through a map, we can use a for-of loop.</p>
+	<figure class="fcode"><code><pre>
+for(let x of student){
+	<i class=custom>do something with each key-value</i>
+}</pre></code></figure>
+	<p>We can combine this with the <code>keys()</code> or <code>values()</code> function to retrieve specifically the keys or values from each step in the iteration.</p>
+	<figure class="fcode"><code><pre>
+for(let x of student.keys()){
+	<i class=custom>do something with each key</i>
+}</pre></code></figure>
+</section>
 
 
+<section id="classes">
+	<h2>Classes</h2>
+	<p>Classes are kind of like blueprints for objects. They allow us to create multiple instances of objects very quickly, without having to type everything out all over again.</p>
+	<p> To create a class, we use the <code>class</code> keyword followed by the class name.</p>
+	<figure class="fcode"><code><pre>
+class <i class="custom"> student</i>{
+
+}
+</pre></code></figure>
+	<p> Next, we need to define the constructor. We'll use the constructor to help us build each new instance of the class</p>
+	<figure class="fcode"><code><pre>
+class <i class="custom"> student</i>{
+	constuctor(<i class="custom">name</i>, <i class=custom>gpa</i>){
+		this.name=name;
+		this.GPA=gpa;
+	}
+}
+</pre></code></figure>
+	<p>Now, we just add any functions that we want each instance of our class to have. Normally, classes will have a getter and a setter (functions that retrieve property values and functions that set property values.</p>
+	<figure class="fcode"><code><pre>
+class <i class="custom"> student</i>{
+	constuctor(<i class="custom">name</i>, <i class=custom>gpa</i>){
+		this.name=name;
+		this.GPA=gpa;
+	}
+	function setGPA(x){
+		this.GPA=x;
+	}
+}
+</pre></code></figure>
+	<h3>Class Inheritance</h3>
+	<p>You can create new classes that inherit features from existing ones by using the <code>extends</code> keyword.</p>
+	<figure class="fcode"><code><pre>
+class <i class="custom"> gradStudent</i> extends student</i>{
+	constuctor(){
+		super("Jane Doe", 3.5);
+	}
+}
+</pre></code></figure>
+	<p> The <code>super</code> keyword is used to reference the constructor from the ancestor class</p>
+
+
+
+
+
+
+</section>
 
 <section id="dom">
 	<h2>The DOM</h2>
@@ -531,6 +680,10 @@ console.log(student1.courses);  <span class="comment">//prints out 4</span>
 		<dd>Adds whatever node is in the brackets as a child to another node.</dd>
 		<dt><code><i class="custom">element</i>.style.<i class="custom">styletype</i></code></dt>
 		<dd>Accesses the specified CSS style of the element. You can change it by assigning it a string CSS value.</dd>
+		<dt><code><i class="custom">element</i>.value</code></dt>
+		<dd>Retrieves the value of the selected element. You can change it by assigning it a new value.</dd>
+		<dt><code><i class="custom">element</i>.innerHTML</code></dt>
+		<dd>Retrieves the content of the selected element. You can change it by assigning it a new value.</dd>
 	</dl>
 	<p>These are just an example, there are more you can <a href="https://www.w3schools.com/jsref/dom_obj_document.asp" target="_blank">look up</a> as you need.</p>
 	<h3>DOM Object Methods</h3>
@@ -688,7 +841,11 @@ console.log(student1.courses);  <span class="comment">//prints out 4</span>
 <ol>
 	<li>Inserting <code>alert()</code> statements at key points in your script. You can use these to alert you on the status of important variables so you can follow along your code logic as it progresses.</li>
 	<li>Most browsers now have developer tools that you can use to debug your script. A DOM explorer allows you to see all your DOM objects and make direct changes to the HTML code while viewing those changes on the web page in real time. There's also a console that lets you view any errors or warnings that may have occured while running your script. You can trigger console messages for any events in your code using <code>console.log()</code> at key points in your script. Part of the developer toolkit also includes a debugger, which lets you go step by step through the JS code and view the values of any variables as well as the logic path.</li>
+	<li>Use the browser's built in debugger tool to step through your code line-by-line. This will let you see all the variables and data as they are processed by your script and help you figure out any pitfalls with your code logic.</li>
+	<li>You can use online script evaluators which go through you code and evaluate it syntactically. A good one is <a href="http://www.jshint.com" target="_blank">www.jshint.com</a>.</li>
+
 	<li>Sometimes, it's impossible to prevent all the errors your program can have, especially when your site starts asking for user input. In this case, use a <code>try...catch</code> statement.</li>
+
 </ol>
 </section>
 
