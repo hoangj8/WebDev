@@ -38,21 +38,18 @@
 		<figure class="fcode">
 			<code>
 			<pre>
-			&lt;!doctype html&gt;
-			&lt;html&gt;
+&lt;!doctype html&gt;
+	&lt;html&gt;
 			
-			&lt;head&gt;
-				&lt;title&gt;<i>My Page Title</i>&lt;/title&gt;
-			&lt;/head&gt;
+	&lt;head&gt;
+		lt;title&gt;<i>My Page Title</i>&lt;/title&gt;
+	&lt;/head&gt;
 				
-			&lt;body&gt;
-				<i>Content goes here</i>
-			&lt;/body&gt;
+	&lt;body&gt;
+		<i>Content goes here</i>
+	&lt;/body&gt;
 
-			&lt;/html&gt;
-			</pre></code>
-			<figcaption>Barebones HTML document skeleton</figcaption>
-		</figure>
+&lt;/html&gt;</pre></code></figure>
 		The first line looks like a tag but is not a tag at all. It's just a description that tells the computer what the document contains.<br>
 		The <code> &lt;html&gt; </code> tag is like the bun of a burger. Everything in the web page must be contained within the <code>&lt;html&gt; &lt;/html&gt; </code>tags.<br>
 		The <code> &lt;head&gt; </code> tag are the condiments of the burger. As shown in the above example, the title of the page is defined here (it's what the browser will use when naming the tab of your webpage). Other things like style changes and metadata are also found within these tags. <br>
@@ -236,29 +233,23 @@
 	<p>There are a couple of ways to make images resize appropriately depending on the screensize of the device the webpage is being viewcd on. The first is using the img element with a couple of new attributes: <code>srcset</code> and <code>sizes</code>.</p>
 	<figure class="fcode">
 		<code>
-		<pre>
-			&lt;img src="house.jpg" alt="house"
-				srcset="house-240.jpg 240w,
-						house-480.jpg 480w,
-						house-672.jpg 672w"
-				sizes="(max-width:480px) 100vw,
-						(max-width: 960px) 70vw,
-						240px"&gt;
-		</pre>
-		</code>
+		<pre>&lt;img src="house.jpg" alt="house"
+	srcset="house-240.jpg 240w,
+		house-480.jpg 480w,
+		house-672.jpg 672w"
+	sizes="(max-width:480px) 100vw,
+		(max-width: 960px) 70vw,
+	240px"&gt;</pre></code>
 	</figure>
 	<p>The <code>sizes</code> attribute tells the browser what size the image should be, depending on the viewport. The media condition, which in this case is viewport width, is enclosed in circle brackets. This is followed by the percentage of the viewport width the image width should take up if that condition is met. In the example above, the first rule states that if the max-width of the viewport is 480 pixels, then the image width should match the viewport width (100%). Multiple rules are separated by commas and their combined effect is like an <code>if-else</code> statement. Back to the example, we can take the entire sizes conditions as having the following effect: If the viewport width is &lt;=480px, then then image width will be 100% of the viewport width. Else if the viewport width is larger than 480px but smaller than 960px, the image should be 70% of the viewport width. Finally in cases where viewport width is more than 960 px, then the image should just be exactly 240px. The <code>srcset</code> attribute provides the set of images, each at different sizes. It is up to the browser however to make the final choice of which size image to pick. However, since we've told it what to expect the image size to be with the <code>sizes</code> attribute, it will be able to select the most appropriate image from the srcset to download.</p>
 	<p> The second way to implement responsive images is through the <code>picture</code> tag, as shown below.
 	<figure class="fcode">
 		<code>
-		<pre>
-			&lt;picture&gt;
-				&lt;source media="(min-width: 1024px)" srcset="house-large.jpg"&gt;
-				&lt;source media="(min-width: 760px)" srcset="house-medium.jpg"&gt;
-				&lt;img src="house-small.jpg" alt="house"&gt;
-			&lt;/picture&gt;
-		</pre>
-		</code>
+		<pre>&lt;picture&gt;
+	&lt;source media="(min-width: 1024px)" srcset="house-large.jpg"&gt;
+	&lt;source media="(min-width: 760px)" srcset="house-medium.jpg"&gt;
+	&lt;img src="house-small.jpg" alt="house"&gt;
+&lt;/picture&gt;</pre></code>
 	</figure>
 	<p>There are no attributes for the picture element. As for content, it takes a bunch of alternate sources and the conditions where they should be used. So instead of letting the browser pick what it thinks is the best image size, we're telling it which one to pick. The final element in the list of sources must be an <code>img</code> element because that is how the image will be placed onto the page. The <code>img</code> content will be used if none of the source media conditions hold. Use this method for placing a <i>better</i> image for each viewport size as opposed to simply resizing the <i>same</i> image.
 	<br> You can test the resizing capabilities with the following pages: <a href="nimg.html" target="_blank">Normal img</a> &nbsp;&nbsp;  <a href="rimg.html" target="_blank">Responsive img</a> &nbsp; &nbsp; <a href="rpicture.html" target="_blank">Responsive Picture</a>

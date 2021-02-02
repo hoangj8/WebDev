@@ -1,4 +1,5 @@
-body{
+	/*main and body*/
+	body{
 	/*		display:grid;
 			grid-template-columns: 500px;
 			grid-template-rows:autofit;
@@ -7,18 +8,33 @@ body{
 			margin-top: 0;
 			margin-bottom: 0;*/
 			position: relative;
+			background-color: rgb(237 246 249);
 		}
-		header{
-			
+	main{
+			position: relative;
+			margin-left: 15%;
+			padding-bottom:5%;
+			margin-right:20%;
+			padding-left: 30px;
 		}
+	span.comment{
+		color:rgb(199 197 193);
+		}
+
+
+
+
+		/*footer styles*/
 		footer{
 			margin-top: 3px;
-			border-top: double black;
-			background-color: rgb(103 115 163);
+			
+			background-color: rgb(0 109 119);
 			position: fixed;
 			bottom:0;
 			width:100%;
 			margin-left: 0;
+			color: white;
+			font-family: "Helvetica";
 
 		}
 		footer ul{
@@ -38,23 +54,17 @@ body{
 			columns: white;
 		}
 		footer ul li a:visited{
-			color:black;
+			color:white;
 		}
-		code, code pre{
-			background-color: gray;
-			color: rgb(145 255 36);
-			font-size: 1.1em;
-			padding: 0.1em;
-			grid-area:content;
-		}
-		dfn{
-			color:red;
-			font-weight: bold;
-		}
+		
+		
+
+
+		/*figure and code styles*/
 		.fcode{
 			background-color: gray;
 			margin-left: 0;
-			margin-right:20%;
+			margin-right:5%;
 		}
 		.fivefigures{
 			display:flex;
@@ -66,19 +76,47 @@ body{
 			color:yellow;
 
 		}
-		h1,h2{
-			background-color:rgb(103 115 163);
+		dfn{
+			color:red;
+			font-weight: bold;
 		}
+
+		code, code pre{
+			background-color: gray;
+			color: rgb(145 255 36);
+			font-size: 1.1em;
+			padding: 0.1em;
+			grid-area:content;
+		}
+
+
+
+		/*header styles*/
+		h1{
+			padding:3px;
+		}
+		h1,h2{
+			background-color:rgb(131 197 190);
+			font-family: "Helvetica";
+		}
+
+
+
+
+
+		/*nav styles*/
 		#nav{
 			margin-right: 10px;
 			position: fixed;
 			left:0;
 			top:20%;
 			background-color: rgb(207,214,227);
-			font-size:15px;
+			font-size:13px;
 			padding-right: 10px;
 			margin-top: auto;
 			margin-bottom: auto;
+			border-radius: 0 50px 50px 0;
+			font-family: "Helvetica";
 		}
 		#nav li{
 			margin-bottom: 2px;
@@ -86,16 +124,11 @@ body{
 		#nav ul ul{
 			padding-left: 20px;
 		}
-		main{
-			position: relative;
-			margin-left: 15%;
-			padding-bottom:5%;
-			margin-right:20%;
-			padding-left: 30px;
-		}
-		span.comment{
-			color:rgb(199 197 193);
-		}
+		
+
+
+
+
 		/*do the following changes when window gets smaller*/
 		@media only screen and (max-width: 1700px) {
     		#nav {
