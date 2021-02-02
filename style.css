@@ -1,0 +1,127 @@
+body{
+	/*		display:grid;
+			grid-template-columns: 500px;
+			grid-template-rows:autofit;
+			grid-template-areas: "nav content"
+								 "footer footer";
+			margin-top: 0;
+			margin-bottom: 0;*/
+			position: relative;
+		}
+		header{
+			
+		}
+		footer{
+			margin-top: 3px;
+			border-top: double black;
+			background-color: rgb(103 115 163);
+			position: fixed;
+			bottom:0;
+			width:100%;
+			margin-left: 0;
+
+		}
+		footer ul{
+			display:flex;
+			list-style: none;
+			margin-left: 20%;
+			margin-right:20%;
+			margin-top: 0.8em;
+			margin-bottom:0.8em;
+			justify-content: space-around;
+			
+		}
+		dd{
+			margin-bottom: 10px;
+		}
+		footer ul li{
+			columns: white;
+		}
+		footer ul li a:visited{
+			color:black;
+		}
+		code, code pre{
+			background-color: gray;
+			color: rgb(145 255 36);
+			font-size: 1.1em;
+			padding: 0.1em;
+			grid-area:content;
+		}
+		dfn{
+			color:red;
+			font-weight: bold;
+		}
+		.fcode{
+			background-color: gray;
+			margin-left: 0;
+			margin-right:20%;
+		}
+		.fivefigures{
+			display:flex;
+			align-content: center;
+			justify-content: flex-start;
+			grid-area:content;
+		}
+		.custom{
+			color:yellow;
+
+		}
+		h1,h2{
+			background-color:rgb(103 115 163);
+		}
+		#nav{
+			margin-right: 10px;
+			position: fixed;
+			left:0;
+			top:20%;
+			background-color: rgb(207,214,227);
+			font-size:15px;
+			padding-right: 10px;
+			margin-top: auto;
+			margin-bottom: auto;
+		}
+		#nav li{
+			margin-bottom: 2px;
+		}
+		#nav ul ul{
+			padding-left: 20px;
+		}
+		main{
+			position: relative;
+			margin-left: 15%;
+			padding-bottom:5%;
+			margin-right:20%;
+			padding-left: 30px;
+		}
+		span.comment{
+			color:rgb(199 197 193);
+		}
+		/*do the following changes when window gets smaller*/
+		@media only screen and (max-width: 1700px) {
+    		#nav {
+   			}
+   			main{
+   				margin-left:20%;
+   				margin-right:5%;
+   			}
+		}
+
+
+		@media only screen and (max-width: 1250px) {
+    		#nav {
+   			}
+   			main{
+   				margin-left:25%;
+   				margin-right:5%;
+   			}
+		}
+
+		@media only screen and (max-width: 1000px) {
+    		#nav {
+       			display: none;
+   			}
+   			main{
+   				border:none;
+   				margin:auto;
+   			}
+		}
