@@ -88,19 +88,28 @@
 			padding: 0.1em;
 			grid-area:content;
 		}
+		.filename{
+			font-weight: bold;
+			font-style:italic;
+		}
+		.definition{
+			border:dotted black;
+		}
 
 
 
 		/*header styles*/
 		h1{
-			padding:3px;
+			font-size: 2em;
 		}
 		h1,h2{
 			background-color:rgb(131 197 190);
 			font-family: "Helvetica";
+			border-radius: 10px/10px;
+			padding: 4px;
 		}
 
-
+		
 
 
 

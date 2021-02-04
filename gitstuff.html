@@ -5,13 +5,15 @@
 	<style>
 	footer{
 			margin-top: 3px;
-			grid-area:footer;
-			border-top: double black;
+			
 			background-color: rgb(0 109 119);
-			padding-bottom: 0.8em;
-		}
-		ol li{
-			margin-bottom: 3px;
+			position: fixed;
+			bottom:0;
+			width:100%;
+			margin-left: 0;
+			color: white;
+			font-family: "Helvetica";
+
 		}
 		footer ul{
 			display:flex;
@@ -19,14 +21,22 @@
 			margin-left: 20%;
 			margin-right:20%;
 			margin-top: 0.8em;
+			margin-bottom:0.8em;
 			justify-content: space-around;
-			color: white;
+			
+		}
+		dd{
+			margin-bottom: 10px;
+		}
+		footer ul li{
+			columns: white;
 		}
 		footer ul li a:visited{
-			color: white;
+			color:white;
 		}
+		
 		body{
-			margin-bottom: 0;
+			margin-bottom: 5em;
 			background-color: rgb(237 246 249);
 		}
 	</style>
@@ -109,10 +119,11 @@
 
 <footer>
 	<ul>
-	<li><a href="index.html">Home</a></li>
-	<li><a href="htmlstuff.html">HTML stuff</a></li>
-	<li><a href="cssstuff.html">CSS stuff</a></li>
-	<li><a href="jsstuff.html">JS stuff</a></li>
+		<li><a href="index.html">Home</a></li>
+		<li><a href="htmlstuff.html">HTML Stuff</a></li>
+		<li><a href="cssstuff.html">CSS Stuff</a></li>
+		<li><a href="jsstuff.html">JS Stuff</a></li>
+		<li><a href="reactstuff.html">React Stuff</a></li>
 	</ul>
 </footer>
 </body>

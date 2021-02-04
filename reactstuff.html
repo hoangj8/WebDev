@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+
+<head>
+	<title>React.js Fundamentals</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<header>
+		<div id="nav">
+			<h3>Sections</h3>
+			<ul>
+				<li><a href="#intro">What is React.js?</a></li>
+		
+				<li><a href="#variables">Working with Variables and Datatypes</a></li>
+			
+				<li><a href="#methods">Methods Toolkit</a></li>
+				<li><a href="#flow">Directing Program Flow</a></li>
+				<li><a href="#functions">Functions</a></li>
+				<li><a href="#objects">Objects</a></li>
+				<li><a href="#maps">Maps</a></li>
+				<li><a href="#classes">Classes</a></li>
+				<li><a href="#dom">DOM</a></li>
+				<li><a href="#jquery">jQuery</a></li>
+				<li><a href="#events">Event-driven Programming</a></li>
+				<li><a href="#troubleshooting">Troubleshooting Your Script</a></li>
+			</ul>
+		</div>
+	</header>
+	<main>
+		<section id="intro">
+			<h1>What is React?</h1>
+			<p> As the file extension implies, React.js is Javascript. More specifically, React is a Javascript library that is tailored to creating user interfaces. The documentation for React can be found <a href="https://reactjs.org/docs/getting-started.html" target="_blank">here</a>.
+			<h2>Installing React Developer Tools</h2>
+			<p>
+				To easily view and debug our React code, we'll use the React Developer Tools extension. This will add a component in the browser's developer tools. The following instructions are for Chrome but can easily be used for other browsers.
+			</p>
+			<ol>
+				<li>Download the React Developer Tools extension from the Chrome web store <a href="https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en" target="_blank">here.</a></li>
+				<li>To check that its working, go to a webpage that has React built in, open the browser's developer tools and in the console type: <code>window.react={};</code>. If its installed, you'll see a "Components" tab with the React logo appear in the tool ribbon.</li>
+			</ol>
+			<h2>Creating a Project</h2>
+			<p> To create a React app, we'll use the Create React App, which will help us generate a base project structure. To use Create React App, we'll first need Node and NPM: <a href="https://www.nodejs.org" target="_blank">www.nodejs.org</a>. Once you've installed Node, check to make sure its at least version 8 or higher by going into Git Bash and typing in <code>node --v</code>. We can now create a project.</p>
+			<ol>
+				<li>Navigate to wherever you want the project folder to be set up</li>
+				<li>Type in <code>npx create-react-app <i class=custom>&lt;folder-name&gt;</i></code> and the app will start building our React project. Note: it will also create a local Git repository too!</li>
+				<li>Enter <code>cd <i class=custom>&lt;folder-name&gt;</i></code> to navigate to our newly created project.</li>
+				<li>Enter <code>npm start</code> to load the project using a local server into a browser window.</li>
+			</ol>
+			<p> In our project folder, we'll see that the app generated alot of files and folders for us.</p>
+				<ul>
+					<li>The <i>src</i> folder contains all the css and js files and will be where most of our work will be done.</li>
+					<li>The <i>public</i> folder is where the html as well as images are stored.</li>
+					<li> The <i>package.json</i> file contains all the dependencies of our project (all the version numbers of the React components)</li>
+				</ul>
+		</section>
+
+		<section id="creating_elements">
+			<h1>Creating Elements</h1>
+			<p>In the <i class="filename">src</i> folder, you'll notice a file called <i class="filename">index.js</i> If you open it up, you'll see a bunch of imports as well as a <code>ReactDOM.render()</code> function.</p>
+			<figure><img src="images/react_index_base.png" alt="react index.js file"></figure>
+			<p>This function is what we'll be using to create elements and putting them onto the webpage. The first argument for this function is the element that we want to create. The second argument specifies where we'll inject the element we've created. In the base project, this is already set up as <code>document.getElementById('root')</code>. We'll start by creating an element using the <code>React.createElement()</code> function.</p>
+			<div class=definition>
+				<dt><code>React.createElement("<i class=custom>element</i>", {<i class=custom>property1</i>:<i class=custom>value1</i>,...}, <i class=custom>Child Node1,...</i>)</code></dt>
+				<dd>Creates a DOM object using React. The first paramater specifies the element type. The second parameter specifies the element's properties, in a comma-separated list. The third parameter specifies any child nodes for the element ex. text or other elements.</dd>
+			</div>
+			<p>As an example, we'll create an H1 element, keeping only its default properties and have it say "Hello World"</p>
+			<figure><img src="images/react_create_element.png" alt="code for creating h1 element in React"></figure>
+			<p>And when we reload our project in the browser...</p>
+			<figure><img src="images/react_create_element_result.png" alt="webpage with h1 element"></figure>
+			<h2>Creating Elements with JSX</h2>
+			<p>Creating elements with the <code>createElement()</code> function is fine for one or two elements but what if we want to add a big block of nested elements like a list? It would be alot of work, not to mention prone to errors, if we just kept nesting a bunch of <code>createElement()</code> functions. Thankfully, <dfn>JSX</dfn> or Javascript as XML, allows us to write HTML tags directly into React!</p>
+			<figure><img src="images/react_jsx_list.png" alt="creating list with JSX"></figure>
+			<figure><img src="images/react_jsx_list_result.png" alt="webpage with list element"></figure>
+
+		</section>
+	</main>
+
+	<footer>
+		<ul>
+		<li><a href="index.html">Home</a></li>
+		<li><a href="htmlstuff.html">HTML stuff</a></li>
+		<li><a href="cssstuff.html">CSS Stuff</a></li>
+		<li><a href="jsstuff.html">JS stuff</a></li>
+		<li><a href="gitstuff.html">Git stuff</a></li>
+		</ul>
+	</footer>
+</body>
+
+
+</html>
