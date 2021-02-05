@@ -12,19 +12,17 @@
 			<h3>Sections</h3>
 			<ul>
 				<li><a href="#intro">What is React.js?</a></li>
-		
-				<li><a href="#variables">Working with Variables and Datatypes</a></li>
-			
-				<li><a href="#methods">Methods Toolkit</a></li>
-				<li><a href="#flow">Directing Program Flow</a></li>
-				<li><a href="#functions">Functions</a></li>
-				<li><a href="#objects">Objects</a></li>
-				<li><a href="#maps">Maps</a></li>
-				<li><a href="#classes">Classes</a></li>
-				<li><a href="#dom">DOM</a></li>
-				<li><a href="#jquery">jQuery</a></li>
-				<li><a href="#events">Event-driven Programming</a></li>
-				<li><a href="#troubleshooting">Troubleshooting Your Script</a></li>
+				<li><a href="#creating_elements">Creating Elements</a></li>
+				<li><a href="#components">Components</a></li>
+					<ul>
+						<li><a href="#nested_components">Components</a></li>
+						<li><a href="#props">Component Properties</a></li>
+						<li><a href="#nested_components">Nested Components</a></li>
+						<li><a href="#list_props">Lists as Properties</a></li>
+					</ul>
+				<li><a href="#images">Adding Images</a></li>
+				<li><a href="#fragments">Fragments</a></li>
+			</ul>
 			</ul>
 		</div>
 	</header>
@@ -75,6 +73,73 @@
 			<figure><img src="images/react_jsx_list_result.png" alt="webpage with list element"></figure>
 
 		</section>
+
+		<section id="components">
+			<h1>React Components</h1>
+			<p>Components are basically functions; each component is its own separate block of code that returns HTML.</p>
+			<p>In the <i class=filename>src</i> folder, there's already a component file called <i class=filename>app.js</i>. Let's take a look.</p>
+			<figure><img src="images/react_component.png" alt="React component code"></figure>
+			<p>This file contains a function called <code>App()</code> that is designed to return a bunch of JSX. If you notice on the bottom, there's an export statement; this means that to use this module, we'll need to import it. If we go back to our <i class=filename>index.js</i> file, you'll notice that there's an import statement already:</p>
+			<figure><img src="images/react_component_import.png" alt="React component import code"></figure>
+			<p>Now if we got to our <code>render()</code> function, we can use our component by declaring it like an HTML element</p>
+			<figure><img src="images/react_render_component.png" alt="Insert component into render function"></figure>
+			<p>Now when we refresh, we see that our component will be rendered on the page</p>
+			<figure><img src="images/react_component_render.png" alt="Rendered react component" id=toobig></figure>
+			<p> Some key things to know about creating components:</p>
+			<ul>
+				<li> <strong>Component names must begin with a capital.</strong> Otherwise it won't render properly. </li>
+				<li> The content of each of your components should be enclosed in some sort of container element like &lt;header&gt;, &lt;div<&gt;. This is ensure that they're kept separate from the contents of other components</li>
+			</ul>
+			<h2 id="nested_components">Nested Components</h2>
+			<figure><img src="images/react_nested_components.png" alt="nested components"></figure>
+			<p>In the above example, we defined three different components: <code>Header</code>, <code>Body</code>, and <code>Footer</code>. We then shoved them all into our <code>App</code> component, which is currently being rendered. When we refresh our page, we see all three components rendered at once.</p>
+			<figure><img src="images/react_nested_components_render.png" alt="rendered nested components"></figure>
+			<h2 id="props">Component Properties</h2>
+			<p> Components can be loaded with <dfn>properties</dfn> which can allow you to customize their returns. Suppose we have a component that returns "My name is Jacky".</p>
+			<figure><img src="images/react_component_name.png" alt="component that prints my name is jacky"></figure>
+			<p>What if we wanted it to print out a different name? We could go into the component and change it in there but for a larger component where we have to change multiple values in different places, that might not work as well. Instead, lets give our <code>Name()</code> component a 'name' property.</p>
+			<p> To define properties, you go to whereever the component is being referenced (in this case, the <code> App()</code> component) and write it just like any HTML property. In this case, lets create a 'name' property and set it to "Michelle".</p>
+			<figure><img src="images/react_component_property.png" alt="defining a component property"></figure>
+			<p>Now that our component has a property, how to we use it? Well, every component has access to a resource called <code>props</code>(short for properties), which is where our properties our stored. So we'll need to pass the <code>props</code> to our component, and then call our property using the format <code>{props.<i class=custom>propertyName</i>}</code>.</p>
+			<figure><img src="images/react_component_props.png" alt="using props in a component"></figure>
+			<p>Now our webpage has a customizable output that is configurable in a centralized location</p>
+			<figure><img src="images/react_component_props_result.png" alt="webpage showing property change" height="200px"></figure>
+			<p>Keep in mind: props aren't just for storing static strings and numbers. You can declare properties with the outputs of other functions as well. Just remember that if the value is a variable or a function, you need to enclose it with {}.</p>
+			<figure><img src="images/react_component_props_function.png" alt="declaring property with function output"></figure>
+			<h2 id="list_props">Lists as Properties</h2>
+			<p>If you're working with alot of data, props can hold lists as well. Suppose Michelle wanted to display a list of her courses. First, we'll make the list.</p>
+			<figure><img src="images/react_component_props_list1.png" alt="coding list in JS"></figure>
+			<p>Now that the list is created, we'll add it to our props.</p>
+			<figure><img src="images/react_component_props_list2.png" alt="list prop"></figure>
+			<p>Our component will then take the list and iterate through it, generating an <code>li</code> for each course</p>
+			<figure><img src="images/react_component_props_list3.png" alt="using list prop in component"></figure>
+			<p>Now Michelle's course list is displayed on the webpage. If we wanted to add or change anything in the list, all we'd need to do is edit the original list we made in JS and the page will be updated automatically without us messing with the HTML. (You can change how the list looks in CSS).</p>
+			<figure><img src="images/react_component_props_list4.png" alt="rendered list"></figure>
+			<p>There's one last thing to do: assign IDs to each of the list items. If you look at the console now, you'll notice that its throwing a warning. This is because without IDs, things could go wrong if the list was changed after rendering. An easy way to do so is to map each of the list elements as an object with an ID.</p>
+			<figure><img src="images/react_component_props_list5.png" alt="Mapping list elements to obejcts with id"></figure>
+			<p>Now we just update our props to hold the newly mapped list of objects and then point the <code>key</code> for each <code>li</code> to each object's ID.</p>
+			<figure><img src="images/react_component_props_list6.png" alt="using list prop with ID in component"></figure>
+		</section>
+
+		<section id="images">
+			<h1>Adding Images</h1>
+			<p> Adding images in React is pretty straightforward.</p> 
+			<ol>
+				<li>First, import the image from whever it is stored. 
+				<br><code>import <i class=custom>imageVarName</i> from "<i class=custom>./URL</i>"</code>
+				<br>React grabs that image then stores it under the specified variable name so we can call it wherever we want.</li>
+				<li>Place the image in your desired component(s) using  <code>&lt;img&gt;</code> tags, just like HTML. Instead of a URL for the <code>src</code> all we need to do is put in the variable name we set up earlier.<br><code>&lt;img src={<i class=custom>imageVarName</i>} alt="<i class=custom>...</i>"&gt;</code></li>
+		</section>
+
+		<section id="fragments">
+			<h1>Fragments</h1>
+			<p>When we use the <code>render()</code> function to display our components, it only lets us render one component at a time. If we want to render sibling components or elements, React forces us to enclose them in a container element; that's why we have all these <code>divs</code> holding our code. To keep things neater, React provides a way to contain our related components without having to use so much <code>divs</code>: Fragments.
+			<div class=definition>
+				<dt><code>&lt;&gt;...&lt;/&gt;</code></dt>
+				<dd>React Fragments. Can be used in place of <code>div</code> in order to contain sibling components/elements for simultaneous rendering.</dd>
+			</div>
+		</section>
+
 	</main>
 
 	<footer>

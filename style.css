@@ -96,6 +96,10 @@
 			border:dotted black;
 		}
 
+		img{
+			max-width: 500px;
+		}
+
 
 
 		/*header styles*/
