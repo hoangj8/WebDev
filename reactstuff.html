@@ -22,7 +22,9 @@
 					</ul>
 				<li><a href="#images">Adding Images</a></li>
 				<li><a href="#fragments">Fragments</a></li>
-			</ul>
+				<li><a href="#states">States</a></li>
+				<li><a href="#effects">Effects</a></li>
+				<li><a href="#reducers">Reducers</a></li>
 			</ul>
 		</div>
 	</header>
@@ -105,7 +107,9 @@
 			<p>Now our webpage has a customizable output that is configurable in a centralized location</p>
 			<figure><img src="images/react_component_props_result.png" alt="webpage showing property change" height="200px"></figure>
 			<p>Keep in mind: props aren't just for storing static strings and numbers. You can declare properties with the outputs of other functions as well. Just remember that if the value is a variable or a function, you need to enclose it with {}.</p>
-			<figure><img src="images/react_component_props_function.png" alt="declaring property with function output"></figure>
+			<figure><img src="images/react_component_props_function.png" alt="declaring property with function output">
+			</figure>
+
 			<h2 id="list_props">Lists as Properties</h2>
 			<p>If you're working with alot of data, props can hold lists as well. Suppose Michelle wanted to display a list of her courses. First, we'll make the list.</p>
 			<figure><img src="images/react_component_props_list1.png" alt="coding list in JS"></figure>
@@ -119,6 +123,13 @@
 			<figure><img src="images/react_component_props_list5.png" alt="Mapping list elements to obejcts with id"></figure>
 			<p>Now we just update our props to hold the newly mapped list of objects and then point the <code>key</code> for each <code>li</code> to each object's ID.</p>
 			<figure><img src="images/react_component_props_list6.png" alt="using list prop with ID in component"></figure>
+
+			<h2 id="conditional_rendering">Conditional Rendering</h2>
+			<p>Another way we can use properties is to control what is being rendered onto the page. This is known as <dfn> conditional rendering</dfn>. To do so, we assign our condition as a property to our <code>App</code> call in our <code>Render()</code> function. For example, we'll create a property called "visible" and give it the value of true.</p>
+			<figure><img src="images/react_conditional_props1.png" alt="assigning a conditional property"></figure>
+			<p>Now we can use this property by passing <code>props</code> to our <code>App</code> component.</p>
+			<figure><img src="images/react_conditional_props2.png" alt="using conditional property for rendering"></figure>
+			<p> Here we use a ternary operator that uses our conditional property to decide whether or not Michelle's course list should be rendered onto the page.</p>
 		</section>
 
 		<section id="images">
@@ -139,7 +150,42 @@
 				<dd>React Fragments. Can be used in place of <code>div</code> in order to contain sibling components/elements for simultaneous rendering.</dd>
 			</div>
 		</section>
+		<section id="states">
+			<h1>States</h1>
+			<p> States are a form of conditional rendering allow us to control what is output onto the screen. One of the advantages of states is that we don't need to set up properties for each configuration. As an added bonus, we don't have to do anything in the index file which helps keeps our rendering and our scripting separate.</p>
+			<p> Here's how to set-up states in your React app:</p>
+			<ol>
+				<li> Import the <code>useState</code> function from the React library.
+					<figure><img src="images/react_state_import.png" alt="importing useState function"></figure></li>
+				<li> The  <code>useState</code> function creates an array that consists of two elements. The first element is a variable that holds the current state of the React app. The second hold a function that we'll use to change the state i.e. change the value of the state variable. We initiate the state by calling the the useState function, thus creating a state variable and the state-changing function. At the same time, we destructure the array, which allows us to assign variable names to each of those elements. By passing in an argument into the <code>useState</code> function, we also set the initial state value. 
+					<figure><img src="images/react_state_initiate.png" alt="initiating states"></figure></li>
+				<li> We can now use the function we named to change the state of the app. Note that you can't call the function on its own, it'll generate an indefinite loop. You can however package the function with another aspect like a button.
+					<figure><img src="images/react_state_changestate.png" alt="changing states"></figure></li>
+			</ol>
 
+		<section id="effects">
+			<h1>Effects</h1>
+			<p> Effects are another hook in React, along with states. Effects are used for secondary outputs that aren't part of your components: console logs, data loading, etc.</p>
+			<p>Here's how to use effects</p>
+			<ol>
+				<li>Import the <code>useEffect</code> function.
+					<figure><img src="images/react_effect_import.png" alt="importing useEffects"></figure></li>
+				<li> We can now use the <code>useEffect</code> function to output to console.
+					<figure><img src="images/react_effect_console.png" alt="console log with effects"></figure></li>
+				<li> The <code>useEffect</code> function can take a second argument called a <dfn>dependency array</dfn>. This array keeps track of any variables you put in as elements and outputs a console log if those variables ever change. If this second argument is left blank, then a console log gets output on every state change. If an empty array is used, then the console log only gets output once. If a dependency is added to the array, then an console log is output every time that specific variable changes.</li>
+		</section>
+
+		<section id="reducers">
+			<h1>Reducers</h1>
+			<p>Reducers are similar to states in that it allows to define an initial state as well as generate a function for changing that state. The difference is that reducers allow you to define the function as well.</p>
+			<ol>
+				<li>Import the <code>useReducer</code> function from the React library
+					<figure><img src="images/react_reducer_import.png" alt="importing reducer"></figure></li>
+				<li> The <code>useReducer</code> function takes two arguments. The first is the function, the second is the initial state. Be aware when destructuring the <code>useReducer</code> array: the arguments are function then initial state but the array values are placed initial state, then function.
+					<figure><img src="images/react_reducer_initialize.png" alt="initializing the reducer"></figure></li>
+			</ol>
+			<p>The compactness of reducers makes them useful for managing things like checkboxes and other input forms</p>
+		</section>
 	</main>
 
 	<footer>

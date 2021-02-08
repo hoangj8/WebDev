@@ -182,6 +182,12 @@ let class = ["John", "Calvin", "Priscilla", "Catherine", ...kids];
 </pre></code></figure>
 	</dd>
 </dl>
+<h3>Destructuring Arrays</h3>
+<p> Arrays are nice for holding a bunch of information but once all that data is in the array, it can be hard to retrieve specific values. That's where <dfn>destructuring</dfn> comes in. Essentially, we break up the array and assign variable names to the elements inside so that we can refer to each of them individually. </p>
+<div class=definition>
+	<dd><code>var [<i class=custom>var1</i>, <i class=custom>var2</i>,<i class=custom>...</i>] =  [<i class=custom>element1</i>, <i class=custom>element2</i>,<i class=custom>...</i>]</code></dd>
+	<dd>Destructuring an array. No variable name is given to the array. In its place is another array consisting of variable names. Each variable is associated to the corresponding element in the array. If you don't want to give a variable name to every element, you can skip by just leaving the variable name blank followed by a comma.</dd>
+</div>
 <h2 id="Sets">Sets</h2>
 <p>Sets are similar to arrays in that they hold a collection of values that can be any type, in indices starting from 0. The difference between sets and arrays is that elements in a set must be unique. If you try to add an item that's already in the set, nothing will happen.</p>
 <figure class="fcode"><code><pre>
