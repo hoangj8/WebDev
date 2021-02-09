@@ -173,6 +173,17 @@
 				<li> We can now use the <code>useEffect</code> function to output to console.
 					<figure><img src="images/react_effect_console.png" alt="console log with effects"></figure></li>
 				<li> The <code>useEffect</code> function can take a second argument called a <dfn>dependency array</dfn>. This array keeps track of any variables you put in as elements and outputs a console log if those variables ever change. If this second argument is left blank, then a console log gets output on every state change. If an empty array is used, then the console log only gets output once. If a dependency is added to the array, then an console log is output every time that specific variable changes.</li>
+			</ol>
+			<h2>Fetching Data with useEffects and useStates</h2>
+			<p>We can use the <code>fetch()</code> function in combination with our <code>useEffect()</code> to retrieve some data from an API. As an example, lets retrieve my account data from the Github API. </p>
+			<figure><img src="images/react_effect_fetch.png" alt="code for fetching data with useEffects"></figure>
+			<p>First, we use <code>useState()</code> to generate a state variable called <code class=custom>data</code> and a function for setting the value called <code class=custom>setData</code>. We set the initial value of <code class=custom>data</code> to be null for reasons explained later. Next, we'll use the <code>useEffect()</code> to call an anonymous function. The anonymous function will fetch from the Github api URL, then convert that data into a <i class=filename>json</i> format. Finally, the function then calls <code class=custom>setData</code> which associates the data to the <code class=custom>data</code> variable.</p>
+			<p>Now, if <code class=custom>data</code> is still null, that means our fetch didn't work so we'll render the message "No data found". Otherwise, we 'stringify' the .json data and output that instead.</p>
+
+			<h2>Handling Loading and Errors with useEffects and useStates</h2>
+			<p>When we're fetching data, it's also important to keep track of all the different states like when the data is being loaded, when it's finished loading, and if any errors occur.</p>
+			<figure><img src="images/react_effect_loading.png" alt="code for handling load states"></figure>
+			<p>We use <code>useState()</code> to add states for loading and errors, initiating the load state as false (because we're not loading anything right now) and the errors to null (cause there's no errors yet). When we start the fetch, we first check to see if there's any value for the <code class=custom>login</code> property; if there isn't then we immediately exit out of the <code>useEffect()</code> block. If there is, then we set <code class=custom>loading</code> to true and start the fetch. Once the data has been retrieved and stored into <code class=custom>data</code>, we set <code class=custom>lading</code> to false. We also add a <code>.catch</code> at the end to handle any errors that may have occured during the fetch.</p>
 		</section>
 
 		<section id="reducers">
