@@ -25,6 +25,7 @@
 				<li><a href="#states">States</a></li>
 				<li><a href="#effects">Effects</a></li>
 				<li><a href="#reducers">Reducers</a></li>
+				<li><a href="#tests">Testing with React</a></li>
 			</ul>
 		</div>
 	</header>
@@ -196,6 +197,40 @@
 					<figure><img src="images/react_reducer_initialize.png" alt="initializing the reducer"></figure></li>
 			</ol>
 			<p>The compactness of reducers makes them useful for managing things like checkboxes and other input forms</p>
+		</section>
+
+		<section id="tests">
+			<h1>Testing with React</h1>
+			<p> One feature ofthe CreateReact App is its ability to easily run tests. These are important to make sure all our code works as expected before deployment. We can test for pretty much anything; function outputs, render outputs, etc. All we need to do is create <i class=filename>.test</i> files and by running <code>npm test</code> in the console, it will automatically run any <code>test()</code> we put in those files.</p>
+			<div class=definition>
+				<dt><code>test("<i class=custom>testName</i>", ()=>{<i class=custom>..test setup..</i>});</code></dt>
+				<dd>Generates a test that will be run when we call <code>npm test</code>. The first argument is the name of test. The second argument holds the actual test. Its common to put in a callback function as the second argument (as shown above) so that we can write the test as a function. The test must include an <code>expect()</code> function so that the test knows how to decide whether or not the test passes or fails.</dd>
+				<dt><code>expect(<i class=custom>object to be checked</i>)</code></dt>
+				<dd>For things to work, we expect it to perform a certain way. Given an input, we expect a working function to produce a specific output. Given some HTML, we expect a specific thing to be rendered on the screen. The <code>expect()</code> function helps us test objects by returning whether or not the object meets a certain condition. The <code>expect()</code> function has access to a bunch of methods which will help us create our condition to be tested. For example: <code>expect(x).toBe(y);</code> returns a boolean based on whether x has the same value as y. A full list of methods can be found <a href="https://jestjs.io/docs/en/expect" target="_blank">here</a>.
+			</div>
+
+			<h2>Testing Functions</h2>
+			<p> Suppose we've written a function called <code>timesTwo()</code>, which multiplies its input by two.</code>.</p>
+			<figure><img src="images/react_test_function1.png" alt="timesTwo function code"></figure>
+			<p> We want to test it to make sure it actually works. First we'll create a file to keep all our tests in: <i class=filename>functions.test.js</i>. Then in this file, we'll import our function in so we can test it. </p>
+			<figure><img src="images/react_test_function2.png" alt="importing function to be tested"></figure>
+			<p>Remember that things need to be <strong>exported</strong> before they can be imported, so we'll go back and export our function by adding the <code>export</code> keyword.</p>
+			<figure><img src="images/react_test_function3.png" alt="exporting function for testing"></figure>
+			<p>Now we can write the tests!</p>
+			<figure><img src="images/react_test_function4.png" alt="code for test"></figure>
+			<p>Remember to use <code>npm test</code> in the command line to run the tests.</p>
+
+			<h2>Testing Renders</h2>
+			<p>Suppose we have the following <code>App()</code>. </p>
+			<figure><img src="images/react_test_render1.png" alt="app code"></figure>
+			<p> We want to make sure our render has an output of "Hello World" as an H1. So lets write a test. We'll create a file called <i class=filename>App.test.js</i> to hold all our render tests. We'll also need to import the <code>render()</code> function from the React testing library as well as the <code>App</code> itself. </p>
+			<figure><img src="images/react_test_render2.png" alt="importing render and app"></figure>
+			<p>Now for our test.</p>
+			<figure><img src="images/react_test_render3.png" alt="code for testing render"></figure>
+			<p> We use the <code>render</code> function to render our app object and destructure the object into the query <code>getByText</code>. Then we call the <code>getByText</code> function to retrieve the node containing "Hello World" using a regular expression. We finish off with our <code>expect()</code> line. More about queries <a href="https://testing-library.com/docs/queries/about/" target="_blank">here</a>.
+
+
+
 		</section>
 	</main>
 
