@@ -199,9 +199,40 @@
 			<p>The compactness of reducers makes them useful for managing things like checkboxes and other input forms</p>
 		</section>
 
+		<section id="router">
+			<H1>React Routers</H1>
+			<p>As mentioned earlier, a React app is composed of a single web page whose content is loaded dynamically. If our app needs to have multiple pages, we just load in some new content on the same page to replace the old one. But how does React know which content to load? That's where routing comes in. First we'll need to install the React router so type theses in your command line:<br> <code>npm install react-router@next react-router-dom@next</code> <br><code>npm install history</code>.
+			</p>
+			<p>Then in our <i class="filename">index.js</i>, we import the BrowserRouter.</p>
+			<figure><img src="images/react_router_import.png" alt="importing react router"></figure>
+			<p>Next, we give our App access to the router properties by surrounding it with special <code>Router</code> tags in our render call.</p> 
+			<figure><img src="images/react_router2.png" alt="router tags"></figure>
+			<p>Now, let's create our additional pages. I've created a new file called <i class="filename">pages.js</i> and defined three components: <code>Home</code>, <code>About</code>, and <code>Contacts</code>. Don't forget to import React!</p>
+			<figure><img src="images/react_router3.png" alt="router pages"></figure>
+			<p>Now in our <i class=filename>App.js</i> file, we can start setting up the routes. First we import <code> Routes</code> and <code>Route</code>, as well as the components that we just created.</p>
+			<figure><img src="images/react_router4.png" alt="importing components and route"></figure>
+			<p>Then, we create the routes. We use the <code>&lt;Routes&gt;</code> element with a bunch of nested <code>&lt;Route&gt;</code> elements, one for each page. TIP: f you want to make a route for displaying an error if the user tries to go to a path that doesn't exist, just create a route and set the path to * along with your custom error element. </p>
+			<figure><img src="images/react_router5.png" alt="react routing skeleton"></figure>
+			<p>We then give each route a path and the element (component) it will display</p>
+			<figure><img src="images/react_router6.png" alt="react routing paths"></figure>
+			<p>Now when we load our webpage, we'll see different things by just changing the path.</p>
+			<figure><img src="images/react_router7.png" alt="web route 1">
+					<img src="images/react_router8.png" alt="web route 2"></figure>
+			<p>Time to add links for our users to easily change views. Back in our <i class=filename>pages.js</i> file, we'll import the <code>Link</code> component and then use that component to generate our links. This component works pretty much the same as anchors in HTML. Instead of an <code>href</code> property though, it uses a <code>to</code> property to point to the target page.</p>
+			<figure><img src="images/react_router9.png" alt="adding links">
+					<img src="images/react_router10.png" alt="adding links"></figure>
+
+
+ 
+
+
+
+
+
+		</section>
 		<section id="tests">
 			<h1>Testing with React</h1>
-			<p> One feature ofthe CreateReact App is its ability to easily run tests. These are important to make sure all our code works as expected before deployment. We can test for pretty much anything; function outputs, render outputs, etc. All we need to do is create <i class=filename>.test</i> files and by running <code>npm test</code> in the console, it will automatically run any <code>test()</code> we put in those files.</p>
+			<p> One feature of the CreateReact App is its ability to easily run tests. These are important to make sure all our code works as expected before deployment. We can test for pretty much anything; function outputs, render outputs, etc. All we need to do is create <i class=filename>.test</i> files and by running <code>npm test</code> in the console, it will automatically run any <code>test()</code> we put in those files.</p>
 			<div class=definition>
 				<dt><code>test("<i class=custom>testName</i>", ()=>{<i class=custom>..test setup..</i>});</code></dt>
 				<dd>Generates a test that will be run when we call <code>npm test</code>. The first argument is the name of test. The second argument holds the actual test. Its common to put in a callback function as the second argument (as shown above) so that we can write the test as a function. The test must include an <code>expect()</code> function so that the test knows how to decide whether or not the test passes or fails.</dd>
