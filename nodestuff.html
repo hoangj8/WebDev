@@ -1,0 +1,155 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Node.js Stuff</title>
+		<link rel="stylesheet" href="style.css">
+	</head>
+
+	<body>
+		<header>
+			<div id="nav">
+				<h3>Sections</h3>
+				<ul>
+					<li><a href="#intro">What is Node.js?</a></li>
+					<li><a href="#global">The Global Object</a></li>
+					<li><a href="#modules">Modules</a></li>
+						<ul>
+							<li><a href="#coremodules">Core Modules</a></li>
+							<li><a href="#custommodules">Custom Modules</a></li>
+						</ul>
+					<li><a href="#filesystem">Interacting With Files</a></li>
+					<li><a href="#childprocess">Child Processes</a></li>
+				</ul>
+			</div>
+		</header>
+
+		<main>
+			<section id="intro">
+				<h1>What is Node.js?</h1>
+				<p>Node.js is a platform that allows coders to use Javascript to work both the front and backend of web applications. One of the benefits of using Node.js is that it is non-blocking. For example, when using Apache, each client is assigned a dedicated thread that facilitates all transactions. However, when the thread is given a request, it will ignore all other requests until that request has been fulfilled, even if it is just waiting for data on the server-end of things. In contrast, a non-blocking model like Node.js assigns one thread for all users but this thread is able to perform tasks asynchronously. If its current request requires some data to be retrieved from the server, it simply moves on to the next request rather than idly wait for that data to be ready.</p>
+
+				<h2>Running Node.js</h2>
+				<p>To run Node, you'll first need to <a href="https://nodejs.org/en/download/" target="_blank">install it</a>. Now you can use Node to run JS files. You can do so by navigating to the files in your command line and writing <code>node <i class=custom>filename</i></code>. You don't need to add the extension at the end because Node automatically assumes it will be a JS file.</p>
+			</section>
+
+			<section id="global">
+				<h1>The Global Object</h1>
+				<p>Node has access to a <code>global</code> object which contains some stuff Node can parse and use without having to import any other modules. One of these is the very familiar <code>console</code> object, which is used to generate output to the console. We can also use the global to return the directory name and filename via the variables <code>__dirname</code> and <code>__filename</code> respectively.
+				<h2>Global Objects</h2>
+				<h3><code>process</code> object</h3>
+				<p>The <code>process</code> object is useful for finding out information on the current process as well as interacting with that process by accessing command-line arguments.</p>
+				<div class=definition>
+					<dt><code>process.pid</code></dt>
+					<dd>Returns the pid of the current process (which will probably be the current file).</dd>
+					<dt><code>process.versions.node</code></dt>
+					<dd>Returns the version of Node that is running the current process.</dd>
+					<dt><code>process.argv</code></dt>
+					<dd>Returns an array that was typed in the command-line to run the process. For ex. if we had a module called <i class=filename>cats</i>, we'd run it in the commandline with <code>node cats</code>. The resulting <code>argv</code> array would have two elements: the file path to wherever Node is installed, and the path to whereever the <i class=filename>cats</i> module is. You can extend this function to pass arguments to your modules.</dd>
+					<dt><code>process.stdout.write("<i class=custom>some output</i>")</code></dt>
+					<dd>Sends some test to standard output.</dd>
+					<dt><code>process.stdin.on("data", <i class=custom>do something with data</i>)</code></dt>
+					<dd>Activates a listener that records the next data input event (any key input followed by enter). These inputs are recorded into the first argument:<code>data</code>. The second argument (commonly a function), does something with that data. For example, the following codes takes the data input and repeats it back to the user:
+						<figure><img src="images/node_modules_process1.png" alt="code using stdin and stdout to repeat everything user types"></figure>
+					Note that the recorded data is stored as a binary so we need to use the <code>toString()</code> function to change it to a String.
+					</dd>
+					<dt><code>process.exit()</code></dt>
+					<dd>Quits the currently running process.</dd>
+					<dt><code>process.on("exit", <i class=custom>do something</i>)</code></dt>
+					<dd>Event handler for exit events.</dd>
+				</div>
+				<p>A full list of other Globals can be found <a href="https://nodejs.org/api/globals.html" target="_blank">here</a>.
+			</section>
+			<section id="modules">
+				<h1>Modules</h1>
+				<p>To add functionality beyond the global, we'll need to add modules. Modules are essentially Node.js files written to do specific things. Node comes with its own set of modules and we can also use modules that we install with NPM or modules we've written ourselves. To import a module, we'll need to use the global object's <code>require</code> function.</p>
+				<div class=definition>
+					<dt><code>require("<i class=custom>modulePath</i>")</code></dt>
+					<dd>Finds and returns the specified module.</dd>
+				</div>
+				<p>For example, we can import the <code>path</code> object and use its <code>basename()</code> function to return the filename of a given path.</p>
+				<figure><img src="images/node_modules1.png" alt="code for creating h1 element in React"></figure>
+				<h2 id="coremodules">Core Modules</h2>
+				<p>As said before, there are modules that come shipped with Node. These are called Core Modules. Here's a compendium of major global modules.</p>
+				<h3><code>readline</code> Module</h3>
+				<p>The <code>readline</code> module works with standard input and output and makes it easy to create an app that responds to user input. First we'll need to import the mdodule.</p>
+				<figure><img src="images/node_readline1.png" alt="importing readline module"></figure>
+				<p>Now we need to create an interface for <code>readline</code> using its <code>createInterface</code> function. We're simply specifying what our current process will use as input and output.</p>
+				<figure><img src="images/node_readline2.png" alt="importing readline module"></figure>
+				<p>Now we're free to use any of the <code>readline</code> functions to gather user data and generate output.</p>
+				<div class=definition>
+					<dt><code><i class=custom>interfaceVar</i>.question("<i class=custom>a question</i>", <i class=custom>do something with the data</i>)</code></dt>
+					<dd>Sends a specified prompt and then manipulates the returned data. The first argument is the question. The second argument holds the callback function used to manipulate the data that is returned. The below example takes the input and echos it back to the user.
+						<figure><img src="images/node_readline_question.png" alt="readline question function code"></dd>
+
+				</div>
+				<h3>Events</h3>
+				<p>The <code>Events</code> module allows you to generate custom events, allowing you to wire listeners and handlers for those events.</p>
+				<figure><img src="images/node_events_import.png" alt="importing events module"></figure>
+				<p>After importing, you construct a new event emitter object using the <code>EventEmitter()</code> constructor</p>
+				<figure><img src="images/node_events_constructor.png" alt="creating new event emitter object"></figure>
+				<p>Now we can start raising events wherever we want.</p>
+				<div class=definition>
+					<dt><code><i class=custom>emitterVar</i>.emit("<i class=custom>eventName</i>",<i class=custom>data1</i>,<i class=custom>data2</i>,...)</code></dt>
+					<dd>Used to raise an event. The first argument is the event's name. The following arguments are the data you want to pass to the handler</dd>
+					<dt><code><i class=custom>emitterVar</i>.on("<i class=custom>eventName</i>", <i class=custom>callback handler</i>)</code></dt>
+					<dd>Used to wire a handler to custom events. To wire, the event name used here as the 1st argument must match the event name you defined in the corresponding <code>.emit()</code> function.</dd>
+
+				</div>
+				<h2 id="custommodules">Using Custom Modules</h2>
+				<p>Sometimes when we're writing modules, we want to incorporate things from past modules we've created. To grab them, we'll first need to make them <dfn>exportable</dfn>. We do this by going to the module we want to export, using the <code>module.exports</code> method and putting all our functions we want to export into a comma-separated list.</p>
+				<figure><img src="images/node_modules_custom1.png" alt="exporting functions from custom module"></figure>
+				<p>Now when we import our custom module using the <code>requires</code> function, we'll have access to all module methods we chose to export. Note: if we want to access the values of variables local to the modules we import, we'll need to have getter and setter functions defined within our imported module and use those to retrieve the values.</p>
+			</section>
+			<section id=filesystem>
+				<h1>Interacting with Files</h1>
+				<p>Node is also capable of messing around with the file system with a handy module called <code>fs</code>. Like any module, we'll need to import it first before we can use it.</p>
+				<figure><img src="node_fs_import.png" alt="importing fs module"></figure>
+				<div class=definition>
+					<dt><code><i class=custom>fsVar</i>.readdirSync("<i class=custom>path</i>")</code></dt>
+					<dd>Returns the contents of the directory specified by the path as an array. As hinted by the name, this is executed synchronouly; no further lines of code will be executed past this point until all the file names have been retrieved.</dd>
+					<dt><code><i class=custom>fsVar</i>.readdir("<i class=custom>path</i>", (err,files)=>{<i class=custom>do something</i>})</code></dt>
+					<dd>The asynchronous version of file scanning. Now instead of returning the array, a callback function is used. The first argument of the callback function is any errors that may have occured. The second argument is the files themselves.</dd>
+					<dt><code><i class=custom>fsVar</i>.readFileSync("<i class=custom>path</i>", "<i class=custom>text encoding</i>")</code></dt>
+					<dd>Returns the text contents of the file specified by the path. Synchronous. For files with binary contents (like images), you don't supply an encoding.</dd>
+					<dt><code><i class=custom>fsVar</i>.readFile("<i class=custom>path</i>", (err,text)=>{<i class=custom>do something</i>})</code></dt>
+					<dd>The asynchronous version of file reading. Now instead of returning the text, a callback function is used. The first argument of the callback function is any errors that may have occured. The second argument is the text itself. For files with binary contents (like images), you don't supply an encoding.</dd>
+					<dt><code><i class=custom>fsVar</i>.writeFile("<i class=custom>path</i>",<i class=custom>text you want to use</i>, err=>{ <i class=custom>error handler</i>})</code></dt>
+					<dd>Writes to a file specified by the given path. </dd>
+					<dt><code><i class=custom>fsVar</i>.mkdir("<i class=custom>directory name</i>", err=>{ <i class=custom>error handler</i>})</code></dt>
+					<dd>Creates a directory with the given name in the current file location. If the directory exists, an error will be thrown. You can check if the directory exists first using the <code>existsSync()</code> function.</dd>
+					<dt><code><i class=custom>fsVar</i>.existsSync("<i class=custom>path</i>")</code></dt>
+					<dd>Returns a boolean whether or not the file given by the specified path exists.</dd>
+					<dt><code><i class=custom>fsVar</i>.appendFile("<i class=custom>path</i>",<i class=custom>text you want to use</i>, err=>{ <i class=custom>error handler</i>})</code></dt>
+					<dd>Appends the specified text to the specified file. If the file does not exist, it will be created.</dd>
+					<dt><code><i class=custom>fsVar</i>.renameSync("<i class=custom>path</i>","<i class=custom>new filename</i>")</code></dt>
+					<dd>Synchronously renames a file. First argument is the path of the file to be renamed. The second argument is the new name for the file. The file may also be moved as well if a path is provided as the second argument. Can also be used to rename directories.</dd>
+					<dt><code><i class=custom>fsVar</i>.rename("<i class=custom>path</i>","<i class=custom>new filename</i>", err=>{<i class=custom>error handler</i>})</code></dt>
+					<dd>Asynchronously writes to a file specified by the given path. First argument is the path of the file to be renamed. The second argument is the new name for the file. The file may also be moved as well if a path is provided as the second argument. Third argument is the event handler for any errors. This function can also be used to rename directories.</dd>
+					<dt><code><i class=custom>fsVar</i>.unlinkSync("<i class=custom>path</i>")</code></dt>
+					<dd>Deletes the file specified by the given path. </dd>
+					<dt><code><i class=custom>fsVar</i>.rmdir("<i class=custom>path</i>",err=>{ <i class=custom>error handler</i>})</code></dt>
+					<dd>Asynchronously deletes the directory specified by the given path. First argument is the path of the file to be renamed. Second argument is the event handler for any errors. Note: directory must be empty before it can be deleted.</dd>
+					<dt><code><i class=custom>fsVar</i>.createReadStream("<i class=custom>path</i>","<i class=custom>text encoding</i>")</code></dt>
+					<dd>Takes the text in the specified file and returns a readable stream of data that can be processed bit by bit, according to data events. Examples of events are <code>.on("data"...)</code>, or <code>.once("data",...)</code></dd>
+					<dt><code><i class=custom>fsVar</i>.createWriteStream("<i class=custom>path</i>","<i class=custom>text encoding</i>")</code></dt>
+					<dd>Creates and returns a write stream to the specified file. Assign this to a variable and call the <code>.write("<i class=custom>text</i>")</code> function to write that text to the file as a stream. Can combine with the read stream to copy contents of one file into another. Can also try the <code>pipe</code> keyword which directly hooks the output of one object as the arguments of another. </dd>
+				</div>
+			<section id=childprocess>
+				<h1>Child Processes</h1>
+				<p> Node also lets you create and handle child processes, which are other applications that your app can communicate with. To start, we import the <code>child_process</code> module.</p>
+				<figure><img src="images/node_childprocess_import.png" alt="importing child_process module"></figure>
+				<div class=definition>
+					<dt><code><i class=custom>cpVar</i>.exec("open <i class=custom>path or url of resource to open</i>")</code></dt>
+					<dd>Executes the specified synchronous program. You can also use any bash commands by using the following syntax: <code><i class=custom>cpVar</i>.exec("<i class=custom>command</i>",(err, data)=>{})</code>. If you want to use a child process that is asynchronous, use the <code>.spawn()</code> function.</dd>
+					<dt><code><i class=custom>cpVar</i>.spawn("<i class=custom>node</i>",["<i class=custom>module file path</i>"])</code></dt>
+					<dd>Executes the specified asynchronous program as a child and returns an object that can be manipulated in the parent module, providing input and receiving any ouput.</dd>
+					<figure><img src="images/node_childprocess_spawn.png" alt="using child_process for async app"></figure>
+
+				</div>
+
+
+
+			</section>
+		</main>
+	</body>
+</html>
