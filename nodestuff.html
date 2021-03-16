@@ -19,6 +19,12 @@
 						</ul>
 					<li><a href="#filesystem">Interacting With Files</a></li>
 					<li><a href="#childprocess">Child Processes</a></li>
+					<li><a href="#http">HTTP and HTTPS</a></li>
+						<ul>
+							<li><a href="#webserver">Creating a Web Server</a></li>
+							<li><a href="#fileserver">Creating a File Server</a></li>
+						</ul>
+					<li><a href="#packages">Node Packages</a></li>
 				</ul>
 			</div>
 		</header>
@@ -146,10 +152,84 @@
 					<figure><img src="images/node_childprocess_spawn.png" alt="using child_process for async app"></figure>
 
 				</div>
-
-
-
+			</section>
+			<section id=http>
+				<h1>The HTTP and HTTPS Module</h1>
+				<p>The <code>HTTP</code> and <code>HTTPS</code> modules allow you to access and deploy resources on the internet. Before we do anything, we'll first need to import the appropiate module. If the target site is http, we'll need to use the <code>http</code> module; the same logic applies for https sites.</p>
+				<figure><img src="images/node_http1.png" alt="importing https module"></figure>
+				<h2>Creating a GET request</h2>
+				<p>
+					For a GET request, we'll first need to build an object that will contain all of our properties for our request. We'll need to supply:
+					<ol>
+						<li>hostname</li>
+						<li>port number</li>
+						<li>path</li>
+						<li>method</li>
+					</ol>
+				</p>
+				<figure><img src="images/node_http2.png" alt="importing https module"></figure>
+				<p>Once we have our options, we can use the <code>request()</code> function to make our request. This function takes two arguments. The first is the object containing all our connection properties. The second is a callback function that will allow us to work with the resource when it is retrieved.</p>.
+				<figure><img src="images/node_http3.png" alt="using request method"></figure>
+				<p>The optional <code>setEncoding()</code> allows us to format the stream that it comes back as a string instead of just bits.</p>
+				<p>Not bad, but the HTTP modules provide an even easier way to make GET requests, through the <code>get</code> method. Instead of plugging in an object with all of our paramters, we just type in the URL. The <code>get</code> method will automatically retrieve the rest of the parameters for us!</p>
+				<figure><img src="images/node_http4.png" alt="using get method"></figure>
+				<p>Regardless of which method is used, remember to call <code>.end()</code> on your request object to end the connection after you're done.</p>
+				<h2 id="webserver">Creating a Web Server</h2>
+				<p>We can use the <code>createServer()</code> function to create a web server. Before we put any arguments in, we'll set the port that our server will listen to (in this case 3000).</p>
+				<figure><img src="images/node_http_server1.png" alt="setting server port"></figure>
+				<p>Now for our argument. We'll use a callback handler that will be passed two objects that are returned for every request to our chosen port: a request and a response object. First we'll focus on the response, i.e. what is sent back to users who make a request. We use <code>response.writeHead()</code> to send a header to the browser with a code (200 for success) as well as the encoding of our response. We use <code>response.end()</code> to end the response and return some content to the clients browser. In this case, just a simple "Hello World" string. Finally we set a log message to let us know that the Web Server is active.</p>
+				<figure><img src="images/node_http_server2.png" alt="creating server response"></figure>
+				<p>Now when we navigate to port 3000 on our browser, we'll see our response we just created.</p>
+				<figure><img src="images/node_http_server3.png" alt="browser view of response"></figure>
+				<p>Rather than send text, its more likely we'll want to deliver web pages to our clients. To send HTML instead, just change the <code>Content-type</code> to <code>"text/html"</code>. Now instead of a string, you can put in full HTML into the <code>resouce.end()</code> function. </p>
+				<figure><img src="images/node_http_server4.png" alt="HTML in response.end()"></figure>
+				<p>So if thats the response object, then what is the request object for? Well the request object has a few property values that we can grab to use. For example, calling <code>request.method</code> returns the method used in the request i.e. a GET or a POST. If you call <code>request.url</code>, you get the URL that was used to make the request. These properties are important for deciding what should get sent out in the response.</p>
+				<h2 id="fileserver">Creating a File Server</h2>
+				<p> Now that we know how to serve up single pages, we can use our knowledge of the filesystem to generate a fileserver to serve multiple files.</p>
+				<figure><img src="images/node_http_server5.png" alt="file server code"></figure>
+				<p> As you can see, the request object becomes handy in determining what page is sent as a response to the user, based on the URL they entered.</p>
+				<h3>Third-party File Servers</h3>
+				<p>Instead of coding it ourselves, we can actually set up servers by simply using a prebuilt package. One of these is the <code>serve</code> package. It's a global package which means we can use this anywhere, in any folder to start a file server. Another good tool is <code>express</code> package which provides a nice framework for creating file servers.</p>
+				<h2>Creating Files Server with Express</h2>
+				<p>The basic framework for building file servers with Express is as follows.</p>
+				<figure><img src="images/node_http_server9.png" alt="file server using Express"></figure>
+				<p> We import the <code>express</code> module and create an instance of the <code>app</code> object using the <code>express()</code> function. We use <code>app.use(express.static("<i class=custom>directory location</i>"))</code> to serve our static webpages which are all stored in that directory. Finally we set up our listener on port 3000 with <code>app.listen()</code> which contains a callback function that will load a message to console when our webpage is up and running.</code>
+				<h2>Collecting POST Data</h2>
+				<p>Forms are a good way of collecting data from your users. When creating web forms in HTML, we can set a property to have the form POST the data back to the server when the form is complete. 
+				Then, when users fill out a form on your site, a POST request is sent to the server where it can be managed in the <code>createServer()</code> function.</p>
+				<figure><img src="images/node_http_server6.png" alt="handling POST data"></figure>
+				<p>The POST data that comes back arrived enocded in a URL format which makes it slightly hard to use. Luckily, Node.js has a core module called <code>querystring</code> that will help us decode URL data.</p>
+				<p>First we'll destructure the <code>decode</code> method out from the <code>querystring</code> module</p><figure><img src="images/node_http_server7.png" alt="importing querystring decoder"></figure>
+				<p>Then, we'll use the decoder to decode the data once we've finished collecting it from the stream.</p>
+				<figure><img src="images/node_http_server8.png" alt="decoding query"></figure>
+			</section>
+			<section id=packages>
+				<h1>What are packages?</h1>
+				<p>In Node.js, whenever we start a project, we typically want to create a new package. We do so with in the commandline with NPM.</p>
+				<figure><img src="images/node_package1.png" alt="Creating Package with NPM"></figure>
+				<p>This starts a walkthrough where we get asked what we want our package to be called, the author,  a description and so on. Upon completion, we get a <i class=filename>package.json</i> file, that has all the parameters and values we provided.</p>
+				<figure><img src="images/node_package2.png" alt="package.json contents"></figure>
+				<p>Now we can create our module, which must be named the same as the answer we provided in the <code>main</code> section of the JSON. When we install and use new modules from NPM, the <i class=filename>package.json</i> will automatically update itself, listing each new package we've installed as a dependency. These external modules are installed in a folder called <i class=filename>node_modules</i>. If at some point this folder is deleted, our module won't run anymore! Luckily, all we need to do is run <code>npm install</code> from the command line and NPM will go to our <i class=filename>package.json</i> folder, find the dependencies, and install them automatically. Another useful command is <code>NPM outdated</code> which checks whether any of the dependencies in the project have newer versions available.</p>
+				<h1>Global packages</h1>
+				<p>If we want to make our modules runnable from anywhere, not just the project folder there are a couple steps:</p>
+				<ol>
+					<li>Add the following line to the top of the <i class=filename>package.json</i>:
+						<br><code>#!/usr/bin/env node</code>. This tells Bash to use Node when running this file.</li>
+					<li>Also in the <i class=filename>package.json</i>, add the property <code>"bin:"</code> and put any keywords you want to use to activate your module globally, followed by the filename of the module. It should look something like this:
+						<figure><img src="images/node_package3.png" alt="global keywords"></figure></li>
+					<li>In the project folder, enter the keywords <code>npm link</code> in the command line. This links the project to the list of global commands.</li>
+				</ol>
 			</section>
 		</main>
+		<footer>
+			<ul>
+			<li><a href="index.html" target="_blank">Home</a></li>
+			<li><a href="htmlstuff.html" target="_blank">HTML Stuff</a></li>
+			<li><a href="cssstuff.html" target="_blank">CSS Stuff</a></li>
+			<li><a href="jsstuff.html" target="_blank">JS Stuff</a></li>
+			<li><a href="reactstuff.html">React Stuff</a></li>
+			<li><a href="gitstuff.html" target="_blank">Git Stuff</a></li>
+			</ul>
+		</footer>
 	</body>
 </html>
